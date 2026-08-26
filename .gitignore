@@ -16,5 +16,3 @@ dist/
 # Open Design 渲染日志（工具自动生成，非源码）
 .render-stdout.txt
 .render-stderr.txt
-# 工具生成的 artifact 元数据（预览时自动生成，非源码）
-*.artifact.json
