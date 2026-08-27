@@ -1809,7 +1809,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <template v-else>
 <div class="flex flex-col items-center py-6">
 <div class="text-[17px] font-bold mb-1">已是最新版本</div>
-<div class="text-[13px] text-[#666]">V1.1.1</div>
+<div class="text-[13px] text-[#666]">V1.2.0</div>
 </div>
 <div @click="showVersionCheck=false" class="rounded-xl py-3 text-center text-[15px] font-semibold text-white cursor-pointer mt-2" style="background:var(--accent)">知道了</div>
 </template>
@@ -1938,7 +1938,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div>
 <div @click="checkVersion" class="flex items-center px-4 py-3.5 cursor-pointer active:bg-[#F6F7F9]" data-od-id="settings-version-row">
 <span class="flex-1 text-[15px] font-medium">当前版本</span>
-<div class="flex items-center gap-1"><span class="text-[13px] text-[#666] font-mono">V1.1.1</span><span v-html="luci('chevron-right','w-3 h-3 text-[#999]')"></span></div>
+<div class="flex items-center gap-1"><span class="text-[13px] text-[#666] font-mono">V1.2.0</span><span v-html="luci('chevron-right','w-3 h-3 text-[#999]')"></span></div>
 </div>
 </div>
 </div>
@@ -2628,13 +2628,13 @@ function sendPwdCode(ch){if(pwdCd.value>0)return;const channel=ch||pwdChannel.va
 function nextPwdVerify(){if(!(pwdCode.value||'').trim()){toast(MSG.codeRequired,'warn');return}if(!/^\d{6}$/.test(pwdCode.value)){toast(MSG.codeFormat,'warn');return}npwd.value='';npwd2.value='';npwdVis.value=false;npwd2Vis.value=false;profileSub.value='pwdReset'}
 function doResetPwd(){const a=(npwd.value||'').trim(),b=(npwd2.value||'').trim();if(!a){toast(MSG.pwdRequired,'warn');return}if(!b){toast(MSG.confirmRequired,'warn');return}if(a.length<6||a.length>64){toast(MSG.pwdLen,'warn');return}if(!/^[!-~]{6,64}$/.test(a)){toast(MSG.pwdChars,'warn');return}if(a!==b){toast(MSG.confirmMismatch,'warn');return}showRentLoading.value=true;setTimeout(function(){showRentLoading.value=false;hasPwd.value=true;toast('密码已更新','success');clearInterval(pwdTmr);pwdCd.value=0;pwdCode.value='';npwd.value='';npwd2.value='';profileSub.value=null},600)}
 
-const showVersionCheck=ref(false),hasNewVersion=ref(false),latestVersion=ref('V1.1.1'),updateDesc=ref(''),updating=ref(0),appExited=ref(false);
+const showVersionCheck=ref(false),hasNewVersion=ref(false),latestVersion=ref('V1.2.0'),updateDesc=ref(''),updating=ref(0),appExited=ref(false);
 const scanning=ref(false);
 const scanBindMode=ref(false);
 const scanBindDevice=ref(null);
 const showBindConfirm=ref(false);
 const bindConfirmLoading=ref(false);
-function checkVersion(){showVersionCheck.value=true;hasNewVersion.value=false;latestVersion.value='V1.1.1';updateDesc.value='';updating.value=0}
+function checkVersion(){showVersionCheck.value=true;hasNewVersion.value=false;latestVersion.value='V1.2.0';updateDesc.value='';updating.value=0}
 function doScan(){scanning.value=false;setTimeout(function(){toast('设备绑定成功','success')},200)}
 const scanTorch=ref(false);
 const manualVin=ref('');
