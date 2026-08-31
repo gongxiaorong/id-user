@@ -2717,11 +2717,13 @@ const confTotalDays=computed(()=>{const n=confRentDays.value;if(rentPeriodIdx.va
 const confDurationLabel=computed(()=>{const n=confRentDays.value;if(rentPeriodIdx.value===0)return {n,unit:'小时'};if(rentPeriodIdx.value===1)return {n,unit:'天'};if(rentPeriodIdx.value===2)return {n:n*7,unit:'天'};if(rentPeriodIdx.value===3)return {n:n*30,unit:'天'};return {n,unit:'天'}});
 const _cnWeek=['周日','周一','周二','周三','周四','周五','周六'];
 function fmtDate(d){return (d.getMonth()+1)+'月'+d.getDate()+'日 '+_cnWeek[d.getDay()]}
+function fmtDateTime(d){return fmtDate(d)+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
 function fmtISO(d){const y=d.getFullYear(),m=(d.getMonth()+1).toString().padStart(2,'0'),dd=d.getDate().toString().padStart(2,'0'),hh=d.getHours().toString().padStart(2,'0'),mi=d.getMinutes().toString().padStart(2,'0'),ss=d.getSeconds().toString().padStart(2,'0');return y+'-'+m+'-'+dd+' '+hh+':'+mi+':'+ss}
-const confPickupDate=computed(()=>fmtDate(new Date()));
-const confReturnDate=computed(()=>{const d=new Date();d.setDate(d.getDate()+confTotalDays.value);return fmtDate(d)});
+function confReturnAt(){const d=new Date();if(rentPeriodIdx.value===0){d.setHours(d.getHours()+confRentDays.value)}else{d.setDate(d.getDate()+confTotalDays.value)}return d}
+const confPickupDate=computed(()=>{const d=new Date();return rentPeriodIdx.value===0?fmtDateTime(d):fmtDate(d)});
+const confReturnDate=computed(()=>{const d=confReturnAt();return rentPeriodIdx.value===0?fmtDateTime(d):fmtDate(d)});
 const confPickupISO=computed(()=>fmtISO(new Date()));
-const confReturnISO=computed(()=>{const d=new Date();d.setDate(d.getDate()+confTotalDays.value);return fmtISO(d)});
+const confReturnISO=computed(()=>fmtISO(confReturnAt()));
 const confPeriodDetail=computed(()=>{
 const idx=rentPeriodIdx.value;const base=confPeriodBase[idx];const units=['小时','天','周','月'];const labels=['时租','日租','周租','月租'];const daysWords=['按小时计费','按天计费','7天','30天'];
 return{amt:base,unit:units[idx],label:labels[idx],daysWord:daysWords[idx]};});
