@@ -616,14 +616,18 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="w-10 h-10 rounded-full bg-[#EBF1FD] flex items-center justify-center mr-3 shrink-0"><span v-html="luci('folder-open','w-5 h-5 text-[#2B3F5F]')"></span></div>
 <div class="flex-1 min-w-0">
 <div class="text-[14px] font-semibold text-[#111]">个人资料</div>
-<div class="text-[12px] text-[#999] mt-0.5">{{ confirmDocs.length ? confirmDocs.length+' 份资料' : '可上传驾照、身份证、合同等' }}</div>
+<div class="text-[12px] text-[#999] mt-0.5">{{ confirmDocs.length ? confirmDocs.length+' 份' : '可上传驾照、身份证、合同等' }}</div>
 </div>
 <span v-html="luci('chevron-right','w-4 h-4 text-[#999] shrink-0')"></span>
 </div>
 <div class="bg-white rounded-2xl p-4 mb-3" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
 <div class="text-[14px] font-semibold text-[#111] mb-3">支付方式</div>
-<div class="flex gap-2">
+<div class="flex gap-2 flex-wrap">
 <div class="conf-pay" :class="confPayType==='2c2p'?'is-selected':''" @click="confPayType='2c2p'">2C2P</div>
+<div class="conf-pay" :class="confPayType==='balance'?'is-selected':''" @click="confPayType='balance'">
+<span class="text-[11px]">余额支付</span>
+<span class="text-[10px] text-[#999]">Rp {{ walletAccount.totalBalance.toLocaleString('id-ID') }}</span>
+</div>
 <div class="conf-pay" :class="confPayType==='offline'?'is-selected':''" @click="confPayType='offline'">线下支付</div>
 </div>
 </div>
@@ -1290,13 +1294,13 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="pt-14 shrink-0"></div>
 
 <!-- 头部用户信息区 -->
-<div class="px-5 py-5 flex items-center gap-4 shrink-0" data-od-id="profile-header">
-<div class="w-14 h-14 rounded-full flex items-center justify-center shrink-0" style="background:linear-gradient(145deg,#FF6A00 0%,#E55A00 100%);box-shadow:0 4px 12px rgba(255,106,0,.25)">
-<span v-html="luci('bike','w-7 h-7 text-white')"></span>
+<div class="px-5 py-4 flex items-center gap-3.5 shrink-0" data-od-id="profile-header">
+<div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style="background:linear-gradient(145deg,#FF6A00 0%,#E55A00 100%);box-shadow:0 4px 12px rgba(255,106,0,.25)">
+<span v-html="luci('bike','w-6 h-6 text-white')"></span>
 </div>
 <div @click="profileOV='info'" class="flex-1 min-w-0 flex items-center gap-1.5 cursor-pointer active:opacity-70">
-<span class="text-[18px] font-bold truncate">User71970</span>
-<span v-html="luci('chevron-right','w-5 h-5 text-[#999]')"></span>
+<span class="text-[16px] font-bold truncate">User71970</span>
+<span v-html="luci('chevron-right','w-4 h-4 text-[#999]')"></span>
 </div>
 <div @click="profileOV='settings'" class="w-9 h-9 flex items-center justify-center cursor-pointer active:bg-[#F0F0F0] rounded-full shrink-0" data-od-id="profile-settings">
 <span v-html="luci('settings','w-5 h-5 text-[#666]')"></span>
@@ -1307,25 +1311,31 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="flex-1 overflow-y-auto hide-scroll px-4" style="touch-action:pan-y;-webkit-overflow-scrolling:touch">
 <div class="bg-white rounded-2xl overflow-hidden" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.06)" data-od-id="profile-menu-card">
 
-<div @click="openMyOrders" class="px-5 py-4 flex items-center gap-3.5 cursor-pointer active:bg-[#F6F7F9]" style="border-bottom:1px solid #F0F0F0" data-od-id="profile-order">
+<div @click="openMyOrders" class="px-4 py-3 flex items-center gap-3 cursor-pointer active:bg-[#F6F7F9]" style="border-bottom:1px solid #F0F0F0" data-od-id="profile-order">
 <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background:#EBF1FD"><span v-html="luci('clipboard-list','w-[18px] h-[18px] text-[#2B3F5F]')"></span></div>
 <span class="flex-1 text-[15px] font-medium">我的订单</span>
 <span v-html="luci('chevron-right','w-4 h-4 text-[#CCC]')"></span>
 </div>
 
-<div class="px-5 py-4 flex items-center gap-3.5" style="border-bottom:1px solid #F0F0F0" data-od-id="profile-about">
+<div @click="openWallet" class="px-4 py-3 flex items-center gap-3 cursor-pointer active:bg-[#F6F7F9]" style="border-bottom:1px solid #F0F0F0" data-od-id="profile-wallet">
+<div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background:#F0FDF4"><span v-html="luci('wallet','w-[18px] h-[18px] text-[#17A34A]')"></span></div>
+<span class="flex-1 text-[15px] font-medium">我的钱包</span>
+<span v-html="luci('chevron-right','w-4 h-4 text-[#CCC]')"></span>
+</div>
+
+<div class="px-4 py-3 flex items-center gap-3" style="border-bottom:1px solid #F0F0F0" data-od-id="profile-about">
 <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background:#FFF4E6"><span v-html="luci('info','w-[18px] h-[18px] text-[#FF6A00]')"></span></div>
 <span class="flex-1 text-[15px] font-medium">关于我们</span>
 <span v-html="luci('chevron-right','w-4 h-4 text-[#CCC]')"></span>
 </div>
 
-<div class="px-5 py-4 flex items-center gap-3.5" style="border-bottom:1px solid #F0F0F0" data-od-id="profile-privacy">
+<div class="px-4 py-3 flex items-center gap-3" style="border-bottom:1px solid #F0F0F0" data-od-id="profile-privacy">
 <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background:#F0FDF4"><span v-html="luci('shield','w-[18px] h-[18px] text-[#17A34A]')"></span></div>
 <span class="flex-1 text-[15px] font-medium">用户隐私政策</span>
 <span v-html="luci('chevron-right','w-4 h-4 text-[#CCC]')"></span>
 </div>
 
-<div class="px-5 py-4 flex items-center gap-3.5" data-od-id="profile-feedback">
+<div class="px-4 py-3 flex items-center gap-3" data-od-id="profile-feedback">
 <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background:#FEF2F2"><span v-html="luci('message-square','w-[18px] h-[18px] text-[#DC2626]')"></span></div>
 <span class="flex-1 text-[15px] font-medium">意见反馈</span>
 <span v-html="luci('chevron-right','w-4 h-4 text-[#CCC]')"></span>
@@ -1688,7 +1698,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="w-10 h-10 rounded-full bg-[#EBF1FD] flex items-center justify-center mr-3 shrink-0"><span v-html="luci('folder-open','w-5 h-5 text-[#2B3F5F]')"></span></div>
 <div class="flex-1 min-w-0">
 <div class="text-[14px] font-semibold text-[#1A1A1A]">个人资料</div>
-<div class="text-[12px] text-[#999] mt-0.5">{{ confirmDocs.length ? confirmDocs.length+' 份资料' : '可上传驾照、身份证、合同等' }}</div>
+<div class="text-[12px] text-[#999] mt-0.5">{{ confirmDocs.length ? confirmDocs.length+' 份' : '可上传驾照、身份证、合同等' }}</div>
 </div>
 <span v-html="luci('chevron-right','w-4 h-4 text-[#999] shrink-0')"></span>
 </div>
@@ -1809,7 +1819,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <template v-else>
 <div class="flex flex-col items-center py-6">
 <div class="text-[17px] font-bold mb-1">已是最新版本</div>
-<div class="text-[13px] text-[#666]">V1.2.0</div>
+<div class="text-[13px] text-[#666]">V1.13.0</div>
 </div>
 <div @click="showVersionCheck=false" class="rounded-xl py-3 text-center text-[15px] font-semibold text-white cursor-pointer mt-2" style="background:var(--accent)">知道了</div>
 </template>
@@ -1938,7 +1948,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div>
 <div @click="checkVersion" class="flex items-center px-4 py-3.5 cursor-pointer active:bg-[#F6F7F9]" data-od-id="settings-version-row">
 <span class="flex-1 text-[15px] font-medium">当前版本</span>
-<div class="flex items-center gap-1"><span class="text-[13px] text-[#666] font-mono">V1.2.0</span><span v-html="luci('chevron-right','w-3 h-3 text-[#999]')"></span></div>
+<div class="flex items-center gap-1"><span class="text-[13px] text-[#666] font-mono">V1.13.0</span><span v-html="luci('chevron-right','w-3 h-3 text-[#999]')"></span></div>
 </div>
 </div>
 </div>
@@ -2083,6 +2093,251 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </transition>
 </div>
 </transition>
+<transition name="sl"><div v-if="showWallet" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="wallet-page">
+<div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showWallet=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
+<span class="text-[17px] font-semibold text-[#1A1A1A]">我的钱包</span>
+<div class="w-8 h-8"></div>
+</div>
+<div class="flex-1 overflow-y-auto hide-scroll px-4" style="touch-action:pan-y;-webkit-overflow-scrolling:touch" id="sc-wallet">
+<div id="ptr-wallet" class="ptr-indicator"><span class="ptr-spinner"></span>下拉刷新</div>
+<!-- 余额一体卡片 -->
+<div class="bg-white rounded-2xl p-5 mt-4 mb-4" style="border:1px solid #E5E5E5;box-shadow:0 2px 12px rgba(0,0,0,.06)" data-od-id="wallet-balance-card">
+<div class="flex items-center justify-between mb-1">
+<span class="text-[13px] text-[#666]">总余额</span>
+<span @click="walletBalanceVisible=!walletBalanceVisible" class="w-7 h-7 rounded-full flex items-center justify-center cursor-pointer active:bg-[#F6F7F9]" v-html="luci(walletBalanceVisible?'eye':'eye-off','w-[18px] h-[18px] text-[#999]')"></span>
+</div>
+<div class="text-[32px] font-bold text-[#111] tracking-tight mb-4">Rp {{ walletBalanceVisible?walletAccount.totalBalance.toLocaleString('id-ID'):'•••••••' }}</div>
+<div class="flex items-center justify-between py-3" style="border-top:1px solid #F0F0F0">
+<span class="text-[14px] text-[#333]">充值余额</span>
+<span class="text-[16px] font-semibold text-[#111]">Rp {{ walletBalanceVisible?walletAccount.rechargeBalance.toLocaleString('id-ID'):'•••••••' }}</span>
+</div>
+<div class="flex items-center justify-between py-3" style="border-top:1px solid #F0F0F0">
+<div class="flex items-center gap-2">
+<span class="text-[14px] text-[#333]">赠送余额</span>
+<span class="text-[11px] text-[#999] bg-[#F5F5F5] px-1.5 py-0.5 rounded">不可提现</span>
+</div>
+<span class="text-[16px] font-semibold text-[#FF6A00]">Rp {{ walletBalanceVisible?walletAccount.bonusBalance.toLocaleString('id-ID'):'•••••••' }}</span>
+</div>
+<div class="flex items-center gap-3 mt-4">
+<button @click="openTopup" class="flex-1 h-11 rounded-xl text-[15px] font-semibold text-white active:opacity-90 transition-opacity flex items-center justify-center" style="background:var(--accent)">充值</button>
+<button @click="openWithdrawApply" class="flex-1 h-11 rounded-xl text-[15px] font-semibold text-[#333] active:bg-[#F6F7F9] transition-colors flex items-center justify-center" style="border:1px solid #D9DEE7;background:transparent">提现</button>
+</div>
+</div>
+<!-- 余额流水 -->
+<div class="bg-white rounded-2xl overflow-hidden" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="wallet-ledger-section">
+<div class="flex items-center justify-between px-4 py-3" style="border-bottom:1px solid #F0F0F0">
+<span class="text-[15px] font-semibold text-[#111]">余额流水</span>
+<span @click="openWalletLedger" class="text-[13px] text-[#1677FF] cursor-pointer active:opacity-70">全部</span>
+</div>
+<div v-if="walletLedger.length===0" class="flex flex-col items-center justify-center py-10">
+<span v-html="luci('wallet','w-10 h-10 text-[#CCC]')" class="mb-3"></span>
+<span class="text-[13px] text-[#999]">暂无交易记录</span>
+</div>
+<div v-else>
+<div v-for="(r,i) in walletLedger.slice(0,5)" :key="i" class="px-4 py-3.5" :style="i<walletLedger.slice(0,5).length-1?'border-bottom:1px solid #F5F5F5':''" :data-od-id="'wallet-ledger-row-'+r.type">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[14px] font-semibold text-[#1A1A1A]">{{ r.type==='recharge'?'充值':r.type==='withdraw'?'提现':r.type==='consume'?'消费':r.type==='refund'?'退款':r.type==='deduct'?'扣减':r.type }}</span>
+<span class="text-[16px] font-bold" :style="r.amount>=0?{color:'#17A34A'}:{color:'#DC2626'}">{{ r.amount>=0?'+':'' }}Rp {{ Math.abs(r.amount).toLocaleString('id-ID') }}</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[13px] text-[#999]">{{ new Date(r.createdAt).toLocaleString('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).replace(/\//g,'-') }}</span>
+<span class="text-[12px] text-[#999]">余额 <span class="text-[#666] font-medium">Rp {{ r.balanceAfter!=null?r.balanceAfter.toLocaleString('id-ID'):'—' }}</span></span>
+</div>
+</div>
+</div>
+</div>
+<div class="h-4"></div>
+</div>
+</div></transition>
+
+<!-- 余额流水页 -->
+<transition name="sl"><div v-if="showWalletLedger" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="wallet-ledger-page">
+<div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showWalletLedger=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
+<span class="text-[17px] font-semibold text-[#1A1A1A]">余额流水</span>
+<div class="w-8 h-8"></div>
+</div>
+<div class="bg-white shrink-0 flex items-center" style="border-bottom:1px solid #F0F0F0" data-od-id="wallet-ledger-tabs">
+<div v-for="t in [{v:'recharge',l:'充值余额'},{v:'bonus',l:'赠送余额'}]" :key="t.v" @click="setWalletLedgerTab(t.v)" class="flex-1 relative flex items-center justify-center py-3 text-[15px] cursor-pointer select-none transition-colors" :class="walletLedgerTab===t.v?'text-[#1677FF] font-semibold':'text-[#666]'">{{ t.l }}<span v-if="walletLedgerTab===t.v" class="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-[3px] rounded-full" style="background:#1677FF"></span></div>
+</div>
+<div class="flex-1 overflow-y-auto hide-scroll px-4">
+<div v-if="walletLedgerGroups.length===0" class="flex flex-col items-center justify-center pt-20">
+<span v-html="luci('wallet','w-12 h-12 text-[#CCC]')" class="mb-4"></span>
+<span class="text-[14px] text-[#999]">暂无交易记录</span>
+</div>
+<div v-else class="mt-2">
+<template v-for="(g,gi) in walletLedgerGroups" :key="g.key">
+<div @click="toggleWalletLedgerMonth(g.key)" class="flex items-center gap-1 pl-1 pr-2 pt-1.5 pb-2 cursor-pointer select-none" :data-od-id="'wallet-ledger-month-'+gi">
+<span class="text-[12px] text-[#999]">{{ g.label }}</span>
+<span class="flex items-center justify-center text-[#CCC] transition-transform duration-200" :class="walletLedgerMonthOpen[g.key]?'rotate-180':''"><span v-html="luci('chevron-down','w-3 h-3')"></span></span>
+</div>
+<template v-if="walletLedgerMonthOpen[g.key]">
+<div class="bg-white rounded-2xl overflow-hidden mb-3" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" :data-od-id="'wallet-ledger-month-card-'+gi">
+<div v-for="(r,i) in g.items" :key="r.id||i" class="px-4 py-3.5" :style="i<g.items.length-1?'border-bottom:1px solid #F5F5F5':''" :data-od-id="'wallet-ledger-row-'+r.type">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[14px] font-semibold text-[#1A1A1A]">{{ r.type==='recharge'?'充值':r.type==='withdraw'?'提现':r.type==='consume'?'消费':r.type==='refund'?'退款':r.type==='deduct'?'扣减':r.type }}</span>
+<span class="text-[16px] font-bold" :style="r.amount>=0?{color:'#17A34A'}:{color:'#DC2626'}">{{ r.amount>=0?'+':'' }}Rp {{ Math.abs(r.amount).toLocaleString('id-ID') }}</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[13px] text-[#999]">{{ new Date(r.createdAt).toLocaleString('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).replace(/\//g,'-') }}</span>
+<span class="text-[12px] text-[#999]">余额 <span class="text-[#666] font-medium">Rp {{ r.balanceAfter!=null?r.balanceAfter.toLocaleString('id-ID'):'—' }}</span></span>
+</div>
+
+</div>
+</template>
+</div>
+</template>
+</div>
+<div class="h-4"></div>
+</div>
+</div></transition>
+<!-- 充值页 -->
+<transition name="sl"><div v-if="showTopup" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="topup-page">
+<div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showTopup=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
+<span class="text-[17px] font-semibold text-[#1A1A1A]">充值</span>
+<div class="w-8 h-8"></div>
+</div>
+<div class="flex-1 overflow-y-auto hide-scroll px-4">
+<div class="bg-white rounded-2xl p-4 mt-4" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+<div class="text-[14px] font-semibold text-[#111] mb-3">充值金额</div>
+<div class="grid grid-cols-2 gap-3">
+<div v-for="(amt,i) in walletTopupAmounts" :key="i" @click="selectTopupAmount(amt)" class="py-3 rounded-xl text-center text-[15px] font-semibold cursor-pointer" :style="topupAmount===amt?{background:'#EBF1FD',color:'#2B3F5F',border:'1.5px solid #2B3F5F'}:{background:'#F7F8FA',color:'#333',border:'1px solid #EBEDF0'}">Rp {{ amt.toLocaleString('id-ID') }}</div>
+</div>
+<div class="mt-3">
+<div class="text-[13px] text-[#666] mb-2">自定义金额</div>
+<div class="login-field flex items-center px-3"><input v-model="topupCustom" type="number" class="flex-1 text-[15px]" placeholder="请输入充值金额" style="height:44px"></div>
+</div>
+</div>
+<button @click="confirmTopup" class="h-12 w-full mt-4 rounded-xl text-white text-[15px] font-semibold cursor-pointer active:opacity-90 transition-opacity flex items-center justify-center" style="background:var(--accent)">确认充值</button>
+</div>
+</div></transition>
+
+<!-- 充值余额流水 -->
+<transition name="sl"><div v-if="showRechargeLedger" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="recharge-ledger-page">
+<div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showRechargeLedger=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
+<span class="text-[17px] font-semibold text-[#1A1A1A]">充值余额流水</span>
+<div class="w-8 h-8"></div>
+</div>
+<div class="flex-1 overflow-y-auto hide-scroll px-4">
+<div v-if="rechargeLedger.length===0" class="flex flex-col items-center justify-center pt-20">
+<span v-html="luci('wallet','w-12 h-12 text-[#CCC]')" class="mb-4"></span>
+<span class="text-[14px] text-[#999]">暂无流水记录</span>
+</div>
+<div v-else class="mt-3 space-y-2">
+<div v-for="(r,i) in rechargeLedger" :key="i" class="bg-white rounded-xl p-4" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[12px] text-[#999]">{{ r.id }}</span>
+<span class="text-[13px] font-semibold" :style="r.amount>=0?{color:'#17A34A'}:{color:'#DC2626'}">{{ r.amount>=0?'+':'' }}{{ r.amount.toLocaleString('id-ID') }}</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[13px] text-[#111] font-medium">{{ r.type==='recharge'?'充值':r.type==='withdraw'?'提现':r.type==='consume'?'消费':r.type==='refund'?'退款':r.type }}</span>
+<span class="text-[11px] text-[#999]">{{ new Date(r.createdAt).toLocaleString('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).replace(/\//g,'-') }}</span>
+</div>
+<div v-if="r.remark" class="text-[12px] text-[#999] mt-1">{{ r.remark }}</div>
+</div>
+</div>
+<div class="h-4"></div>
+</div>
+</div></transition>
+
+<!-- 赠送余额流水 -->
+<transition name="sl"><div v-if="showBonusLedger" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="bonus-ledger-page">
+<div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showBonusLedger=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
+<span class="text-[17px] font-semibold text-[#1A1A1A]">赠送余额流水</span>
+<div class="w-8 h-8"></div>
+</div>
+<div class="flex-1 overflow-y-auto hide-scroll px-4">
+<div v-if="bonusLedger.length===0" class="flex flex-col items-center justify-center pt-20">
+<span v-html="luci('gift','w-12 h-12 text-[#CCC]')" class="mb-4"></span>
+<span class="text-[14px] text-[#999]">暂无流水记录</span>
+</div>
+<div v-else class="mt-3 space-y-2">
+<div v-for="(r,i) in bonusLedger" :key="i" class="bg-white rounded-xl p-4" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[12px] text-[#999]">{{ r.id }}</span>
+<span class="text-[13px] font-semibold" :style="r.amount>=0?{color:'#FF6A00'}:{color:'#DC2626'}">{{ r.amount>=0?'+':'' }}{{ r.amount.toLocaleString('id-ID') }}</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[13px] text-[#111] font-medium">{{ r.type==='recharge'?'充值':r.type==='deduct'?'扣减':r.type==='consume'?'消费':r.type==='refund'?'退款':r.type }}</span>
+<span class="text-[11px] text-[#999]">{{ new Date(r.createdAt).toLocaleString('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).replace(/\//g,'-') }}</span>
+</div>
+<div v-if="r.remark" class="text-[12px] text-[#999] mt-1">{{ r.remark }}</div>
+</div>
+</div>
+<div class="h-4"></div>
+</div>
+</div></transition>
+
+<!-- 提现记录 -->
+<transition name="sl"><div v-if="showWithdrawRecords" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="withdraw-records-page">
+<div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showWithdrawRecords=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
+<span class="text-[17px] font-semibold text-[#1A1A1A]">提现记录</span>
+<div class="w-8 h-8"></div>
+</div>
+<div class="flex-1 overflow-y-auto hide-scroll px-4">
+<div v-if="withdrawRecords.length===0" class="flex flex-col items-center justify-center pt-20">
+<span v-html="luci('banknote','w-12 h-12 text-[#CCC]')" class="mb-4"></span>
+<span class="text-[14px] text-[#999]">暂无提现记录</span>
+</div>
+<div v-else class="mt-3 space-y-2">
+<div v-for="(r,i) in withdrawRecords" :key="i" class="bg-white rounded-xl p-4" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+<div class="flex items-center justify-between mb-1">
+<span class="text-[12px] text-[#999]">{{ r.id }}</span>
+<span class="text-[13px] font-semibold" :style="r.status==='completed'?{color:'#17A34A'}:r.status==='rejected'?{color:'#DC2626'}:{color:'#FF8C1B'}">Rp {{ r.amount.toLocaleString('id-ID') }}</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[11px] font-medium" :style="r.status==='completed'?{background:'#F0FDF4',color:'#17A34A'}:r.status==='rejected'?{background:'#FEF2F2',color:'#DC2626'}:r.status==='processing'?{background:'#FFF4E6',color:'#FF8C1B'}:{background:'#FFF4E6',color:'#FF8C1B'}">{{ r.status==='pending'?'审核中':r.status==='processing'?'处理中':r.status==='completed'?'已完成':r.status==='rejected'?'已驳回':r.status }}</span>
+<span class="text-[11px] text-[#999]">{{ new Date(r.applyTime).toLocaleString('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).replace(/\//g,'-') }}</span>
+</div>
+</div>
+</div>
+<div class="h-4"></div>
+</div>
+<div class="shrink-0 px-4 pb-4 pt-2">
+<button @click="openWithdrawApply" class="h-12 w-full rounded-xl text-white text-[15px] font-semibold cursor-pointer active:opacity-90 transition-opacity flex items-center justify-center" style="background:var(--accent)">申请提现</button>
+</div>
+</div></transition>
+
+<!-- 提现申请 -->
+<transition name="sl"><div v-if="showWithdrawApply" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="withdraw-apply-page">
+<div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showWithdrawApply=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
+<span class="text-[17px] font-semibold text-[#1A1A1A]">申请提现</span>
+<div class="w-8 h-8"></div>
+</div>
+<div class="flex-1 overflow-y-auto hide-scroll px-4">
+<div class="bg-white rounded-2xl p-4 mt-4" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+<div class="text-[14px] font-semibold text-[#111] mb-3">提现金额</div>
+<div class="grid grid-cols-2 gap-3">
+<div v-for="amt in [50000,100000,200000,500000]" :key="amt" @click="withdrawForm.amount=amt" class="py-3 rounded-xl text-center text-[15px] font-semibold cursor-pointer" :style="withdrawForm.amount===amt?{background:'#EBF1FD',color:'#2B3F5F',border:'1.5px solid #2B3F5F'}:{background:'#F7F8FA',color:'#333',border:'1px solid #EBEDF0'}">Rp {{ amt.toLocaleString('id-ID') }}</div>
+</div>
+<div class="mt-3">
+<div class="text-[13px] text-[#666] mb-2">自定义金额</div>
+<div class="login-field flex items-center px-3"><input v-model="withdrawForm.customAmount" type="number" class="flex-1 text-[15px]" placeholder="请输入提现金额" style="height:44px"></div>
+</div>
+<div class="mt-2 text-[12px] text-[#999]">可用余额：Rp {{ walletAccount.rechargeBalance.toLocaleString('id-ID') }}</div>
+</div>
+<div class="bg-white rounded-2xl p-4 mt-3" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+<div class="text-[14px] font-semibold text-[#111] mb-3">银行信息</div>
+<div class="space-y-3">
+<div><div class="text-[12px] text-[#999] mb-1">银行名称</div>
+<div class="login-field flex items-center px-3"><input v-model="withdrawForm.bankName" type="text" class="flex-1 text-[15px]" placeholder="请输入银行名称" style="height:44px"></div></div>
+<div><div class="text-[12px] text-[#999] mb-1">银行账号</div>
+<div class="login-field flex items-center px-3"><input v-model="withdrawForm.bankAccount" type="text" class="flex-1 text-[15px]" placeholder="请输入银行账号" style="height:44px"></div></div>
+<div><div class="text-[12px] text-[#999] mb-1">开户人姓名</div>
+<div class="login-field flex items-center px-3"><input v-model="withdrawForm.accountHolder" type="text" class="flex-1 text-[15px]" placeholder="请输入开户人姓名" style="height:44px"></div></div>
+</div>
+</div>
+<button @click="submitWithdraw" class="h-12 w-full mt-4 rounded-xl text-white text-[15px] font-semibold cursor-pointer active:opacity-90 transition-opacity flex items-center justify-center" style="background:var(--accent)">提交申请</button>
+<div class="h-8"></div>
+</div>
+</div></transition>
+
 </div>
 </div>
 
@@ -2090,7 +2345,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <aside class="demo-ops is-active">
 <div class="demo-ops-title">原型操作</div>
 <div class="demo-ops-group-hd">功能控制</div>
-<template v-if="tab==='home'&&!showLogin&&!showRent&&!showStore&&!showVehicle&&!showConfirm&&!showOrderDetail&&!showMyOrders&&!showOrderList&&!profileOV&&!profileSub&&!profileMod&&!showVehicleDetail&&!showBatteryDetail&&!scanning&&!showManualVin&&!showFindPage&&!showTrackPage">
+<template v-if="tab==='home'&&!showLogin&&!showRent&&!showStore&&!showVehicle&&!showConfirm&&!showOrderDetail&&!showMyOrders&&!showOrderList&&!profileOV&&!profileSub&&!profileMod&&!showVehicleDetail&&!showBatteryDetail&&!scanning&&!showManualVin&&!showFindPage&&!showTrackPage&&!showWallet&&!showTopup&&!showRechargeLedger&&!showBonusLedger&&!showWithdrawRecords&&!showWithdrawApply">
 
 <div class="demo-ops-section">
 <div class="demo-ops-label">登录状态</div>
@@ -2154,6 +2409,16 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="demo-ops-chips">
 <div class="demo-ops-chip" :class="cancelBeforePay==='paid'?'is-on':''" @click="setCancelBeforePay('paid')">已支付</div>
 <div class="demo-ops-chip" :class="cancelBeforePay==='unpaid'?'is-on':''" @click="setCancelBeforePay('unpaid')">未支付</div>
+</div>
+</div>
+</template>
+<template v-if="showWallet">
+<div class="demo-ops-section">
+<div class="demo-ops-label">钱包余额</div>
+<div class="demo-ops-chips">
+<div class="demo-ops-chip" :class="walletAccount.rechargeBalance===250000?'is-on':''" @click="walletAccount.rechargeBalance=250000;walletAccount.totalBalance=walletAccount.rechargeBalance+walletAccount.bonusBalance">默认</div>
+<div class="demo-ops-chip" :class="walletAccount.rechargeBalance===50000?'is-on':''" @click="walletAccount.rechargeBalance=50000;walletAccount.totalBalance=walletAccount.rechargeBalance+walletAccount.bonusBalance">少量</div>
+<div class="demo-ops-chip" :class="walletAccount.rechargeBalance===0?'is-on':''" @click="walletAccount.rechargeBalance=0;walletAccount.bonusBalance=0;walletAccount.totalBalance=0;walletAccount.rechargeFrozen=0;walletAccount.bonusFrozen=0">余额为零</div>
 </div>
 </div>
 </template>
@@ -2230,7 +2495,7 @@ function openBatteryUnbind(){showBatteryUnbind.value=true}
 function closeBatteryUnbind(){showBatteryUnbind.value=false}
 function confirmBatteryUnbind(){if(batteryUnbindLoading.value)return;batteryUnbindLoading.value=true;setTimeout(()=>{homeBatteries.value.splice(currentBatteryIdx.value,1);batteryUnbindLoading.value=false;showBatteryUnbind.value=false;showBatteryDetail.value=false;toast('设备已解绑','success');if(homeBatteries.value.length===0)homeDevSeg.value='vehicles'},800)}
 const demoActive=computed(()=>{
-  if(scanning.value||showManualVin.value||showBatteryDetail.value||showFindPage.value||showTrackPage.value)return false;
+  if(scanning.value||showManualVin.value||showBatteryDetail.value||showFindPage.value||showTrackPage.value||showWallet.value||showTopup.value||showRechargeLedger.value||showBonusLedger.value||showWithdrawRecords.value||showWithdrawApply.value)return false;
   const t=tab.value;
   return (t==='home'&&!showLogin.value&&!showRent.value&&!showStore.value&&!showVehicle.value&&!showConfirm.value&&!showOrderDetail.value&&!showMyOrders.value&&!showOrderList.value&&!profileOV.value&&!profileSub.value&&!profileMod.value)
   ||(showRent.value&&!showStore.value&&!showVehicle.value&&!showConfirm.value&&!showOrderDetail.value&&t!=='profile'&&t!=='vehicles')
@@ -2628,13 +2893,32 @@ function sendPwdCode(ch){if(pwdCd.value>0)return;const channel=ch||pwdChannel.va
 function nextPwdVerify(){if(!(pwdCode.value||'').trim()){toast(MSG.codeRequired,'warn');return}if(!/^\d{6}$/.test(pwdCode.value)){toast(MSG.codeFormat,'warn');return}npwd.value='';npwd2.value='';npwdVis.value=false;npwd2Vis.value=false;profileSub.value='pwdReset'}
 function doResetPwd(){const a=(npwd.value||'').trim(),b=(npwd2.value||'').trim();if(!a){toast(MSG.pwdRequired,'warn');return}if(!b){toast(MSG.confirmRequired,'warn');return}if(a.length<6||a.length>64){toast(MSG.pwdLen,'warn');return}if(!/^[!-~]{6,64}$/.test(a)){toast(MSG.pwdChars,'warn');return}if(a!==b){toast(MSG.confirmMismatch,'warn');return}showRentLoading.value=true;setTimeout(function(){showRentLoading.value=false;hasPwd.value=true;toast('密码已更新','success');clearInterval(pwdTmr);pwdCd.value=0;pwdCode.value='';npwd.value='';npwd2.value='';profileSub.value=null},600)}
 
-const showVersionCheck=ref(false),hasNewVersion=ref(false),latestVersion=ref('V1.2.0'),updateDesc=ref(''),updating=ref(0),appExited=ref(false);
+const showVersionCheck=ref(false),hasNewVersion=ref(false),latestVersion=ref('V1.13.0'),updateDesc=ref(''),updating=ref(0),appExited=ref(false);
+const showWallet=ref(false),showWalletLedger=ref(false),showTopup=ref(false),showRechargeLedger=ref(false),showBonusLedger=ref(false),showWithdrawRecords=ref(false),showWithdrawApply=ref(false),walletBalanceVisible=ref(true);
+const walletAccount=ref({rechargeBalance:250000,bonusBalance:50000,rechargeFrozen:0,bonusFrozen:0,totalBalance:300000,totalFrozen:0,lastUpdated:new Date().toISOString()});
+const rechargeLedger=ref([{id:'RC20250601001',type:'recharge',amount:100000,balanceAfter:250000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2025-06-01T10:00:00Z'},{id:'RC20250601002',type:'consume',amount:-50000,balanceAfter:150000,relatedOrder:'YZ20250601001',operator:'系统',remark:'租金支付',createdAt:'2025-06-01T14:00:00Z'},{id:'RC20250528001',type:'refund',amount:50000,balanceAfter:200000,relatedOrder:'YZ20250528001',operator:'系统',remark:'订单退款',createdAt:'2025-05-28T16:00:00Z'},{id:'RC20250520001',type:'recharge',amount:200000,balanceAfter:150000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2025-05-20T09:00:00Z'}]);
+const bonusLedger=ref([{id:'BN20250615001',type:'recharge',amount:50000,balanceAfter:50000,relatedOrder:null,operator:'运营',remark:'新用户注册赠送',createdAt:'2025-06-15T08:00:00Z'},{id:'BN20250610001',type:'consume',amount:-10000,balanceAfter:0,relatedOrder:'YZ20250610001',operator:'系统',remark:'租金抵扣',createdAt:'2025-06-10T12:00:00Z'}]);const walletLedger=ref([{id:'WL260828001',type:'recharge',amount:30000,balanceAfter:250000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-08-28T14:20:00'},{id:'WL260824001',type:'recharge',amount:50000,balanceAfter:220000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-08-24T10:15:00'},{id:'WL260813001',type:'recharge',amount:10000,balanceAfter:50000,relatedOrder:null,operator:'运营',remark:'活动赠送',createdAt:'2026-08-13T09:00:00'},{id:'WL260806001',type:'consume',amount:-10000,balanceAfter:200000,relatedOrder:'YZ20260806001',operator:'系统',remark:'租金支付',createdAt:'2026-08-06T15:30:00'},{id:'WL260801001',type:'recharge',amount:50000,balanceAfter:210000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-08-01T11:20:00'},{id:'WL260725001',type:'consume',amount:-30000,balanceAfter:160000,relatedOrder:'YZ20260725001',operator:'系统',remark:'租金支付',createdAt:'2026-07-25T17:40:00'},{id:'WL260719001',type:'consume',amount:-10000,balanceAfter:40000,relatedOrder:null,operator:'系统',remark:'赠送余额抵扣',createdAt:'2026-07-19T12:10:00'},{id:'WL260712001',type:'recharge',amount:50000,balanceAfter:50000,relatedOrder:null,operator:'运营',remark:'新用户注册赠送',createdAt:'2026-07-12T08:00:00'},{id:'WL260708001',type:'recharge',amount:50000,balanceAfter:190000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-07-08T14:50:00'},{id:'WL260620001',type:'consume',amount:-50000,balanceAfter:150000,relatedOrder:'YZ20260620001',operator:'系统',remark:'租金支付',createdAt:'2026-06-20T10:05:00'},{id:'WL260610001',type:'recharge',amount:200000,balanceAfter:200000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-06-10T09:00:00'}]);
+const withdrawRecords=ref([{id:'WDR20250601001',amount:50000,status:'completed',applyTime:'2025-06-01T10:00:00Z',completedTime:'2025-06-03T14:00:00Z',remark:''},{id:'WDR20250515001',amount:100000,status:'pending',applyTime:'2025-05-15T09:00:00Z',completedTime:null,remark:'银行处理中'}]);
+const topupAmount=ref(0),topupCustom=ref(''),topupShowCustom=ref(false),walletTopupAmounts=[50000,100000,200000,500000];
+const withdrawForm=ref({amount:0,customAmount:'',showCustom:false,bankName:'',bankAccount:'',accountHolder:''});
+var walletPtrInit=false;function openWallet(){showWallet.value=true;nextTick(()=>{if(!walletPtrInit){initPullToRefresh('sc-wallet','ptr-wallet',refreshWallet);walletPtrInit=true}})}
+function refreshWallet(){setTimeout(()=>{},800)}function openWalletLedger(){showWalletLedger.value=true;walletLedgerTab.value='recharge'}
+const walletLedgerTab=ref('recharge');const walletLedgerMonthOpen=ref({});
+function setWalletLedgerTab(t){walletLedgerTab.value=t}
+function toggleWalletLedgerMonth(k){walletLedgerMonthOpen.value[k]=!walletLedgerMonthOpen.value[k]}
+function wlMonthKey(iso){const d=new Date(iso);return d.getFullYear()+'-'+(d.getMonth()+1)}
+const walletLedgerGroups=computed(()=>{const list=walletLedgerTab.value==='bonus'?walletLedger.value.filter(r=>/(赠送)/.test(r.remark||'')):walletLedger.value.filter(r=>!(/(赠送)/.test(r.remark||'')));const order=[],map={};list.forEach(r=>{const k=wlMonthKey(r.createdAt);if(!map[k]){map[k]={key:k,label:(new Date(r.createdAt).getMonth()+1)+'月',items:[]};order.push(map[k])}map[k].items.push(r)});order.forEach(g=>{if(walletLedgerMonthOpen.value[g.key]===undefined)walletLedgerMonthOpen.value[g.key]=true});return order});
+function openTopup(){showTopup.value=true;topupAmount.value=0;topupCustom.value='';topupShowCustom.value=false}
+function selectTopupAmount(amt){topupAmount.value=amt;topupShowCustom.value=false}
+function confirmTopup(){const amt=topupCustom.value.trim()?parseInt(topupCustom.value):topupAmount.value;if(!amt||amt<=0){toast('请选择充值金额','warn');return}showRentLoading.value=true;setTimeout(()=>{const a=walletAccount.value;a.rechargeBalance+=amt;a.totalBalance+=amt;a.lastUpdated=new Date().toISOString();rechargeLedger.value.unshift({id:'RC'+Date.now(),type:'recharge',amount:amt,balanceAfter:a.rechargeBalance,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:new Date().toISOString()});showRentLoading.value=false;showTopup.value=false;toast('充值成功','success')},800)}
+function openWithdrawApply(){withdrawForm.value={amount:0,customAmount:'',showCustom:false,bankName:'',bankAccount:'',accountHolder:''};showWithdrawApply.value=true}
+function submitWithdraw(){const f=withdrawForm.value;let amt;const c=parseInt(f.customAmount);amt=c&&c>0?c:f.amount;if(!amt||amt<=0){toast('请填写提现金额','warn');return}if(amt>walletAccount.value.rechargeBalance){toast('余额不足','warn');return}if(!f.bankName.trim()||!f.bankAccount.trim()||!f.accountHolder.trim()){toast('请填写完整银行信息','warn');return}showRentLoading.value=true;setTimeout(()=>{const a=walletAccount.value;a.rechargeBalance-=amt;a.totalBalance-=amt;a.rechargeFrozen+=amt;a.totalFrozen+=amt;rechargeLedger.value.unshift({id:'WD'+Date.now(),type:'withdraw',amount:-amt,balanceAfter:a.rechargeBalance,relatedOrder:null,operator:'当前账号',remark:'提现申请',createdAt:new Date().toISOString()});withdrawRecords.value.unshift({id:'WDR'+Date.now(),amount:amt,status:'pending',applyTime:new Date().toISOString(),completedTime:null,remark:''});showRentLoading.value=false;showWithdrawApply.value=false;toast('提现申请已提交','success')},800)}
 const scanning=ref(false);
 const scanBindMode=ref(false);
 const scanBindDevice=ref(null);
 const showBindConfirm=ref(false);
 const bindConfirmLoading=ref(false);
-function checkVersion(){showVersionCheck.value=true;hasNewVersion.value=false;latestVersion.value='V1.2.0';updateDesc.value='';updating.value=0}
+function checkVersion(){showVersionCheck.value=true;hasNewVersion.value=false;latestVersion.value='V1.13.0';updateDesc.value='';updating.value=0}
 function doScan(){scanning.value=false;setTimeout(function(){toast('设备绑定成功','success')},200)}
 const scanTorch=ref(false);
 const manualVin=ref('');
@@ -2651,7 +2935,7 @@ function goUpdate(){updating.value=1;setTimeout(function(){updating.value=2;toas
 function exitApp(){showVersionCheck.value=false;appExited.value=true}
 function relaunchApp(){appExited.value=false}
 function selectLang(id){appLang.value=id;profileSub.value=null}
-function doLogout(){profileMod.value=null;profileOV.value=null;profileSub.value=null;dialPickerSource.value=null;resetLoginForm();loggedIn.value=false;showLogin.value=false;showRent.value=false;showStore.value=false;showVehicle.value=false;showConfirm.value=false;showOrderDetail.value=false;showMyOrders.value=false;showOrderList.value=false;showRefundList.value=false;showConfirmDocs.value=false;showDocSheet.value=false;docDeleteMod.value=false;previewImage.value=null;docText.value='';confirmDocs.value=[];idInfoList.value=[];showIdInfoSheet.value=false;stopOrderTimer();tab.value='home';toast('已退出登录','info')}
+function doLogout(){profileMod.value=null;profileOV.value=null;profileSub.value=null;dialPickerSource.value=null;resetLoginForm();loggedIn.value=false;showLogin.value=false;showRent.value=false;showStore.value=false;showVehicle.value=false;showConfirm.value=false;showOrderDetail.value=false;showMyOrders.value=false;showOrderList.value=false;showRefundList.value=false;showConfirmDocs.value=false;showDocSheet.value=false;docDeleteMod.value=false;previewImage.value=null;docText.value='';confirmDocs.value=[];idInfoList.value=[];showIdInfoSheet.value=false;showWallet.value=false;showTopup.value=false;showRechargeLedger.value=false;showBonusLedger.value=false;showWithdrawRecords.value=false;showWithdrawApply.value=false;stopOrderTimer();tab.value='home';toast('已退出登录','info')}
 const profileMdT=computed(()=>{if(profileMod.value==='logout')return'退出登录';return''});
 const profileMdD=computed(()=>{if(profileMod.value==='logout')return'确定要退出当前账号吗？退出后需重新登录。';return''});
 const profileMdDanger=computed(()=>profileMod.value==='logout');
@@ -2667,7 +2951,7 @@ function refreshVd(){setTimeout(()=>{},800)}
 function refreshBd(){setTimeout(()=>{},800)}
 var rentPtrInit=false;function openRent(){showRent.value=true;nextTick(()=>{if(!rentPtrInit){initPullToRefresh('sc-rent','ptr-rent',refreshRent);rentPtrInit=true}})}
 onMounted(()=>{initPullToRefresh('sc-home','ptr-home',refreshHome);setInterval(()=>{homeBannerIdx.value=(homeBannerIdx.value+1)%homeBanners.length},4000)});
-return{tab,toasts,toast,copyText,setTab,luci,weatherScene,weatherData,demoActive,mapCtx,showFindPage,showTrackPage,locLoading,locRinging,locFocus,locAddressFull,locAddressShort,locDistM,locWalkMin,locVehPt,locUserPt,openFindPage,openFindPageBattery,closeFindPage,locFocusUser,locFocusVehicle,locRingDevice,locOpenNav,trackStartLabel,trackEndLabel,trackLoading,trackPoints,trackPolyline,trackStartPt,trackEndPt,trackPois,trackTimePicker,openTrackPage,openTrackPageBattery,closeTrackPage,openTrackTimePicker,cancelTrackTimePicker,confirmTrackTimePicker,trackDraft,trackDays,trackMonths,trackYears,trackHours,trackMins,p2u,trackWheelDay,trackWheelMonth,trackWheelYear,trackWheelHour,trackWheelMin,onTrackWheelScroll,vehicles,vehicleCount,setVehicleCount,vehicleSource,setVehicleSource,opLock,opHorn,myVehicleIdx,showVehiclePicker,currentVehicle,toggleVehiclePicker,selectMyVehicle,openMyVehicleFromHome,openVehicleDetail,closeVehicleDetail,openVNameEdit,closeVNameEdit,saveVNameEdit,vNameLoading,openUnbindConfirm,closeUnbindConfirm,confirmUnbind,unbindLoading,showVehicleDetail,showUnbindConfirm,showVNameEdit,vNameInput,vNameError,locked,lockLoading,toggleLock,hornLoading,sendHorn,openMyCarOrder,currentOrder,refreshHome,refreshRent,openRent,loggedIn,pendingRoute,appLang,appLangLabel,langOptions,showLogin,loginView,loginMode,loginSub,loginDial,loginPhone,loginEmail,loginAccount,loginPwd,loginCode,loginPwdVisible,loginAgree,loginCd,dialQ,dialFiltered,showDialPicker,activeDialCode,closeDialPicker,canSendCode,canLogin,loginOpenLang,selectLangFromLogin,openDialCode,pickDial,setLoginMode,setLoginSub,sendLoginCode,doLogin,openLogin,profileOV,profileSub,profileMod,profileModLoading,hasPhone,hasEmail,hasPwd,boundPhone,boundEmail,bpArea,bpPhone,bpCode,bpCd,beEmail,beCode,beCd,openBindPhone,openBindEmail,sendBpCode,doBindPhone,sendBeCode,doBindEmail,pwdChannel,pwdCode,pwdCd,npwd,npwd2,npwdVis,npwd2Vis,canConfirmPwd,openPwdFlow,switchPwdChannel,sendPwdCode,nextPwdVerify,doResetPwd,checkVersion,goUpdate,exitApp,relaunchApp,scanning,doScan,scanTorch,manualVin,showManualVin,scanCtx,openManualInput,confirmManualVin,scanBindMode,scanBindDevice,vdDevice,bdDevice,showBindConfirm,bindConfirmLoading,openBindConfirm,closeBindConfirm,confirmBind,homeDevSeg,homeBatteries,bSocColor,batteryAdd,showBatteryDetail,currentBattery,openBatteryDetail,openBatteryOrder,closeBatteryDetail,openBatteryUnbind,closeBatteryUnbind,confirmBatteryUnbind,showBatteryUnbind,batteryUnbindLoading,showVersionCheck,hasNewVersion,latestVersion,updateDesc,updating,appExited,selectLang,doLogout,profileMdT,profileMdD,profileMdDanger,profileMdOk,showRent,rentBannerIdx,rentBanners,showRentLoading,homeBannerIdx,homeBanners,showDatePicker,rentDateIdx,dateOptions,rentDateLabel,selectDate,showPeriodPicker,rentPeriodIdx,periodOptions,rentPeriodLabel,periodUnit,selectPeriod,showStore,storeSearch,storeFiltered,storeListEmpty,selectStore,openStore,searchStore,selectedStore,showVehicle,vehicleList,vehicleListEmpty,rentNow,showConfirm,selectedVehicle,confRentDays,confTotal,confTotalDays,confDurationLabel,confPeriodDetail,orderPlanDisplay,confTab,confPayType,cancelRules,noticeRules,billingRules,overdueRules,confAddDays,confSubDays,confirmOrder,confTotal,confDeposit,confGrandTotal,confPickupDate,confReturnDate,confPickupISO,confReturnISO,showOrderDetail,orderDetailBack,showRefundList,openRefundList,refundRecords,confirmDocs,showConfirmDocs,showDocSheet,docSheetTab,docText,docImageTypes,docDeleteMod,docDeleteTarget,previewImage,openDocSheet,addDocImage,addDocText,requestDeleteDoc,confirmDeleteDoc,showCancelModal,idInfoList,showIdInfoSheet,idInfoTypes,idInfoCount,openIdInfoSheet,addIdInfo,removeIdInfo,cancelLoading,orderCountdown,orderCountdownText,orderDetailTab,cancelOrder,goToPay,orderInfo,startOrderTimer,stopOrderTimer,showMyOrders,showOrderList,orderListCategory,currentOrderList,orderListEmpty,openOrderCategory,openMyOrders,openOrderDetailFromList,orderFilter,orderFilterTabs,orderFilterMap,setOrderFilter,relocateRent,payChannel,setPayChannel,cancelBeforePay,setCancelBeforePay,delDocLoading};
+return{tab,toasts,toast,copyText,setTab,luci,weatherScene,weatherData,demoActive,mapCtx,showFindPage,showTrackPage,locLoading,locRinging,locFocus,locAddressFull,locAddressShort,locDistM,locWalkMin,locVehPt,locUserPt,openFindPage,openFindPageBattery,closeFindPage,locFocusUser,locFocusVehicle,locRingDevice,locOpenNav,trackStartLabel,trackEndLabel,trackLoading,trackPoints,trackPolyline,trackStartPt,trackEndPt,trackPois,trackTimePicker,openTrackPage,openTrackPageBattery,closeTrackPage,openTrackTimePicker,cancelTrackTimePicker,confirmTrackTimePicker,trackDraft,trackDays,trackMonths,trackYears,trackHours,trackMins,p2u,trackWheelDay,trackWheelMonth,trackWheelYear,trackWheelHour,trackWheelMin,onTrackWheelScroll,vehicles,vehicleCount,setVehicleCount,vehicleSource,setVehicleSource,opLock,opHorn,myVehicleIdx,showVehiclePicker,currentVehicle,toggleVehiclePicker,selectMyVehicle,openMyVehicleFromHome,openVehicleDetail,closeVehicleDetail,openVNameEdit,closeVNameEdit,saveVNameEdit,vNameLoading,openUnbindConfirm,closeUnbindConfirm,confirmUnbind,unbindLoading,showVehicleDetail,showUnbindConfirm,showVNameEdit,vNameInput,vNameError,locked,lockLoading,toggleLock,hornLoading,sendHorn,openMyCarOrder,currentOrder,refreshHome,refreshRent,openRent,loggedIn,pendingRoute,appLang,appLangLabel,langOptions,showLogin,loginView,loginMode,loginSub,loginDial,loginPhone,loginEmail,loginAccount,loginPwd,loginCode,loginPwdVisible,loginAgree,loginCd,dialQ,dialFiltered,showDialPicker,activeDialCode,closeDialPicker,canSendCode,canLogin,loginOpenLang,selectLangFromLogin,openDialCode,pickDial,setLoginMode,setLoginSub,sendLoginCode,doLogin,openLogin,profileOV,profileSub,profileMod,profileModLoading,hasPhone,hasEmail,hasPwd,boundPhone,boundEmail,bpArea,bpPhone,bpCode,bpCd,beEmail,beCode,beCd,openBindPhone,openBindEmail,sendBpCode,doBindPhone,sendBeCode,doBindEmail,pwdChannel,pwdCode,pwdCd,npwd,npwd2,npwdVis,npwd2Vis,canConfirmPwd,openPwdFlow,switchPwdChannel,sendPwdCode,nextPwdVerify,doResetPwd,checkVersion,goUpdate,exitApp,relaunchApp,scanning,doScan,scanTorch,manualVin,showManualVin,scanCtx,openManualInput,confirmManualVin,scanBindMode,scanBindDevice,vdDevice,bdDevice,showBindConfirm,bindConfirmLoading,openBindConfirm,closeBindConfirm,confirmBind,homeDevSeg,homeBatteries,bSocColor,batteryAdd,showBatteryDetail,currentBattery,openBatteryDetail,openBatteryOrder,closeBatteryDetail,openBatteryUnbind,closeBatteryUnbind,confirmBatteryUnbind,showBatteryUnbind,batteryUnbindLoading,showVersionCheck,hasNewVersion,latestVersion,updateDesc,updating,appExited,selectLang,doLogout,profileMdT,profileMdD,profileMdDanger,profileMdOk,showRent,rentBannerIdx,rentBanners,showRentLoading,homeBannerIdx,homeBanners,showDatePicker,rentDateIdx,dateOptions,rentDateLabel,selectDate,showPeriodPicker,rentPeriodIdx,periodOptions,rentPeriodLabel,periodUnit,selectPeriod,showStore,storeSearch,storeFiltered,storeListEmpty,selectStore,openStore,searchStore,selectedStore,showVehicle,vehicleList,vehicleListEmpty,rentNow,showConfirm,selectedVehicle,confRentDays,confTotal,confTotalDays,confDurationLabel,confPeriodDetail,orderPlanDisplay,confTab,confPayType,cancelRules,noticeRules,billingRules,overdueRules,confAddDays,confSubDays,confirmOrder,confTotal,confDeposit,confGrandTotal,confPickupDate,confReturnDate,confPickupISO,confReturnISO,showOrderDetail,orderDetailBack,showRefundList,openRefundList,refundRecords,confirmDocs,showConfirmDocs,showDocSheet,docSheetTab,docText,docImageTypes,docDeleteMod,docDeleteTarget,previewImage,openDocSheet,addDocImage,addDocText,requestDeleteDoc,confirmDeleteDoc,showCancelModal,idInfoList,showIdInfoSheet,idInfoTypes,idInfoCount,openIdInfoSheet,addIdInfo,removeIdInfo,cancelLoading,orderCountdown,orderCountdownText,orderDetailTab,cancelOrder,goToPay,orderInfo,startOrderTimer,stopOrderTimer,showMyOrders,showOrderList,orderListCategory,currentOrderList,orderListEmpty,openOrderCategory,openMyOrders,openOrderDetailFromList,orderFilter,orderFilterTabs,orderFilterMap,setOrderFilter,relocateRent,payChannel,setPayChannel,cancelBeforePay,setCancelBeforePay,delDocLoading,showWallet,showWalletLedger,showTopup,showRechargeLedger,showBonusLedger,showWithdrawRecords,showWithdrawApply,walletBalanceVisible,walletAccount,walletLedger,walletLedgerTab,walletLedgerGroups,walletLedgerMonthOpen,setWalletLedgerTab,toggleWalletLedgerMonth,rechargeLedger,bonusLedger,withdrawRecords,topupAmount,topupCustom,topupShowCustom,walletTopupAmounts,withdrawForm,openWallet,openWalletLedger,openTopup,selectTopupAmount,confirmTopup,openWithdrawApply,submitWithdraw};
 }
 });
 function initPullToRefresh(containerId,indicatorId,onRefresh){var c=document.getElementById(containerId),i=document.getElementById(indicatorId);if(!c||!i)return;var sy=0,pull=false,active=false;

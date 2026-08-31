@@ -22,7 +22,8 @@
     "passwordSub": "Password Login",
     "phoneMode": "Phone Login",
     "phonePlaceholder": "Enter phone number",
-    "privacyPolicy": "Privacy Policy"
+    "privacyPolicy": "Privacy Policy",
+    "autoRegisterHint": "Unregistered accounts will be registered automatically"
   },
   "home": {
     "alertFilterProcessing": "Processing",
@@ -40,7 +41,10 @@
     "buyNow": "Shop Now",
     "segVehicle": "Vehicles",
     "segBattery": "Battery",
-    "safeRide": "Safe riding"
+    "safeRide": "Safe riding",
+    "distNearestStore": "{dist} to the nearest store",
+    "myDevices": "My devices",
+    "safetySlogan": "Your safety is our top priority"
   },
   "vehicles": {
     "addVinPlaceholder": "Enter VIN",
@@ -85,7 +89,22 @@
     "lockOpen": "Unlock",
     "lockClose": "Lock",
     "cmdSending": "Sending command…",
-    "noDevice": "No device"
+    "noDevice": "No device",
+    "bindBattery": "Bind Battery",
+    "bindVehicle": "Bind Vehicle",
+    "binding": "Binding...",
+    "companionTime": "Companion Time",
+    "confirmBindBattery": "Confirm binding this battery to your account?",
+    "confirmBindVehicle": "Confirm binding this vehicle to your account?",
+    "current": "Current",
+    "distanceInfo": "{m} m from you",
+    "goHome": "Home",
+    "goHomeToBind": "Please place your order on the homepage, then bind",
+    "noDeviceBound": "No device bound",
+    "unbind": "Unbind",
+    "unbindVehicleDesc": "After unbinding, this vehicle will be removed from your account and related smart services will be disabled",
+    "validUntil": "Valid until {date}",
+    "walkInfo": "Walk {m} min"
   },
   "orders": {
     "cancelOrder": "Cancel Order",
@@ -204,7 +223,27 @@
     "confirmOrder": "Confirm Order",
     "renter": "Renter",
     "payNow": "Pay Now",
-    "docsUnit": "document(s)"
+    "docsUnit": "document(s)",
+    "billDaily": "Billed Daily",
+    "billHourly": "Billed Hourly",
+    "breachReminder": "7 days breached, order locked. Please contact the store immediately",
+    "confirmDeleteDoc": "Confirm deleting this document?",
+    "confirmTitle": "Confirm Order",
+    "countdownCancel": "{time} remaining. The order will be auto-cancelled if unpaid",
+    "days30": "30 Days",
+    "days7": "7 Days",
+    "docTextPlaceholder": "Enter text material",
+    "inputBattNo": "Enter battery number",
+    "myOrders": "My Orders",
+    "overdueReminder": "Order has expired, please return to the store promptly",
+    "refundDetail": "Refund Details",
+    "rentDurationTotal": "Rental Duration ({n} {unit} total)",
+    "returnReminder": "7 days left in the rental period, please return to the store on time",
+    "subtotalRp": "Subtotal Rp {amount}",
+    "totalDays": "{n} days in total",
+    "unitDay": "Days",
+    "unitHour": "Hours",
+    "uploadNotSupported": "Upload not supported in the current order status"
   },
   "profile": {
     "accountError": "Please enter account",
@@ -271,7 +310,14 @@
     "aboutUs": "About Us",
     "feedback": "Feedback",
     "nickname": "Nickname",
-    "noMaterial": "No materials"
+    "noMaterial": "No materials",
+    "confirmNewPwd": "Confirm New Password",
+    "confirmNewPwdPlaceholder": "Enter the new password again",
+    "currentBound": "Currently bound: {value}",
+    "idInfoHint": "Upload ID card, driver's license, etc.",
+    "newPwdPlaceholder": "Enter a new password (6-64 characters)",
+    "phoneVerify": "Phone Verification",
+    "switchLang": "Switch Language"
   },
   "version": {
     "appExited": "Application exited",
@@ -283,7 +329,9 @@
     "newVersion": "New Version Found",
     "packageDownloaded": "Installation package downloaded, installing now",
     "relaunch": "Reopen App",
-    "updateNow": "Update Now"
+    "updateNow": "Update Now",
+    "latestVersion": "Latest version V{version}",
+    "updateComplete": "Update complete! Upgraded to V{version}"
   },
   "dialcode": {
     "australia": "Australia",
@@ -306,7 +354,15 @@
   "toast": {
     "loginSuccess": "Login successful",
     "logout": "Logged out",
-    "deviceUnbound": "Device unbound"
+    "deviceUnbound": "Device unbound",
+    "accountFormat": "Account can only contain letters, digits and underscores",
+    "codeFormat": "Invalid verification code format",
+    "deviceBound": "Device bound successfully",
+    "emailLen": "Email address cannot exceed 255 characters",
+    "phoneDigit": "Phone number can only contain digits",
+    "phoneMismatch": "Invalid phone number. Check it against the area code",
+    "pwdChars": "Password can only contain letters, digits and keyboard symbols",
+    "pwdLen": "Password must be 6–64 characters"
   },
   "common": {
     "cancel": "Cancel",
@@ -331,13 +387,24 @@
     "clickBlankClose": "Tap blank area to close",
     "nothingToCopy": "Nothing to copy",
     "copied": "Copied",
-    "copyFailed": "Copy failed"
+    "copyFailed": "Copy failed",
+    "copiedFormat": "{label} copied",
+    "goLogin": "Log in",
+    "materialDeleted": "Material deleted",
+    "notLoggedInTap": "You are not logged in. Tap to log in",
+    "saveSuccess": "Saved successfully",
+    "unitDayShort": "d",
+    "unitHourShort": "h",
+    "unitMinuteShort": "min",
+    "unitMonthShort": "mo",
+    "unitYearShort": "y"
   },
   "store": {
     "selectStore": "Select Store",
     "namePlaceholder": "Enter store name",
     "empty": "No Stores",
-    "navToStore": "Navigate to Store"
+    "navToStore": "Navigate to Store",
+    "businessHours": "Business hours {hours}"
   },
   "plan": {
     "rentalType": "Rental Type",
@@ -352,7 +419,10 @@
     "info": "Battery Info",
     "unbind": "Unbind Battery",
     "dischargeOn": "Allow Discharge",
-    "dischargeOff": "Disable Discharge"
+    "dischargeOff": "Disable Discharge",
+    "emptyHint": "No battery bound. Rent one separately or bind it with a vehicle",
+    "orderProgress": "Order in Progress",
+    "unbindDesc": "After unbinding, this battery will be removed from your account"
   },
   "idInfo": {
     "title": "Document Info",
@@ -372,9 +442,68 @@
     "wed": "Wed",
     "thu": "Thu",
     "fri": "Fri",
-    "sat": "Sat"
+    "sat": "Sat",
+    "sun": "Sunday"
   },
   "pwd": {
     "resend": "Resend"
+  },
+  "wallet": {
+    "title": "My Wallet",
+    "totalBalance": "Total Balance",
+    "rechargeBalance": "Recharge Balance",
+    "bonusBalance": "Bonus Balance",
+    "frozen": "Frozen",
+    "available": "Available",
+    "topup": "Top Up",
+    "withdraw": "Withdraw",
+    "rechargeLedger": "Recharge Ledger",
+    "bonusLedger": "Bonus Ledger",
+    "withdrawRecords": "Withdrawal Records",
+    "topupTitle": "Top Up",
+    "topupAmount": "Top Up Amount",
+    "topupCustom": "Custom Amount",
+    "topupConfirm": "Confirm Top Up",
+    "topupSuccess": "Top up successful",
+    "selectAmount": "Please select an amount",
+    "rechargeLedgerTitle": "Recharge Balance Ledger",
+    "bonusLedgerTitle": "Bonus Balance Ledger",
+    "withdrawRecordsTitle": "Withdrawal Records",
+    "withdrawApply": "Apply for Withdrawal",
+    "withdrawApplyTitle": "Apply for Withdrawal",
+    "withdrawAmount": "Withdrawal Amount",
+    "withdrawBankName": "Bank Name",
+    "withdrawBankNamePlaceholder": "Enter bank name",
+    "withdrawBankAccount": "Bank Account",
+    "withdrawBankAccountPlaceholder": "Enter bank account",
+    "withdrawAccountHolder": "Account Holder",
+    "withdrawAccountHolderPlaceholder": "Enter account holder name",
+    "withdrawSubmit": "Submit Application",
+    "withdrawSubmitted": "Withdrawal application submitted",
+    "withdrawInsufficient": "Insufficient balance",
+    "ledgerEmpty": "No ledger records",
+    "withdrawEmpty": "No withdrawal records",
+    "statusPending": "Pending Review",
+    "statusProcessing": "Processing",
+    "statusCompleted": "Completed",
+    "statusRejected": "Rejected",
+    "ledgerType": "Type",
+    "ledgerAmount": "Amount",
+    "ledgerBalance": "Balance After",
+    "ledgerOrder": "Related Order",
+    "ledgerOperator": "Operator",
+    "ledgerRemark": "Remark",
+    "ledgerTime": "Time",
+    "typeRecharge": "Recharge",
+    "typeWithdraw": "Withdrawal",
+    "typeConsume": "Consumption",
+    "typeRefund": "Refund",
+    "typeDeduct": "Deduction",
+    "balancePay": "Balance Payment",
+    "balancePayHint": "Available Balance",
+    "balancePayInsufficient": "Insufficient balance, need additional",
+    "noBankFill": "Please fill in complete bank information",
+    "amountRequired": "Please enter an amount",
+    "balancePayPriority": "Bonus balance is used first"
   }
 }

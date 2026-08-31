@@ -22,7 +22,8 @@
     "passwordSub": "Masuk dengan Kata Sandi",
     "phoneMode": "Masuk dengan Nomor Ponsel",
     "phonePlaceholder": "Masukkan nomor ponsel",
-    "privacyPolicy": "Kebijakan Privasi"
+    "privacyPolicy": "Kebijakan Privasi",
+    "autoRegisterHint": "Akun yang belum terdaftar akan didaftarkan otomatis"
   },
   "home": {
     "alertFilterProcessing": "Diproses",
@@ -40,7 +41,10 @@
     "buyNow": "Beli Sekarang",
     "segVehicle": "Kendaraan",
     "segBattery": "Baterai",
-    "safeRide": "Berkendara aman"
+    "safeRide": "Berkendara aman",
+    "distNearestStore": "{dist} ke toko terdekat",
+    "myDevices": "Perangkat saya",
+    "safetySlogan": "Keselamatan Anda adalah prioritas utama kami"
   },
   "vehicles": {
     "addVinPlaceholder": "Masukkan nomor rangka",
@@ -85,7 +89,22 @@
     "lockOpen": "Buka kunci",
     "lockClose": "Kunci",
     "cmdSending": "Mengirim perintah…",
-    "noDevice": "Tidak ada perangkat"
+    "noDevice": "Tidak ada perangkat",
+    "bindBattery": "Ikat Baterai",
+    "bindVehicle": "Ikat Kendaraan",
+    "binding": "Mengikat...",
+    "companionTime": "Waktu Pendamping",
+    "confirmBindBattery": "Konfirmasi mengikat baterai ini ke akun Anda?",
+    "confirmBindVehicle": "Konfirmasi mengikat kendaraan ini ke akun Anda?",
+    "current": "Saat Ini",
+    "distanceInfo": "{m} m dari Anda",
+    "goHome": "Beranda",
+    "goHomeToBind": "Silakan buat pesanan di beranda, lalu hubungkan perangkat",
+    "noDeviceBound": "Perangkat belum diikat",
+    "unbind": "Lepas Ikat",
+    "unbindVehicleDesc": "Setelah dilepas, kendaraan ini akan dihapus dari akun Anda dan layanan pintar terkait akan dinonaktifkan",
+    "validUntil": "Berlaku hingga {date}",
+    "walkInfo": "Jalan {m} menit"
   },
   "orders": {
     "cancelOrder": "Batalkan Pesanan",
@@ -204,7 +223,27 @@
     "confirmOrder": "Konfirmasi Pesanan",
     "renter": "Penyewa",
     "payNow": "Bayar Sekarang",
-    "docsUnit": "dokumen"
+    "docsUnit": "dokumen",
+    "billDaily": "Dibebankan per Hari",
+    "billHourly": "Dibebankan per Jam",
+    "breachReminder": "Terlambat 7 hari, pesanan dikunci. Hubungi toko segera",
+    "confirmDeleteDoc": "Konfirmasi hapus materi ini?",
+    "confirmTitle": "Konfirmasi Pesanan",
+    "countdownCancel": "Sisa {time}. Pesanan akan dibatalkan otomatis jika belum dibayar",
+    "days30": "30 Hari",
+    "days7": "7 Hari",
+    "docTextPlaceholder": "Masukkan materi teks",
+    "inputBattNo": "Masukkan nomor baterai",
+    "myOrders": "Pesanan Saya",
+    "overdueReminder": "Pesanan telah berakhir, segera kembalikan ke toko",
+    "refundDetail": "Detail Pengembalian Dana",
+    "rentDurationTotal": "Durasi Sewa (total {n} {unit})",
+    "returnReminder": "Sisa 7 hari masa sewa, silakan kembalikan ke toko tepat waktu",
+    "subtotalRp": "Subtotal Rp {amount}",
+    "totalDays": "Total {n} hari",
+    "unitDay": "Hari",
+    "unitHour": "Jam",
+    "uploadNotSupported": "Unggahan tidak didukung pada status pesanan saat ini"
   },
   "profile": {
     "accountError": "Masukkan akun",
@@ -271,7 +310,14 @@
     "aboutUs": "Tentang Kami",
     "feedback": "Saran",
     "nickname": "Nama Panggilan",
-    "noMaterial": "Tidak ada materi"
+    "noMaterial": "Tidak ada materi",
+    "confirmNewPwd": "Konfirmasi Kata Sandi Baru",
+    "confirmNewPwdPlaceholder": "Masukkan kembali kata sandi baru",
+    "currentBound": "Saat ini terikat: {value}",
+    "idInfoHint": "Unggah KTP, SIM, dll.",
+    "newPwdPlaceholder": "Masukkan kata sandi baru (6-64 karakter)",
+    "phoneVerify": "Verifikasi Nomor Ponsel",
+    "switchLang": "Ganti Bahasa"
   },
   "version": {
     "appExited": "Aplikasi telah keluar",
@@ -283,7 +329,9 @@
     "newVersion": "Versi baru ditemukan",
     "packageDownloaded": "Paket instalasi telah diunduh, akan segera dipasang",
     "relaunch": "Buka kembali aplikasi",
-    "updateNow": "Perbarui Sekarang"
+    "updateNow": "Perbarui Sekarang",
+    "latestVersion": "Versi terbaru V{version}",
+    "updateComplete": "Pembaruan selesai! Ditingkatkan ke V{version}"
   },
   "dialcode": {
     "australia": "Australia",
@@ -306,7 +354,15 @@
   "toast": {
     "loginSuccess": "Berhasil masuk",
     "logout": "Telah keluar",
-    "deviceUnbound": "Perangkat dilepas"
+    "deviceUnbound": "Perangkat dilepas",
+    "accountFormat": "Akun hanya boleh berisi huruf, angka, dan garis bawah",
+    "codeFormat": "Format kode verifikasi tidak valid",
+    "deviceBound": "Perangkat berhasil diikat",
+    "emailLen": "Alamat email tidak boleh lebih dari 255 karakter",
+    "phoneDigit": "Nomor telepon hanya boleh berisi angka",
+    "phoneMismatch": "Format nomor telepon tidak valid. Periksa kesesuaian nomor dengan kode area",
+    "pwdChars": "Kata sandi hanya boleh berisi huruf, angka, dan simbol keyboard",
+    "pwdLen": "Panjang kata sandi harus 6–64 karakter"
   },
   "common": {
     "cancel": "Batal",
@@ -331,13 +387,24 @@
     "clickBlankClose": "Ketuk area kosong untuk menutup",
     "nothingToCopy": "Tidak ada yang dapat disalin",
     "copied": "Tersalin",
-    "copyFailed": "Gagal menyalin"
+    "copyFailed": "Gagal menyalin",
+    "copiedFormat": "{label} disalin",
+    "goLogin": "Masuk",
+    "materialDeleted": "Materi telah dihapus",
+    "notLoggedInTap": "Anda belum masuk. Ketuk untuk masuk",
+    "saveSuccess": "Berhasil disimpan",
+    "unitDayShort": "hri",
+    "unitHourShort": "jam",
+    "unitMinuteShort": "mnt",
+    "unitMonthShort": "bln",
+    "unitYearShort": "thn"
   },
   "store": {
     "selectStore": "Pilih Toko",
     "namePlaceholder": "Masukkan nama toko",
     "empty": "Tidak ada toko",
-    "navToStore": "Navigasi ke Toko"
+    "navToStore": "Navigasi ke Toko",
+    "businessHours": "Jam operasional {hours}"
   },
   "plan": {
     "rentalType": "Jenis Sewa",
@@ -352,7 +419,10 @@
     "info": "Info Baterai",
     "unbind": "Lepas Baterai",
     "dischargeOn": "Izinkan Pelepasan",
-    "dischargeOff": "Nonaktifkan Pelepasan"
+    "dischargeOff": "Nonaktifkan Pelepasan",
+    "emptyHint": "Belum ada baterai terikat. Sewa terpisah atau ikatkan dengan kendaraan",
+    "orderProgress": "Pesanan Berlangsung",
+    "unbindDesc": "Setelah dilepas, baterai ini akan dihapus dari akun Anda"
   },
   "idInfo": {
     "title": "Info Dokumen",
@@ -372,9 +442,68 @@
     "wed": "Rab",
     "thu": "Kam",
     "fri": "Jum",
-    "sat": "Sab"
+    "sat": "Sab",
+    "sun": "Minggu"
   },
   "pwd": {
     "resend": "Kirim ulang"
+  },
+  "wallet": {
+    "title": "Dompet Saya",
+    "totalBalance": "Total Saldo",
+    "rechargeBalance": "Saldo Isi Ulang",
+    "bonusBalance": "Saldo Bonus",
+    "frozen": "Beku",
+    "available": "Tersedia",
+    "topup": "Isi Ulang",
+    "withdraw": "Tarik Tunai",
+    "rechargeLedger": "Riwayat Isi Ulang",
+    "bonusLedger": "Riwayat Bonus",
+    "withdrawRecords": "Riwayat Penarikan",
+    "topupTitle": "Isi Ulang",
+    "topupAmount": "Jumlah Isi Ulang",
+    "topupCustom": "Jumlah Kustom",
+    "topupConfirm": "Konfirmasi Isi Ulang",
+    "topupSuccess": "Isi ulang berhasil",
+    "selectAmount": "Silakan pilih jumlah",
+    "rechargeLedgerTitle": "Riwayat Saldo Isi Ulang",
+    "bonusLedgerTitle": "Riwayat Saldo Bonus",
+    "withdrawRecordsTitle": "Riwayat Penarikan",
+    "withdrawApply": "Ajukan Penarikan",
+    "withdrawApplyTitle": "Ajukan Penarikan",
+    "withdrawAmount": "Jumlah Penarikan",
+    "withdrawBankName": "Nama Bank",
+    "withdrawBankNamePlaceholder": "Masukkan nama bank",
+    "withdrawBankAccount": "Nomor Rekening",
+    "withdrawBankAccountPlaceholder": "Masukkan nomor rekening",
+    "withdrawAccountHolder": "Nama Pemilik Rekening",
+    "withdrawAccountHolderPlaceholder": "Masukkan nama pemilik",
+    "withdrawSubmit": "Kirim Pengajuan",
+    "withdrawSubmitted": "Pengajuan penarikan telah dikirim",
+    "withdrawInsufficient": "Saldo tidak mencukupi",
+    "ledgerEmpty": "Belum ada riwayat transaksi",
+    "withdrawEmpty": "Belum ada riwayat penarikan",
+    "statusPending": "Dalam Review",
+    "statusProcessing": "Diproses",
+    "statusCompleted": "Selesai",
+    "statusRejected": "Ditolak",
+    "ledgerType": "Tipe",
+    "ledgerAmount": "Jumlah",
+    "ledgerBalance": "Saldo Setelah",
+    "ledgerOrder": "Pesanan Terkait",
+    "ledgerOperator": "Operator",
+    "ledgerRemark": "Catatan",
+    "ledgerTime": "Waktu",
+    "typeRecharge": "Isi Ulang",
+    "typeWithdraw": "Penarikan",
+    "typeConsume": "Konsumsi",
+    "typeRefund": "Pengembalian Dana",
+    "typeDeduct": "Pengurangan",
+    "balancePay": "Pembayaran Saldo",
+    "balancePayHint": "Saldo Tersedia",
+    "balancePayInsufficient": "Saldo tidak cukup, perlu tambahan",
+    "noBankFill": "Silakan isi informasi bank lengkap",
+    "amountRequired": "Silakan masukkan jumlah",
+    "balancePayPriority": "Saldo bonus digunakan terlebih dahulu"
   }
 }
