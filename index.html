@@ -22,6 +22,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 .hide-scroll::-webkit-scrollbar{display:none}.hide-scroll{scrollbar-width:none}
 .fd-enter-active,.fd-leave-active{transition:opacity .25s}.fd-enter-from,.fd-leave-to{opacity:0}
 .sh-enter-active,.sh-leave-active{transition:transform .3s cubic-bezier(.32,.72,0,1)}.sh-enter-from,.sh-leave-to{transform:translateY(100%)}
+
 @keyframes shimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
 .sk{background:linear-gradient(90deg,#eee 25%,#f5f5f5 50%,#eee 75%);background-size:400px 100%;animation:shimmer 1.5s infinite;border-radius:4px}
 .item-enter-active{transition:all .35s cubic-bezier(.32,.72,0,1)}.item-enter-from{opacity:0;transform:translateY(12px)}
@@ -30,6 +31,14 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 .toast-success,.toast-error,.toast-info,.toast-warn{background:rgba(23,163,74,.9)}
 .toast-enter-active{transition:all .3s cubic-bezier(.32,.72,0,1)}.toast-leave-active{transition:all .25s ease-in}
 .toast-enter-from{opacity:0;transform:translateY(-20px) scale(.9)}.toast-leave-to{opacity:0;transform:translateY(-10px) scale(.95)}
+.push-wrap{position:absolute;top:10px;left:12px;right:12px;z-index:2600;pointer-events:none}
+.push-banner{display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:16px;padding:12px 14px;box-shadow:0 10px 28px rgba(0,0,0,.18);pointer-events:auto;cursor:pointer;border:1px solid rgba(0,0,0,.05)}
+.push-icon{width:34px;height:34px;border-radius:10px;background:#2B3F5F;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.push-title{font-size:13px;font-weight:700;color:#111}
+.push-time{font-size:11px;color:#999}
+.push-body{font-size:13px;color:#444;margin-top:3px;line-height:1.45}
+.push-enter-active{transition:all .35s cubic-bezier(.32,.72,0,1)}.push-leave-active{transition:all .25s ease-in}
+.push-enter-from{opacity:0;transform:translateY(-120%)}.push-leave-to{opacity:0;transform:translateY(-120%)}
 .ptr-indicator{overflow:hidden;transition:height .2s;height:0;text-align:center;font-size:12px;color:#999;line-height:40px;flex-shrink:0}
 .ptr-indicator .ptr-spinner{display:inline-block;width:16px;height:16px;border:2px solid #E5E5E5;border-top-color:#2B3F5F;border-radius:50%;vertical-align:middle;margin-right:6px;animation:ptr-spin .6s linear infinite}
 @keyframes ptr-spin{to{transform:rotate(360deg)}}
@@ -95,6 +104,10 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 .login-clear{width:20px;height:20px;border-radius:9999px;background:#D8D8DC;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
 .sl-enter-active,.sl-leave-active{transition:transform .28s cubic-bezier(.32,.72,0,1)}.sl-enter-from,.sl-leave-to{transform:translateX(100%)}
 .form-hint{font-size:12px;color:#DC2626;margin-top:4px}
+.card-actions{display:flex;border-top:1px solid #E5E5E5;margin-top:0}
+.card-action-btn{flex:1;padding:10px 0;font-size:13px;font-weight:600;text-align:center;cursor:pointer;user-select:none;transition:opacity .15s}
+.card-action-btn:active{opacity:.8}
+.card-action-btn + .card-action-btn{border-left:1px solid #E5E5E5}
 .hid::-webkit-scrollbar{display:none}.hid{scrollbar-width:none}
 .carousel-dots{display:flex;gap:6px;justify-content:center;align-items:center}
 .carousel-dot{width:6px;height:6px;border-radius:9999px;background:rgba(255,255,255,.4);transition:all .2s}
@@ -124,6 +137,8 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 .conf-pay-row::-webkit-scrollbar{display:none}
 .conf-pay-row .conf-pay{-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;outline:none}
 .conf-pay{scroll-snap-align:start}
+.conf-pay-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.conf-pay-grid .conf-pay{width:auto;min-width:0}
 .conf-scroll-hide::-webkit-scrollbar{display:none}
 .conf-pay{flex:0 0 auto;width:64px;min-width:0;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:10px 0;border:1.5px solid #E5E7EB;border-radius:12px;cursor:pointer;font-size:14px;font-weight:600;color:#333;background:#fff;text-align:center;line-height:1.3}
 .conf-pay.is-selected{border-color:#FF6A00;color:#FF6A00;background:#FFF8F3}
@@ -162,6 +177,19 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div v-if="showRentLoading" class="absolute inset-0 z-[3000] flex items-center justify-center bg-white/70 rounded-[44px]" data-od-id="rent-loading-overlay"><div class="yadi-loading"><span class="yadi-ring"></span><img class="yadi-logo" src="images/logo.png" alt="雅迪"></div></div>
 
 <div class="toast-wrap"><transition-group name="toast"><div v-for="t in toasts" :key="t.id" class="toast-item" :class="'toast-'+t.type">{{ t.msg }}</div></transition-group></div>
+
+<transition name="push"><div class="push-wrap" v-if="pushNotify.show" data-od-id="push-banner">
+<div class="push-banner" @click="pushNotify.show=false">
+<div class="push-icon"><span v-html="luci('bell','w-5 h-5 text-white')"></span></div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="push-title">{{ pushNotify.title }}</span>
+<span class="push-time">现在</span>
+</div>
+<div class="push-body">{{ pushNotify.body }}</div>
+</div>
+</div>
+</div></transition>
 
 <div class="pt-14 shrink-0"></div>
 
@@ -571,7 +599,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl"><div v-if="showConfirm" class="absolute inset-0 z-[1880] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="confirm-page">
 <div class="pt-14 px-5 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
 <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showConfirm=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="text-[17px] font-semibold text-[#111]">订单确认</span>
+<span class="flex-1 text-center text-[17px] font-semibold">订单确认</span>
 <div class="w-8 h-8"></div>
 </div>
 <div class="flex-1 overflow-y-auto conf-scroll-hide px-4 pt-3 pb-28" style="-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none">
@@ -612,23 +640,39 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <span class="text-[16px] font-bold" style="color:#FF6A00">Rp 200.45</span>
 </div>
 </div>
-<div @click="showConfirmDocs=true" class="bg-white rounded-2xl p-4 mb-3 flex items-center cursor-pointer active:bg-[#F6F7F9]" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="confirm-docs-entry">
-<div class="w-10 h-10 rounded-full bg-[#EBF1FD] flex items-center justify-center mr-3 shrink-0"><span v-html="luci('folder-open','w-5 h-5 text-[#2B3F5F]')"></span></div>
-<div class="flex-1 min-w-0">
-<div class="text-[14px] font-semibold text-[#111]">个人资料</div>
-<div class="text-[12px] text-[#999] mt-0.5">{{ confirmDocs.length ? confirmDocs.length+' 份' : '可上传驾照、身份证、合同等' }}</div>
+<div @click="openIdSelect" class="bg-white rounded-2xl p-4 mb-3 cursor-pointer active:bg-[#F6F7F9]" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="confirm-id-entry">
+<div class="flex items-center justify-between mb-2.5" v-if="confirmIdInfo">
+<div class="text-[14px] font-semibold text-[#111]">实名信息</div>
+<div class="flex items-center gap-1 text-[12px]" style="color:var(--link)"><span class="leading-none">更换</span><span class="inline-flex items-center justify-center w-3.5 h-3.5 shrink-0"><span v-html="luci('chevron-right','w-3.5 h-3.5')"></span></span></div>
 </div>
-<span v-html="luci('chevron-right','w-4 h-4 text-[#999] shrink-0')"></span>
+<div v-if="confirmIdInfo">
+<div class="flex items-center justify-between"><span class="text-[13px] text-[#999]">姓名</span><span class="text-[14px] text-[#111] font-medium">{{ confirmIdInfo.name }}</span></div>
+<div class="flex items-center justify-between mt-2"><span class="text-[13px] text-[#999]">身份证</span><span class="text-[14px] text-[#111]">{{ maskNo(confirmIdInfo.idNo) }}</span></div>
+<div class="flex items-center justify-between mt-2"><span class="text-[13px] text-[#999]">驾驶证</span><span class="text-[14px] text-[#111]">{{ confirmIdInfo.driverNo?maskNo(confirmIdInfo.driverNo):'—' }}</span></div>
+</div>
+<div v-else class="flex items-center justify-between">
+<div class="text-[14px] font-semibold text-[#111]">实名信息</div>
+<div class="flex items-center gap-1 text-[13px] text-[#999]">请选择<span v-html="luci('chevron-right','w-4 h-4')"></span></div>
+</div>
 </div>
 <div class="bg-white rounded-2xl p-4 mb-3" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
 <div class="text-[14px] font-semibold text-[#111] mb-3">支付方式</div>
-<div class="flex gap-2 flex-wrap">
+<div class="conf-pay-grid">
 <div class="conf-pay" :class="confPayType==='2c2p'?'is-selected':''" @click="confPayType='2c2p'">2C2P</div>
+<div class="conf-pay" :class="confPayType==='offline'?'is-selected':''" @click="confPayType='offline'">线下支付</div>
 <div class="conf-pay" :class="confPayType==='balance'?'is-selected':''" @click="confPayType='balance'">
 <span class="text-[11px]">余额支付</span>
 <span class="text-[10px] text-[#999]">Rp {{ (walletActive?walletActive.totalBalance.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}):'—') }}</span>
 </div>
-<div class="conf-pay" :class="confPayType==='offline'?'is-selected':''" @click="confPayType='offline'">线下支付</div>
+</div>
+</div>
+<div class="bg-white rounded-2xl p-4 mb-3 flex items-center justify-between" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="confirm-autorenew">
+<div class="flex-1 min-w-0 pr-3">
+<div class="text-[14px] font-semibold text-[#111]">自动续租</div>
+<div class="text-[12px] text-[#999] mt-0.5">到期未归还将自动续租，续租费用从钱包扣款</div>
+</div>
+<div class="relative w-11 h-6 rounded-full transition-colors duration-200 cursor-pointer shrink-0" :class="autoRenew?'bg-[#2B3F5F]':'bg-[#E5E5E5]'" @click="autoRenew=!autoRenew" data-od-id="autorenew-switch">
+<div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200" :class="autoRenew?'translate-x-5':''"></div>
 </div>
 </div>
 <div class="bg-white rounded-2xl p-4 mb-3" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
@@ -694,8 +738,6 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="px-8 py-3 rounded-xl text-white text-[16px] font-semibold cursor-pointer active:opacity-90 transition-opacity" style="background:#2B3F5F" @click="confirmOrder()">确认订单</div>
 </div>
 </div></transition>
-
-
 
 <!-- weather removed -->
 
@@ -912,7 +954,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div v-if="showVehicleDetail" class="absolute inset-0 z-[1890] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="vehicle-detail-page">
   <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-od-id="vd-navbar">
     <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="closeVehicleDetail"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-    <span class="text-[17px] font-semibold text-[#1A1A1A]">车辆详情</span>
+    <span class="flex-1 text-center text-[17px] font-semibold">车辆详情</span>
     <div class="w-8 h-8"></div>
   </div>
 
@@ -1026,7 +1068,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div v-if="showBatteryDetail" class="absolute inset-0 z-[1890] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="battery-detail-page">
   <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-od-id="bd-navbar">
     <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="closeBatteryDetail"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-    <span class="text-[17px] font-semibold text-[#1A1A1A]">电池详情</span>
+    <span class="flex-1 text-center text-[17px] font-semibold">电池详情</span>
     <div class="w-8 h-8"></div>
   </div>
   <div class="ptr-indicator" id="ptr-bd"><span class="ptr-text">下拉刷新</span></div>
@@ -1386,7 +1428,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
   </div>
   <div class="bg-white rounded-xl overflow-hidden mt-3" style="border:1px solid #E5E5E5" data-od-id="profile-id-entry">
     <div class="flex items-center px-4 py-4 cursor-pointer active:bg-[#F6F7F9]" @click="profileSub='idInfo'">
-      <span class="flex-1 text-[15px] text-[#666]">证件信息</span>
+      <span class="flex-1 text-[15px] text-[#666]">实名信息</span>
       <span class="text-[15px] font-medium mr-1" :class="idInfoCount?'text-[#222]':'text-[#999]'">{{ idInfoCount?idInfoCount+' 份':'未上传' }}</span>
       <span v-html="luci('chevron-right','w-4 h-4 text-[#999]')"></span>
     </div>
@@ -1441,7 +1483,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl"><div v-if="showMyOrders" class="absolute inset-0 z-[1885] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="my-orders-page">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white">
 <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showMyOrders=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="text-[17px] font-semibold text-[#1A1A1A]">我的订单</span>
+<span class="flex-1 text-center text-[17px] font-semibold">我的订单</span>
 <span class="w-8 h-8"></span>
 </div>
 <div class="flex-1 overflow-y-auto min-h-0 conf-scroll-hide px-4 pt-5 pb-6" style="touch-action:pan-y;-webkit-overflow-scrolling:touch">
@@ -1471,7 +1513,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl"><div v-if="showOrderList" class="absolute inset-0 z-[1886] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="order-list-page">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white">
 <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showOrderList=false;showMyOrders=true"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="text-[17px] font-semibold text-[#1A1A1A]">订单列表</span>
+<span class="flex-1 text-center text-[17px] font-semibold">订单列表</span>
 <span class="w-8 h-8"></span>
 </div>
 <div class="bg-white px-4 pb-2 flex gap-2 overflow-x-auto conf-scroll-hide select-none" style="touch-action:pan-x;scrollbar-width:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent" v-long-pan>
@@ -1509,7 +1551,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl"><div v-if="showRefundList" class="absolute inset-0 z-[1895] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="refund-list-page">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
 <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showRefundList=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="text-[17px] font-semibold text-[#1A1A1A]">退款记录</span>
+<span class="flex-1 text-center text-[17px] font-semibold">退款记录</span>
 <span class="w-8 h-8"></span>
 </div>
 <div class="ptr-indicator" id="ptr-refund"><span class="ptr-text">下拉刷新</span></div>
@@ -1536,7 +1578,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl"><div v-if="showConfirmDocs" class="absolute inset-0 z-[1896] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="confirm-docs-page">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
 <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showConfirmDocs=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="text-[17px] font-semibold text-[#1A1A1A]">个人资料</span>
+<span class="flex-1 text-center text-[17px] font-semibold">补充资料</span>
 <span class="w-8 h-8"></span>
 </div>
 <div class="flex-1 overflow-y-auto min-h-0 conf-scroll-hide px-4 pt-3 pb-24" style="touch-action:pan-y;-webkit-overflow-scrolling:touch">
@@ -1626,7 +1668,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl"><div v-if="showOrderDetail" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="order-detail-page">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
 <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="stopOrderTimer();showOrderDetail=false;if(orderDetailBack==='mycar'){tab='vehicles'}else{showOrderList=true}"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="text-[17px] font-semibold text-[#1A1A1A]">订单详情</span>
+<span class="flex-1 text-center text-[17px] font-semibold">订单详情</span>
 <span class="w-8 h-8"></span>
 </div>
 <div v-if="orderInfo.status==='created'" class="px-4 py-2.5 bg-[#FEF2F2] flex items-center shrink-0">
@@ -1694,13 +1736,23 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div>
 </div>
 
-<div @click="showConfirmDocs=true" class="bg-white rounded-2xl p-4 mb-3 flex items-center cursor-pointer active:bg-[#F6F7F9]" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="od-docs-entry">
-<div class="w-10 h-10 rounded-full bg-[#EBF1FD] flex items-center justify-center mr-3 shrink-0"><span v-html="luci('folder-open','w-5 h-5 text-[#2B3F5F]')"></span></div>
+<div class="bg-white rounded-2xl p-4 mb-3" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="od-docs-entry">
+<div class="text-[14px] font-semibold text-[#111] mb-2.5">实名信息</div>
+<template v-if="confirmIdInfo">
+<div class="flex items-center justify-between"><span class="text-[13px] text-[#999]">姓名</span><span class="text-[14px] text-[#111] font-medium">{{ confirmIdInfo.name }}</span></div>
+<div class="flex items-center justify-between mt-2"><span class="text-[13px] text-[#999]">身份证</span><span class="text-[14px] text-[#111]">{{ maskNo(confirmIdInfo.idNo) }}</span></div>
+<div class="flex items-center justify-between mt-2"><span class="text-[13px] text-[#999]">驾驶证</span><span class="text-[14px] text-[#111]">{{ confirmIdInfo.driverNo?maskNo(confirmIdInfo.driverNo):'—' }}</span></div>
+</template>
+<div v-else class="text-[13px] text-[#999]">未选择实名信息</div>
+<div class="h-px bg-[#F0F0F0] my-3"></div>
+<div class="flex items-center py-1 cursor-pointer active:bg-[#F6F7F9]" @click="showConfirmDocs=true">
+<div class="w-10 h-10 rounded-full bg-[#FFF8F3] flex items-center justify-center mr-3 shrink-0"><span v-html="luci('folder-open','w-5 h-5 text-[#FF6A00]')"></span></div>
 <div class="flex-1 min-w-0">
-<div class="text-[14px] font-semibold text-[#1A1A1A]">个人资料</div>
+<div class="text-[14px] font-medium text-[#1A1A1A]">补充资料</div>
 <div class="text-[12px] text-[#999] mt-0.5">{{ confirmDocs.length ? confirmDocs.length+' 份' : '可上传驾照、身份证、合同等' }}</div>
 </div>
 <span v-html="luci('chevron-right','w-4 h-4 text-[#999] shrink-0')"></span>
+</div>
 </div>
 
 <div v-if="(orderInfo.status==='created'||orderInfo.status==='progress'||orderInfo.status==='pickup'||orderInfo.status==='return'||orderInfo.status==='overdue'||orderInfo.status==='breach'||orderInfo.status==='complete'||orderInfo.status==='cancelled')&&(orderInfo.category==='车辆租赁'||orderInfo.category==='车电套餐')" class="bg-white rounded-2xl p-4 mb-3" data-od-id="od-vehicle">
@@ -1957,49 +2009,264 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div>
 </div></transition>
 
-<!-- 切换语言 -->
-<transition name="sl"><div v-if="profileSub==='idInfo'" v-swipe-close="()=>profileSub=null" class="absolute inset-0 z-[600] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="id-info-page">
+<!-- 实名信息 -->
+<transition name="sl"><div v-if="profileSub==='idInfo'" v-swipe-close="()=> idSelectMode ? closeIdSelect() : (profileSub=null)" class="absolute inset-0 z-[600] bg-[#F6F7F9] flex flex-col overflow-hidden" :style="idSelectMode?{zIndex:'1910'}:{}" data-od-id="id-info-page">
   <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
-    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="profileSub=null"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-    <span class="text-[17px] font-semibold text-[#1A1A1A]">证件信息</span>
-    <span class="w-8 h-8"></span>
+    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="idSelectMode?closeIdSelect():profileSub=null"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
+    <span class="flex-1 text-center text-[17px] font-semibold mr-8">{{ idSelectMode ? '选择实名信息' : '实名信息' }}</span>
+    <span class="text-sm font-medium text-[#2F6FEB] cursor-pointer shrink-0 active:opacity-70" @click="openIdAdd">新增</span>
   </div>
-  <div class="flex-1 overflow-y-auto min-h-0 conf-scroll-hide px-4 pt-3 pb-24" style="touch-action:pan-y;-webkit-overflow-scrolling:touch">
-    <div v-if="idInfoList.length===0" class="flex flex-col items-center justify-center py-20 px-6 text-center">
-      <div class="w-14 h-14 rounded-full flex items-center justify-center mb-3" style="background:#F6F7F9;border:1px solid #E5E5E5"><span v-html="luci('image','w-7 h-7 text-[#999]')"></span></div>
-      <div class="text-[15px] font-semibold text-[#111] mb-1">暂无证件信息</div>
-      <div class="text-[13px] text-[#999]">请上传身份证、驾照等证件资料</div>
-    </div>
-    <template v-else>
-    <div class="flex flex-col gap-2.5">
-      <div v-for="doc in idInfoList" :key="doc.id" class="bg-white rounded-xl p-4 flex items-center gap-3" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" :data-od-id="'id-info-card-'+doc.id">
-<div class="w-12 h-12 rounded-lg shrink-0 flex items-center justify-center text-[10px] font-semibold cursor-pointer" :style="{background:doc.color+'15',color:doc.color,border:'1px solid '+doc.color+'30'}" @click="previewImage=doc">{{ doc.label }}</div>
-<div class="flex-1 min-w-0">
-          <div class="text-[14px] font-semibold text-[#1A1A1A] mb-1">{{ doc.label }}</div>
-          <div class="text-[12px] text-[#999]">{{ doc.time }}</div>
+  <div class="flex-1 overflow-y-auto min-h-0 conf-scroll-hide px-4 pt-3 pb-6" style="touch-action:pan-y;-webkit-overflow-scrolling:touch">
+
+    <template v-if="idInfoList.length">
+      <div v-for="(rec,i) in idInfoList" :key="rec.id" class="bg-white rounded-xl overflow-hidden" style="border:1px solid #E5E5E5" :style="i<idInfoList.length-1?{marginBottom:'12px'}:{}" data-od-id="'id-record-'+i">
+        <div class="flex items-center py-3.5 px-4 cursor-pointer active:bg-[#F6F7F9]" @click="idSelectMode?confirmIdSelect(rec):openIdDetail(rec)">
+          <div class="flex-1 min-w-0">
+            <div class="text-[16px] font-semibold text-[#1A1A1A]">{{ rec.name }}</div>
+            <div class="text-[13px] text-[#999] mt-0.5 leading-relaxed">
+              <div v-if="rec.idNo">身份证 {{ maskNo(rec.idNo) }}</div>
+              <div v-if="rec.driverNo">驾驶证 {{ maskNo(rec.driverNo) }}</div>
+            </div>
+          </div>
+          <span v-if="!idSelectMode" v-html="luci('chevron-right','w-4 h-4 text-[#C0C0C0]')"></span>
+          <span v-if="idSelectMode&&confirmIdInfo&&confirmIdInfo.id===rec.id" v-html="luci('check','w-5 h-5 text-[#2B3F5F] shrink-0')"></span>
         </div>
-        <div @click.stop="removeIdInfo(doc.id)" class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 cursor-pointer active:opacity-80 ml-auto" style="background:#FEE2E2;color:#DC2626"><span v-html="luci('trash-2','w-3.5 h-3.5')"></span></div>
+        <div class="card-actions" v-if="!idSelectMode">
+          <div class="card-action-btn" style="color:#2F6FEB" @click.stop="openIdEditRecord(rec)">编辑</div>
+          <div class="card-action-btn" style="color:#DC2626" @click.stop="openIdDelete(rec)">删除</div>
+        </div>
       </div>
-    </div>
     </template>
-  </div>
-  <div class="absolute bottom-0 left-0 right-0 px-4 pt-3 pb-5" style="background:#fff;border-top:1px solid #F0F0F0;padding-bottom:max(20px,env(safe-area-inset-bottom))">
-    <button @click="openIdInfoSheet" class="w-full py-3.5 rounded-xl text-white text-[16px] font-semibold cursor-pointer active:opacity-90 transition-opacity" style="background:#2B3F5F">添加证件</button>
+
+    <div v-else class="flex flex-col items-center justify-center py-20 px-6 text-center" data-od-id="id-list-empty">
+      <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4" style="background:#F0F0F0"><span v-html="luci('id-card','w-8 h-8 text-[#BBB]')"></span></div>
+      <div class="text-[15px] font-semibold text-[#333] mb-1.5">暂无实名信息</div>
+    </div>
+
   </div>
 </div></transition>
 
-<transition name="fd"><div v-if="showIdInfoSheet" class="absolute inset-0 z-[700]" style="background:rgba(0,0,0,.35)" @click="showIdInfoSheet=false" data-od-id="id-info-sheet-mask"></div></transition>
-<transition name="sh"><div v-if="showIdInfoSheet" class="absolute bottom-0 left-0 right-0 bg-white z-[701] rounded-t-[20px] flex flex-col" style="max-height:70%" data-od-id="id-info-sheet">
+<!-- 实名信息详情（只读） -->
+<transition name="sl"><div v-if="profileSub==='idDetail'" v-swipe-close="()=>profileSub='idInfo'" class="absolute inset-0 z-[600] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="id-detail-page">
+  <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
+    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="profileSub='idInfo'"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
+    <span class="flex-1 text-center text-[17px] font-semibold mr-8">实名详情</span>
+    <span class="text-sm font-medium text-[#2F6FEB] cursor-pointer shrink-0 active:opacity-70" @click="openIdEditRecord(idDetailRec)">编辑</span>
+  </div>
+  <div class="flex-1 overflow-y-auto min-h-0 conf-scroll-hide px-4 pt-4 pb-6" style="touch-action:pan-y;-webkit-overflow-scrolling:touch">
+    <div class="form-card">
+
+      <!-- 姓名 -->
+      <div class="form-row">
+        <div class="form-label">姓名</div>
+        <div class="text-[15px] text-[#1A1A1A] py-1">{{ idDetailRec.name }}</div>
+      </div>
+
+      <!-- 身份证 -->
+      <div class="form-row">
+        <div class="form-label">身份证</div>
+        <div class="text-[15px] text-[#1A1A1A] py-1">{{ idDetailRec.idNo }}</div>
+      </div>
+
+      <!-- 驾驶证 -->
+      <div class="form-row">
+        <div class="form-label">驾驶证</div>
+        <div class="text-[15px] text-[#1A1A1A] py-1">{{ idDetailRec.driverNo }}</div>
+      </div>
+
+      <!-- 身份证照片 -->
+      <div class="form-row">
+        <div class="form-label">身份证照片</div>
+        <div class="grid grid-cols-2 gap-3">
+          <div v-for="i in 2" :key="'iddp'+i" class="relative h-[96px] rounded-xl overflow-hidden" :class="idDetailRec.idPhotos&&idDetailRec.idPhotos[i-1]?'cursor-pointer':''" :style="idDetailRec.idPhotos&&idDetailRec.idPhotos[i-1]?{}:{background:'#F6F7F9',border:'1.5px dashed #D9DEE7'}" @click="openIdDetailPreview('id',i-1)">
+            <template v-if="idDetailRec.idPhotos&&idDetailRec.idPhotos[i-1]">
+              <div class="absolute inset-0 flex items-center justify-center" :style="{background:'linear-gradient(135deg,#2B3F5F 0%,#3E5678 100%)'}">
+                <span v-html="luci('credit-card','w-8 h-8 text-white/80')"></span>
+              </div>
+            </template>
+            <template v-else>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-[#6B7280]">
+                <span class="text-[12px]">未上传</span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- 驾驶证照片 -->
+      <div class="form-row">
+        <div class="form-label">驾驶证照片</div>
+        <div class="grid grid-cols-2 gap-3">
+          <div v-for="i in 2" :key="'iddrvp'+i" class="relative h-[96px] rounded-xl overflow-hidden" :class="idDetailRec.driverPhotos&&idDetailRec.driverPhotos[i-1]?'cursor-pointer':''" :style="idDetailRec.driverPhotos&&idDetailRec.driverPhotos[i-1]?{}:{background:'#F6F7F9',border:'1.5px dashed #D9DEE7'}" @click="openIdDetailPreview('driver',i-1)">
+            <template v-if="idDetailRec.driverPhotos&&idDetailRec.driverPhotos[i-1]">
+              <div class="absolute inset-0 flex items-center justify-center" :style="{background:'linear-gradient(135deg,#17A34A 0%,#2F9E63 100%)'}">
+                <span v-html="luci('file-text','w-8 h-8 text-white/80')"></span>
+              </div>
+            </template>
+            <template v-else>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-[#6B7280]">
+                <span class="text-[12px]">未上传</span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div></transition>
+
+
+<!-- 新增/编辑实名信息 -->
+<transition name="sl"><div v-if="profileSub==='idAdd'" v-swipe-close="()=>profileSub='idInfo'" class="absolute inset-0 z-[600] bg-[#F6F7F9] flex flex-col overflow-hidden" :style="idSelectMode?{zIndex:'1920'}:{}" data-od-id="id-add-page">
+  <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
+    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="profileSub='idInfo'"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
+    <span class="flex-1 text-center text-[17px] font-semibold">{{ idEditingId?'编辑实名信息':'新增实名信息' }}</span>
+    <span class="w-8 h-8"></span>
+  </div>
+  <div class="flex-1 overflow-y-auto min-h-0 conf-scroll-hide px-4 pt-4 pb-28" style="touch-action:pan-y;-webkit-overflow-scrolling:touch">
+    <div class="form-card">
+
+      <!-- 姓名 -->
+      <div class="form-row">
+        <div class="form-label">姓名</div>
+        <div class="login-field relative flex items-center">
+          <input v-model="idName" @input="idNameErr=''" type="text" inputmode="text" maxlength="64" placeholder="请输入姓名" class="w-full pl-3.5 pr-12 py-3 text-[15px]" style="caret-color:#2B3F5F" :style="idNameErr?{boxShadow:'inset 0 0 0 1px #DC2626'}:null">
+          <span class="absolute right-2.5 text-[12px] text-[#999]">{{ idName ? idName.length : 0 }}/64</span>
+        </div>
+        <div v-if="idNameErr" class="form-hint">{{ idNameErr }}</div>
+      </div>
+
+      <!-- 身份证 -->
+      <div class="form-row">
+        <div class="form-label">身份证</div>
+        <div class="login-field relative flex items-center">
+          <input v-model="idCardNo" @input="idCardErr=''" type="text" inputmode="text" maxlength="64" placeholder="请输入证件号码" class="w-full pl-3.5 pr-12 py-3 text-[15px]" style="caret-color:#2B3F5F" :style="idCardErr?{boxShadow:'inset 0 0 0 1px #DC2626'}:null">
+          <span class="absolute right-2.5 text-[12px] text-[#999]">{{ idCardNo ? idCardNo.length : 0 }}/64</span>
+        </div>
+        <div v-if="idCardErr" class="form-hint">{{ idCardErr }}</div>
+      </div>
+
+      <!-- 驾驶证 -->
+      <div class="form-row">
+        <div class="form-label">驾驶证</div>
+        <div class="login-field relative flex items-center">
+          <input v-model="driverNo" @input="driverErr=''" type="text" inputmode="text" maxlength="64" placeholder="请输入证件号码" class="w-full pl-3.5 pr-12 py-3 text-[15px]" style="caret-color:#2B3F5F" :style="driverErr?{boxShadow:'inset 0 0 0 1px #DC2626'}:null">
+          <span class="absolute right-2.5 text-[12px] text-[#999]">{{ driverNo ? driverNo.length : 0 }}/64</span>
+        </div>
+        <div v-if="driverErr" class="form-hint">{{ driverErr }}</div>
+      </div>
+
+      <!-- 身份证照片 -->
+      <div class="form-row" data-od-id="id-photo-group">
+        <div class="form-label"><span class="text-[#FF4343] mr-0.5">*</span>身份证照片</div>
+        <div class="text-[11px] text-[#999] mb-2">请上传清晰证件照，避免反光（最多2张）</div>
+        <div class="grid grid-cols-2 gap-3">
+          <div v-for="i in 2" :key="'idp'+i" class="relative h-[96px] rounded-xl overflow-hidden cursor-pointer" :style="idPhotos[i-1]?{}:{background:'#F6F7F9',border:'1.5px dashed #D9DEE7'}" @click="idPhotos[i-1]?openIdPreview('id',i-1):openIdPicker('id','add')" data-od-id="'id-photo-cell-'+i">
+            <template v-if="idPhotos[i-1]">
+              <div class="absolute inset-0 flex items-center justify-center" :style="{background:'linear-gradient(135deg,#2B3F5F 0%,#3E5678 100%)'}">
+                <span v-html="luci('credit-card','w-8 h-8 text-white/80')"></span>
+              </div>
+              <div class="absolute bottom-0 right-0 w-7 h-7 flex items-center justify-center text-white" style="background:rgba(0,0,0,.45)" @click.stop="openIdMore('id',i-1)"><span v-html="luci('more-horizontal','w-4 h-4')"></span></div>
+            </template>
+            <template v-else>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-[#6B7280]">
+                <span v-html="luci('plus','w-6 h-6')"></span>
+                <span class="text-[12px] mt-1">添加图片</span>
+              </div>
+            </template>
+          </div>
+        </div>
+        <div v-if="idPhotoErr" class="form-hint">{{ idPhotoErr }}</div>
+      </div>
+
+      <!-- 驾驶证照片 -->
+      <div class="form-row" data-od-id="driver-photo-group">
+        <div class="form-label"><span class="text-[#FF4343] mr-0.5">*</span>驾驶证照片</div>
+        <div class="text-[11px] text-[#999] mb-2">请上传清晰证件照，避免反光（最多2张）</div>
+        <div class="grid grid-cols-2 gap-3">
+          <div v-for="i in 2" :key="'drvp'+i" class="relative h-[96px] rounded-xl overflow-hidden cursor-pointer" :style="driverPhotos[i-1]?{}:{background:'#F6F7F9',border:'1.5px dashed #D9DEE7'}" @click="driverPhotos[i-1]?openIdPreview('driver',i-1):openIdPicker('driver','add')" data-od-id="'driver-photo-cell-'+i">
+            <template v-if="driverPhotos[i-1]">
+              <div class="absolute inset-0 flex items-center justify-center" :style="{background:'linear-gradient(135deg,#17A34A 0%,#2F9E63 100%)'}">
+                <span v-html="luci('file-text','w-8 h-8 text-white/80')"></span>
+              </div>
+              <div class="absolute bottom-0 right-0 w-7 h-7 flex items-center justify-center text-white" style="background:rgba(0,0,0,.45)" @click.stop="openIdMore('driver',i-1)"><span v-html="luci('more-horizontal','w-4 h-4')"></span></div>
+            </template>
+            <template v-else>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-[#6B7280]">
+                <span v-html="luci('plus','w-6 h-6')"></span>
+                <span class="text-[12px] mt-1">添加图片</span>
+              </div>
+            </template>
+          </div>
+        </div>
+        <div v-if="driverPhotoErr" class="form-hint">{{ driverPhotoErr }}</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="absolute bottom-7 left-5 right-5">
+    <button @click="submitIdInfo" class="w-full h-[50px] flex items-center justify-center rounded-xl text-[16px] font-semibold text-white border-none cursor-pointer transition-colors active:opacity-90" style="background:#2B3F5F">提交</button>
+  </div>
+</div></transition>
+
+<!-- 拍照/相册选择器 -->
+<transition name="fd"><div v-if="showIdPicker" class="absolute inset-0 z-[750]" :style="idSelectMode?{zIndex:'1922'}:{}" style="background:rgba(0,0,0,.35)" @click="showIdPicker=false" data-od-id="id-picker-mask"></div></transition>
+<transition name="sh"><div v-if="showIdPicker" class="absolute bottom-0 left-0 right-0 bg-white z-[751] rounded-t-[20px] flex flex-col" :style="idSelectMode?{zIndex:'1922'}:{}" data-od-id="id-picker-sheet">
   <div class="w-9 h-[5px] mx-auto mt-2.5 mb-1" style="background:#CCC;border-radius:3px"></div>
-  <div class="text-center text-[17px] font-semibold py-3 px-5 shrink-0">添加证件</div>
-  <div class="flex-1 overflow-y-auto px-5 pb-8 min-h-0 conf-scroll-hide">
+  <div class="text-center text-[17px] font-semibold py-3 px-5 shrink-0">{{ idPickerKind==='driver'?'驾驶证照片':'身份证照片' }}</div>
+  <div class="px-5 pb-8 pt-1">
     <div class="grid grid-cols-2 gap-2.5">
-      <div v-for="t in idInfoTypes" :key="t.label" @click="addIdInfo(t)" class="flex flex-col items-center justify-center py-5 rounded-xl cursor-pointer active:bg-[#F6F7F9] transition-colors" style="border:2px dashed #E5E5E5">
-        <div class="w-10 h-10 rounded-full flex items-center justify-center mb-2" :style="{background:t.color+'15'}"><span v-html="luci(t.icon,'w-5 h-5')" :style="{color:t.color}"></span></div>
-        <span class="text-[13px] font-medium">{{ t.label }}</span>
+      <div @click="pickIdSource('camera')" class="flex flex-col items-center justify-center py-5 rounded-xl cursor-pointer active:bg-[#F6F7F9] transition-colors" style="border:1.5px solid #E5E5E5">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center mb-2" style="background:#EBF1FD"><span v-html="luci('camera','w-5 h-5 text-[#2B3F5F]')"></span></div>
+        <span class="text-[13px] font-medium">拍照</span>
+      </div>
+      <div @click="pickIdSource('album')" class="flex flex-col items-center justify-center py-5 rounded-xl cursor-pointer active:bg-[#F6F7F9] transition-colors" style="border:1.5px solid #E5E5E5">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center mb-2" style="background:#EBF1FD"><span v-html="luci('image','w-5 h-5 text-[#2B3F5F]')"></span></div>
+        <span class="text-[13px] font-medium">相册</span>
       </div>
     </div>
   </div>
+</div></transition>
+
+<!-- 删除确认（居中弹窗·参考商户端） -->
+<transition name="fd"><div v-if="showIdDelete" class="absolute inset-0 z-[760]" style="background:rgba(0,0,0,.45)" @click="showIdDelete=false" data-od-id="id-delete-mask"></div></transition>
+<transition name="fd">
+<div v-if="showIdDelete" class="absolute inset-0 z-[761] flex items-center justify-center pointer-events-none">
+<div class="bg-white rounded-xl w-[300px] px-5 pt-6 pb-4 flex flex-col gap-3 pointer-events-auto" style="box-shadow:0 4px 12px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.12)" data-od-id="id-delete-sheet">
+<div class="text-[17px] font-bold text-center">删除实名信息</div>
+<div class="text-[14px] text-[#666] text-center leading-relaxed">确定要删除该实名信息吗？<br>删除后不可恢复</div>
+<div class="flex gap-3 mt-2">
+<div @click="showIdDelete=false" class="flex-1 py-3 rounded-xl text-[15px] font-medium text-center cursor-pointer active:bg-[#F6F7F9] transition-colors" style="border:1px solid #E5E5E5;background:#fff">取消</div>
+<div @click="confirmIdDelete" class="flex-1 py-3 rounded-xl text-white text-[15px] font-semibold text-center cursor-pointer active:opacity-80 transition-colors" style="background:#DC2626">确认</div>
+</div>
+</div>
+</div>
+</transition>
+
+<!-- 照片更多 ActionSheet -->
+<transition name="fd"><div v-if="showIdAction" class="absolute inset-0 z-[750]" :style="idSelectMode?{zIndex:'1921'}:{}" style="background:rgba(0,0,0,.35)" @click="showIdAction=false" data-od-id="id-action-mask"></div></transition>
+<transition name="sh"><div v-if="showIdAction" class="absolute bottom-0 left-0 right-0 bg-white z-[751] rounded-t-[20px] flex flex-col" :style="idSelectMode?{zIndex:'1922'}:{}" data-od-id="id-action-sheet">
+  <div class="w-9 h-[5px] mx-auto mt-2.5 mb-1" style="background:#CCC;border-radius:3px"></div>
+  <div class="relative flex items-center justify-center py-3 px-5 shrink-0">
+    <div class="flex-1 text-center text-[17px] font-semibold">更多操作</div>
+    <div class="absolute right-4 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer active:bg-[#F6F7F9]" @click="showIdAction=false"><span v-html="luci('x','w-5 h-5 text-[#999]')"></span></div>
+  </div>
+  <div class="px-5 pt-1 pb-8">
+    <div @click="idActionView" class="py-3.5 text-center text-[15px] text-[#1A1A1A] cursor-pointer active:bg-[#F6F7F9]" style="border-bottom:1px solid #F5F5F5">查看大图</div>
+    <div @click="idActionReupload" class="py-3.5 text-center text-[15px] text-[#1A1A1A] cursor-pointer active:bg-[#F6F7F9]" style="border-bottom:1px solid #F5F5F5">重新上传</div>
+    <div @click="idActionDelete" class="py-3.5 text-center text-[15px] text-[#FF4343] cursor-pointer active:bg-[#F6F7F9]">删除照片</div>
+  </div>
+</div></transition>
+
+<!-- 照片大图预览 -->
+<transition name="fd"><div v-if="showIdPreview" class="absolute inset-0 z-[2500] flex flex-col items-center justify-center gap-5" style="background:rgba(0,0,0,.88)" @click="showIdPreview=false" data-od-id="id-preview">
+  <div class="w-56 h-40 rounded-2xl flex items-center justify-center" :style="idPreviewItem&&idPreviewItem.kind==='driver'?{background:'#17A34A'}:{background:'#2B3F5F'}">
+    <span v-html="luci(idPreviewItem&&idPreviewItem.kind==='driver'?'file-text':'credit-card','w-20 h-20 text-white/80')"></span>
+  </div>
+  <div v-if="idPreviewItem" class="text-white text-[18px] font-bold">{{ idPreviewItem.kind==='driver'?'驾驶证照片':'身份证照片' }}</div>
+  <div v-if="idPreviewItem" class="text-white/40 text-[13px] -mt-3">{{ idPreviewItem.time }}</div>
+  <div class="text-white/30 text-[13px] mt-2">点击空白处关闭</div>
 </div></transition>
 
 <transition name="sl"><div v-if="profileSub==='lang'" v-swipe-close="()=>profileSub=null" class="absolute inset-0 bg-[#F6F7F9] z-[510] flex flex-col" data-od-id="settings-lang-page">
@@ -2096,7 +2363,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl"><div v-if="showWallet" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="wallet-page">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
 <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showWallet=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="text-[17px] font-semibold text-[#1A1A1A]">我的钱包</span>
+<span class="flex-1 text-center text-[17px] font-semibold">我的钱包</span>
 <div class="w-8 h-8"></div>
 </div>
 <div class="flex-1 overflow-y-auto hide-scroll px-4" style="touch-action:pan-y;-webkit-overflow-scrolling:touch" id="sc-wallet">
@@ -2190,7 +2457,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl"><div v-if="showWalletLedger" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="wallet-ledger-page">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
 <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showWalletLedger=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="text-[17px] font-semibold text-[#1A1A1A]">余额流水</span>
+<span class="flex-1 text-center text-[17px] font-semibold">余额流水</span>
 <div class="w-8 h-8"></div>
 </div>
 <div class="bg-white shrink-0 flex items-center" style="border-bottom:1px solid #F0F0F0" data-od-id="wallet-ledger-tabs">
@@ -2231,14 +2498,17 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl"><div v-if="showTopup" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="topup-page">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
 <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showTopup=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="text-[17px] font-semibold text-[#1A1A1A]">充值</span>
+<span class="flex-1 text-center text-[17px] font-semibold">充值</span>
 <div class="w-8 h-8"></div>
 </div>
 <div class="flex-1 overflow-y-auto hide-scroll px-4">
 <div class="bg-white rounded-2xl p-4 mt-4" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
 <div class="text-[14px] font-semibold text-[#111] mb-3">充值金额</div>
 <div class="grid grid-cols-2 gap-3">
-<div v-for="(amt,i) in walletTopupAmounts" :key="i" @click="selectTopupAmount(amt)" class="py-3 rounded-xl text-center text-[15px] font-semibold cursor-pointer" :style="topupAmount===amt?{background:'#EBF1FD',color:'#2B3F5F',border:'1.5px solid #2B3F5F'}:{background:'#F7F8FA',color:'#333',border:'1px solid #EBEDF0'}">Rp {{ amt.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</div>
+<div v-for="(amt,i) in walletTopupAmounts" :key="i" @click="selectTopupAmount(amt)" class="py-3 rounded-xl text-center cursor-pointer" :style="topupAmount===amt?{background:'#EBF1FD',color:'#2B3F5F',border:'1.5px solid #2B3F5F'}:{background:'#F7F8FA',color:'#333',border:'1px solid #EBEDF0'}">
+<div class="text-[15px] font-semibold">Rp {{ amt.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</div>
+<div v-if="walletTopupBonus[amt]" class="text-[10px] mt-0.5 font-medium" style="color:#FF6A00">赠送 Rp {{ walletTopupBonus[amt].toLocaleString('id-ID') }}</div>
+</div>
 </div>
 <div class="mt-3">
 <div class="text-[13px] text-[#666] mb-2">自定义金额</div>
@@ -2253,7 +2523,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl"><div v-if="showRechargeLedger" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="recharge-ledger-page">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
 <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showRechargeLedger=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="text-[17px] font-semibold text-[#1A1A1A]">充值余额流水</span>
+<span class="flex-1 text-center text-[17px] font-semibold">充值余额流水</span>
 <div class="w-8 h-8"></div>
 </div>
 <div class="flex-1 overflow-y-auto hide-scroll px-4">
@@ -2282,7 +2552,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl"><div v-if="showBonusLedger" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="bonus-ledger-page">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
 <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showBonusLedger=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="text-[17px] font-semibold text-[#1A1A1A]">赠送余额流水</span>
+<span class="flex-1 text-center text-[17px] font-semibold">赠送余额流水</span>
 <div class="w-8 h-8"></div>
 </div>
 <div class="flex-1 overflow-y-auto hide-scroll px-4">
@@ -2330,6 +2600,15 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="demo-ops-chip" :class="vehicleCount===2?'is-on':''" @click="setVehicleCount(2)">2 辆</div>
 <div class="demo-ops-chip" :class="vehicleCount===1?'is-on':''" @click="setVehicleCount(1)">1 辆</div>
 <div class="demo-ops-chip" :class="vehicleCount===0?'is-on':''" @click="setVehicleCount(0)">0 辆</div>
+</div>
+</div>
+
+<div class="demo-ops-section">
+<div class="demo-ops-label">消息推送</div>
+<div class="demo-ops-chips">
+<div class="demo-ops-chip" @click="showPushNotify('preview')">续租提醒</div>
+<div class="demo-ops-chip" @click="showPushNotify('reminder')">扣款提醒</div>
+<div class="demo-ops-chip" @click="showPushNotify('failed')">扣款失败</div>
 </div>
 </div>
 </template>
@@ -2381,6 +2660,15 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div>
 </div>
 </template>
+<template v-if="showConfirm&&!showConfirmDocs">
+<div class="demo-ops-section">
+<div class="demo-ops-label">上传实名信息</div>
+<div class="demo-ops-chips">
+<div class="demo-ops-chip" :class="uploadIdEnabled?'is-on':''" @click="uploadIdEnabled=true">开启</div>
+<div class="demo-ops-chip" :class="!uploadIdEnabled?'is-on':''" @click="uploadIdEnabled=false">关闭</div>
+</div>
+</div>
+</template>
 <template v-if="showWallet&&!showTopup&&!showWalletLedger&&!showRechargeLedger&&!showBonusLedger">
 
 <div class="demo-ops-section">
@@ -2424,6 +2712,15 @@ const tab=ref('home');
 const toasts=ref([]);
 let tid=0;
 function toast(msg,type='info'){const id=++tid;toasts.value.push({id,msg,type});setTimeout(()=>{const i=toasts.value.findIndex(t=>t.id===id);if(i>=0)toasts.value.splice(i,1)},2000)}
+const renewNotifyTemplates={
+preview:{title:'续租提醒',body:d=>`订单${d.orderId}将于${d.dueDate}自动续租并扣款${d.amount}，可在订单页关闭。`},
+reminder:{title:'扣款提醒',body:d=>`订单${d.orderId}${d.N}天后自动续租扣款${d.amount}，请保持钱包余额充足。`},
+failed:{title:'扣款失败',body:d=>`订单${d.orderId}续租扣款失败${d.failCount}/${d.threshold}次，请尽快充值，否则将停止自动续租。`}
+};
+function renewNotifySample(){return{orderId:'YZ20260901001',dueDate:'2026-09-10',amount:'Rp 150.000',N:1,failCount:2,threshold:3}}
+const pushNotify=ref({show:false,title:'',body:''});
+let pushTimer=null;
+function showPushNotify(type){const t=renewNotifyTemplates[type];if(!t)return;const data=renewNotifySample();pushNotify.value={show:true,title:t.title,body:t.body(data)};if(pushTimer)clearTimeout(pushTimer);pushTimer=setTimeout(()=>{pushNotify.value.show=false},4500)}
 var myCarPtrInit=false;function setTab(t){if(!loggedIn.value&&(t==='vehicles'||t==='profile')){pendingRoute.value=t;showLogin.value=true;resetLoginForm();return}tab.value=t;if(t==='vehicles'&&!myCarPtrInit){nextTick(()=>{if(document.getElementById('sc-mycar')){initPullToRefresh('sc-mycar','ptr-mycar',refreshMyCar);myCarPtrInit=true}})}}
 
 
@@ -2730,7 +3027,7 @@ return{amt:base,unit:units[idx],label:labels[idx],daysWord:daysWords[idx]};});
 function fmtRp(n){return 'Rp '+n.toLocaleString('id-ID')}
 const orderPlanDisplay=computed(()=>{const d=confPeriodDetail.value;return d.label+'×'+confRentDays.value+d.unit});
 function rentNow(v){selectedVehicle.value=v;showConfirm.value=true}
-function confirmOrder(){showOrderDetail.value=true;showRentLoading.value=true;const amt=fmtRp(confTotal.value);const _oi={storeName:(selectedStore.value&&selectedStore.value.name)?selectedStore.value.name:'雅迪电动车(双流区雅和北路店)',orderId:'YZ'+new Date().toISOString().slice(0,10).replace(/-/g,'')+(Math.floor(Math.random()*9000)+1000),createTime:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-'),payee:'2C2P',status:'created',statusText:'已创建',statusColor:'#FF8C1B',model:selectedVehicle.value?selectedVehicle.value.name:'乐迪SAA',desc:selectedVehicle.value?selectedVehicle.value.desc:'',plan:orderPlanDisplay.value,amount:amt};setTimeout(()=>{payChannel.value='2C2P';cancelBeforePay.value='paid';orderInfo.value=_oi;startOrderTimer();showRentLoading.value=false},600)}
+function confirmOrder(){if(uploadIdEnabled.value&&!confirmIdInfo.value){toast('请先选择实名信息','warn');return}showOrderDetail.value=true;showRentLoading.value=true;const amt=fmtRp(confTotal.value);const _oi={storeName:(selectedStore.value&&selectedStore.value.name)?selectedStore.value.name:'雅迪电动车(双流区雅和北路店)',orderId:'YZ'+new Date().toISOString().slice(0,10).replace(/-/g,'')+(Math.floor(Math.random()*9000)+1000),createTime:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-'),payee:'2C2P',status:'created',statusText:'已创建',statusColor:'#FF8C1B',model:selectedVehicle.value?selectedVehicle.value.name:'乐迪SAA',desc:selectedVehicle.value?selectedVehicle.value.desc:'',plan:orderPlanDisplay.value,amount:amt};setTimeout(()=>{payChannel.value='2C2P';cancelBeforePay.value='paid';orderInfo.value=_oi;startOrderTimer();showRentLoading.value=false},600)}
 const showOrderDetail=ref(false);const orderDetailBack=ref('list');
 const showCancelModal=ref(false);
 const cancelLoading=ref(false);
@@ -2772,6 +3069,8 @@ const refundRecords=computed(()=>{
 });
 var refundPtrInit=false;function openRefundList(){showRefundList.value=true;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600);nextTick(()=>{if(!refundPtrInit){initPullToRefresh('sc-refund','ptr-refund',refreshRefund);refundPtrInit=true}})}
 const confirmDocs=ref([]);
+const autoRenew=ref(false);
+const uploadIdEnabled=ref(true);
 const showConfirmDocs=ref(false);
 const showDocSheet=ref(false);
 const docSheetTab=ref('image');
@@ -2783,10 +3082,50 @@ const previewImage=ref(null);
 const idInfoList=ref([]);
 const showIdInfoSheet=ref(false);
 const idInfoTypes=computed(()=>[{label:'身份证',icon:'credit-card',color:'#2B3F5F'},{label:'驾照',icon:'file-text',color:'#17A34A'}]);
+const idCardNo=ref('110101199003077514');
+const driverNo=ref('110101199003077514');
+const idName=ref('');
+const idEditingId=ref(null);
+const idPhotos=ref([]);
+const driverPhotos=ref([]);
+const idNameErr=ref(''),idCardErr=ref(''),driverErr=ref(''),idPhotoErr=ref(''),driverPhotoErr=ref('');
+const idDetailRec=ref(null);
 const idInfoCount=computed(()=>idInfoList.value.length);
 function openIdInfoSheet(){showIdInfoSheet.value=true}
-function addIdInfo(t){const cnt=idInfoList.value.filter(d=>d.label===t.label).length;if(cnt>=2){toast('该证件类型最多上传2张','warn');return}idInfoList.value.push({id:Date.now()+'-'+(Math.random().toString(36).slice(2,7)),label:t.label,icon:t.icon,color:t.color,time:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-')});showIdInfoSheet.value=false;toast('证件已上传','success')}
-function removeIdInfo(id){idInfoList.value=idInfoList.value.filter(d=>d.id!==id);toast('证件已删除','info')}
+function openIdAdd(){idEditingId.value=null;idName.value='';idCardNo.value='';driverNo.value='';idPhotos.value=[];driverPhotos.value=[];idNameErr.value=idCardErr.value=driverErr.value=idPhotoErr.value=driverPhotoErr.value='';profileSub.value='idAdd'}
+function openIdEditRecord(rec){idEditingId.value=rec.id;idName.value=rec.name;idCardNo.value=rec.idNo;driverNo.value=rec.driverNo;idPhotos.value=[...(rec.idPhotos||[])];driverPhotos.value=[...(rec.driverPhotos||[])];profileSub.value='idAdd'}
+function openIdDetail(rec){idDetailRec.value=rec;profileSub.value='idDetail'}
+function openIdDetailPreview(kind,idx){const arr=kind==='driver'?(idDetailRec.value.driverPhotos||[]):(idDetailRec.value.idPhotos||[]);const it=arr[idx];if(!it)return;idPreviewItem.value={kind,time:it.time};showIdPreview.value=true}
+function deleteIdRecord(id){idInfoList.value=idInfoList.value.filter(r=>r.id!==id);toast('实名信息已删除','info')}
+const idActionTarget=ref(null);
+const showIdAction=ref(false);
+const showIdDelete=ref(false);
+const idDeleteTarget=ref(null);
+function openIdDelete(rec){idDeleteTarget.value=rec;showIdDelete.value=true}
+function confirmIdDelete(){if(!idDeleteTarget.value)return;deleteIdRecord(idDeleteTarget.value.id);showIdDelete.value=false;idDeleteTarget.value=null}
+const confirmIdInfo=ref(null);
+const idSelectMode=ref(false);
+function openIdSelect(){idSelectMode.value=true;profileSub.value='idInfo'}
+function closeIdSelect(){idSelectMode.value=false;profileSub.value=null}
+function confirmIdSelect(rec){var r=rec||null;if(!r)return;confirmIdInfo.value=r;idSelectMode.value=false;profileSub.value=null;toast('已选择实名信息','info')}
+const idPickerSource=ref(null);
+const showIdPreview=ref(false);
+const idPreviewItem=ref(null);
+const showIdPicker=ref(false);
+const idPickerKind=ref('');
+const idPickerSH=ref('');
+function maskNo(s){if(!s)return'';s=String(s);if(s.length<=7)return s[0]+'***'+s.slice(-1);return s.slice(0,3)+'********'+s.slice(-4)}
+function maskNoFull(s){if(!s)return'';s=String(s);if(s.length<=7)return s[0]+'***'+s.slice(-1);return s.slice(0,6)+'************'+s.slice(-4)}
+function submitIdInfo(){idNameErr.value=idCardErr.value=driverErr.value=idPhotoErr.value=driverPhotoErr.value='';let ok=true;if(!(idName.value||'').trim()){idNameErr.value='请输入姓名';ok=false}if(!(idCardNo.value||'').trim()){idCardErr.value='请输入证件号码';ok=false}if(!(driverNo.value||'').trim()){driverErr.value='请输入证件号码';ok=false}if(idPhotos.value.length<1){idPhotoErr.value='请至少上传1张身份证照片';ok=false}if(driverPhotos.value.length<1){driverPhotoErr.value='请至少上传1张驾驶证照片';ok=false}if(!ok)return;if(idPhotos.value.length>2||driverPhotos.value.length>2){toast('图片数量超出上限','warn');return}const rec={name:(idName.value||'').trim(),idNo:idCardNo.value,driverNo:driverNo.value,idPhotos:[...idPhotos.value],driverPhotos:[...driverPhotos.value]};if(idEditingId.value){const i=idInfoList.value.findIndex(r=>r.id===idEditingId.value);if(i>=0){rec.id=idInfoList.value[i].id;idInfoList.value[i]=rec;idInfoList.value=[...idInfoList.value]}toast('实名信息已更新','success')}else{rec.id=Date.now()+'-'+(Math.random().toString(36).slice(2,7));idInfoList.value=[...idInfoList.value,rec];toast('证件信息保存成功','success')}profileSub.value='idInfo'}
+function openIdPicker(kind,sh){idPickerKind.value=kind;idPickerSH.value=sh;showIdPicker.value=true}
+function pickIdSource(src){const label=src==='camera'?'模拟拍照':'模拟相册';if(idPickerSH.value==='reupload'){if(src==='camera'||src==='album'){toast(label+'：已替换当前图片','success');doIdReupload()}}else{if(src==='camera'||src==='album'){toast(label+'：已选中一张图片','success');commitIdPhoto()}}showIdPicker.value=false}
+function commitIdPhoto(){const arr=idPickerKind.value==='driver'?driverPhotos.value:idPhotos.value;if(arr.length>=2){toast('最多上传2张','warn');return}arr.push({id:Date.now()+'-'+(Math.random().toString(36).slice(2,7)),time:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-'),kind:idPickerKind.value});if(idPickerKind.value==='driver'){driverPhotos.value=[...arr];driverPhotoErr.value=''}else{idPhotos.value=[...arr];idPhotoErr.value=''}}
+function openIdMore(kind,idx){idActionTarget.value={kind,idx};showIdAction.value=true}
+function idActionView(){const t=idActionTarget.value;if(!t)return;const arr=t.kind==='driver'?driverPhotos.value:idPhotos.value;idPreviewItem.value=arr[t.idx];showIdAction.value=false;showIdPreview.value=true}
+function openIdPreview(kind,idx){const arr=kind==='driver'?driverPhotos.value:idPhotos.value;idPreviewItem.value=arr[idx];showIdPreview.value=true}
+function idActionReupload(){const t=idActionTarget.value;if(!t)return;showIdAction.value=false;idPickerKind.value=t.kind;openIdPicker(t.kind,'reupload')}
+function doIdReupload(){const idx=idActionTarget.value.idx;const kind=idActionTarget.value.kind;const arr=kind==='driver'?driverPhotos.value:idPhotos.value;if(arr[idx]){arr[idx]={id:Date.now()+'-'+(Math.random().toString(36).slice(2,7)),time:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-'),kind}}if(kind==='driver')driverPhotos.value=[...arr];else idPhotos.value=[...arr];idActionTarget.value=null}
+function idActionDelete(){const t=idActionTarget.value;if(!t)return;const arr=t.kind==='driver'?driverPhotos.value:idPhotos.value;arr.splice(t.idx,1);if(t.kind==='driver')driverPhotos.value=[...arr];else idPhotos.value=[...arr];showIdAction.value=false;idActionTarget.value=null;toast('照片已删除','info')}
 function openDocSheet(){docSheetTab.value='image';docText.value='';showDocSheet.value=true}
 function addDocImage(img){confirmDocs.value.push({id:Date.now()+'-'+(Math.random().toString(36).slice(2,7)),type:'image',label:img.label,color:img.color,time:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-')});showDocSheet.value=false;toast('资料已上传','success')}
 function addDocText(){if(!docText.value.trim())return;confirmDocs.value.push({id:Date.now()+'-'+(Math.random().toString(36).slice(2,7)),type:'text',content:docText.value.trim(),time:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-')});docText.value='';showDocSheet.value=false;toast('资料已上传','success')}
@@ -2881,6 +3220,7 @@ const rechargeLedger=ref([{id:'RC20250601001',type:'recharge',amount:100000,bala
 const bonusLedger=ref([{id:'BN20250615001',type:'recharge',amount:50000,balanceAfter:50000,relatedOrder:null,operator:'运营',remark:'新用户注册赠送',createdAt:'2025-06-15T08:00:00Z'},{id:'BN20250610001',type:'consume',amount:-10000,balanceAfter:0,relatedOrder:'YZ20250610001',operator:'系统',remark:'租金抵扣',createdAt:'2025-06-10T12:00:00Z'}]);const walletLedger=ref([{id:'WL260828001',type:'recharge',amount:30000,balanceAfter:250000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-08-28T14:20:00'},{id:'WL260824001',type:'recharge',amount:50000,balanceAfter:220000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-08-24T10:15:00'},{id:'WL260813001',type:'recharge',amount:10000,balanceAfter:50000,relatedOrder:null,operator:'运营',remark:'活动赠送',createdAt:'2026-08-13T09:00:00'},{id:'WL260806001',type:'consume',amount:-10000,balanceAfter:200000,relatedOrder:'YZ20260806001',operator:'系统',remark:'租金支付',createdAt:'2026-08-06T15:30:00'},{id:'WL260801001',type:'recharge',amount:50000,balanceAfter:210000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-08-01T11:20:00'},{id:'WL260725001',type:'consume',amount:-30000,balanceAfter:160000,relatedOrder:'YZ20260725001',operator:'系统',remark:'租金支付',createdAt:'2026-07-25T17:40:00'},{id:'WL260719001',type:'consume',amount:-10000,balanceAfter:40000,relatedOrder:null,operator:'系统',remark:'赠送余额抵扣',createdAt:'2026-07-19T12:10:00'},{id:'WL260712001',type:'recharge',amount:50000,balanceAfter:50000,relatedOrder:null,operator:'运营',remark:'新用户注册赠送',createdAt:'2026-07-12T08:00:00'},{id:'WL260708001',type:'recharge',amount:50000,balanceAfter:190000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-07-08T14:50:00'},{id:'WL260620001',type:'consume',amount:-50000,balanceAfter:150000,relatedOrder:'YZ20260620001',operator:'系统',remark:'租金支付',createdAt:'2026-06-20T10:05:00'},{id:'WL260610001',type:'recharge',amount:200000,balanceAfter:200000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-06-10T09:00:00'}]);walletLedger.value.forEach(function(r){if(!r.storeId)r.storeId='雅迪电动车(双流区雅和北路店)'});walletLedger.value.push({id:'WL265180001',type:'consume',amount:-20000,balanceAfter:60000,relatedOrder:'YZ20260518001',operator:'系统',remark:'租金支付',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-05-18T15:00:00'},{id:'WL265120001',type:'recharge',amount:50000,balanceAfter:80000,relatedOrder:null,operator:'当前账号',remark:'用户充值',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-05-12T10:30:00'},{id:'WL264220001',type:'recharge',amount:20000,balanceAfter:20000,relatedOrder:null,operator:'运营',remark:'新用户注册赠送',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-04-22T08:00:00'});
 
 const topupAmount=ref(0),topupCustom=ref(''),topupShowCustom=ref(false),walletTopupAmounts=[50000,100000,200000,500000];
+const walletTopupBonus={50000:0,100000:20000,200000:50000,500000:150000};
 
 var walletPtrInit=false;function openWallet(){showWallet.value=true;walletStorePick.value=false;if(!walletAccount.value.activeStoreId&&currentOrder.value&&currentOrder.value.store&&walletAccount.value.wallets[currentOrder.value.store]){walletAccount.value.activeStoreId=currentOrder.value.store}nextTick(()=>{if(!walletPtrInit){initPullToRefresh('sc-wallet','ptr-wallet',refreshWallet);walletPtrInit=true}})}
 function refreshWallet(){setTimeout(()=>{},800)}function openWalletLedger(){showWalletLedger.value=true;walletLedgerTab.value='recharge'}
@@ -2891,8 +3231,8 @@ function wlMonthKey(iso){const d=new Date(iso);return d.getFullYear()+'-'+(d.get
 const walletLedgerGroups=computed(()=>{const base=walletLedgerActive.value;const list=walletLedgerTab.value==='bonus'?base.filter(r=>/(赠送)/.test(r.remark||'')):base.filter(r=>!(/(赠送)/.test(r.remark||'')));const order=[],map={};list.forEach(r=>{const k=wlMonthKey(r.createdAt);if(!map[k]){map[k]={key:k,label:(new Date(r.createdAt).getMonth()+1)+'月',items:[]};order.push(map[k])}map[k].items.push(r)});order.forEach(g=>{if(walletLedgerMonthOpen.value[g.key]===undefined)walletLedgerMonthOpen.value[g.key]=true});return order});
 function openTopup(){showTopup.value=true;topupAmount.value=0;topupCustom.value='';topupShowCustom.value=false}
 function selectTopupAmount(amt){topupAmount.value=amt;topupCustom.value=String(amt);topupShowCustom.value=false}
-function onCustomAmountInput(e){const el=e.target;let raw=el.value;if(raw.indexOf('.')>=0){const parts=raw.split('.');if(parts[1]&&parts[1].length>2){el.value=parts[0]+'.'+parts[1].slice(0,2);raw=el.value}topupCustom.value=raw}topupAmount.value=0}
-function confirmTopup(){const amt=(topupCustom.value||'').trim()?Math.round(parseFloat(topupCustom.value)*100)/100:topupAmount.value;if(!amt||amt<=0){toast('请选择充值金额','warn');return}const w=walletActive.value;if(!w){toast('请先选择门店','warn');return}showRentLoading.value=true;setTimeout(()=>{w.rechargeBalance+=amt;w.totalBalance=w.rechargeBalance+w.bonusBalance;w.lastUpdated=new Date().toISOString();walletLedger.value.unshift({id:'WL'+Date.now(),type:'recharge',amount:amt,balanceAfter:w.rechargeBalance,relatedOrder:null,operator:'当前账号',remark:'用户充值',storeId:walletAccount.value.activeStoreId,createdAt:new Date().toISOString()});rechargeLedger.value.unshift({id:'RC'+Date.now(),type:'recharge',amount:amt,balanceAfter:w.rechargeBalance,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:new Date().toISOString()});showRentLoading.value=false;showTopup.value=false;toast('充值成功','success')},800)}
+function onCustomAmountInput(e){const el=e.target;let raw=el.value;if(raw.indexOf('.')>=0){const parts=raw.split('.');if(parts[1]&&parts[1].length>2){el.value=parts[0]+'.'+parts[1].slice(0,2);raw=el.value}topupCustom.value=raw}const v=parseFloat(raw);topupAmount.value=walletTopupAmounts.includes(v)?v:0}
+function confirmTopup(){const amt=(topupCustom.value||'').trim()?Math.round(parseFloat(topupCustom.value)*100)/100:topupAmount.value;if(!amt||amt<=0){toast('请选择充值金额','warn');return}const w=walletActive.value;if(!w){toast('请先选择门店','warn');return}const bonus=topupAmount.value>0?(walletTopupBonus[topupAmount.value]||0):0;showRentLoading.value=true;setTimeout(()=>{w.rechargeBalance+=amt;w.bonusBalance+=bonus;w.totalBalance=w.rechargeBalance+w.bonusBalance;w.lastUpdated=new Date().toISOString();walletLedger.value.unshift({id:'WL'+Date.now(),type:'recharge',amount:amt,balanceAfter:w.rechargeBalance,relatedOrder:null,operator:'当前账号',remark:'用户充值',storeId:walletAccount.value.activeStoreId,createdAt:new Date().toISOString()});rechargeLedger.value.unshift({id:'RC'+Date.now(),type:'recharge',amount:amt,balanceAfter:w.rechargeBalance,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:new Date().toISOString()});if(bonus>0){bonusLedger.value.unshift({id:'BN'+Date.now(),type:'recharge',amount:bonus,balanceAfter:w.bonusBalance,relatedOrder:null,operator:'运营',remark:'充值活动赠送',createdAt:new Date().toISOString()});walletLedger.value.unshift({id:'WL'+Date.now(),type:'recharge',amount:bonus,balanceAfter:w.bonusBalance,relatedOrder:null,operator:'运营',remark:'充值活动赠送',storeId:walletAccount.value.activeStoreId,createdAt:new Date().toISOString()})}showRentLoading.value=false;showTopup.value=false;toast(bonus>0?('充值成功，赠送 Rp '+bonus.toLocaleString('id-ID')):'充值成功','success')},800)}
 
 
 const scanning=ref(false);
@@ -2917,7 +3257,7 @@ function goUpdate(){updating.value=1;setTimeout(function(){updating.value=2;toas
 function exitApp(){showVersionCheck.value=false;appExited.value=true}
 function relaunchApp(){appExited.value=false}
 function selectLang(id){appLang.value=id;profileSub.value=null}
-function doLogout(){profileMod.value=null;profileOV.value=null;profileSub.value=null;dialPickerSource.value=null;resetLoginForm();loggedIn.value=false;showLogin.value=false;showRent.value=false;showStore.value=false;showVehicle.value=false;showConfirm.value=false;showOrderDetail.value=false;showMyOrders.value=false;showOrderList.value=false;showRefundList.value=false;showConfirmDocs.value=false;showDocSheet.value=false;docDeleteMod.value=false;previewImage.value=null;docText.value='';confirmDocs.value=[];idInfoList.value=[];showIdInfoSheet.value=false;showWallet.value=false;showTopup.value=false;showRechargeLedger.value=false;showBonusLedger.value=false;walletAccount.value.activeStoreId=null;stopOrderTimer();tab.value='home';toast('已退出登录','info')}
+function doLogout(){profileMod.value=null;profileOV.value=null;profileSub.value=null;dialPickerSource.value=null;resetLoginForm();loggedIn.value=false;showLogin.value=false;showRent.value=false;showStore.value=false;showVehicle.value=false;showConfirm.value=false;showOrderDetail.value=false;showMyOrders.value=false;showOrderList.value=false;showRefundList.value=false;showConfirmDocs.value=false;showDocSheet.value=false;docDeleteMod.value=false;previewImage.value=null;docText.value='';confirmDocs.value=[];idInfoList.value=[];showIdInfoSheet.value=false;idPhotos.value=[];driverPhotos.value=[];showIdAction.value=false;showIdPreview.value=false;showIdPicker.value=false;idActionTarget.value=null;showWallet.value=false;showTopup.value=false;showRechargeLedger.value=false;showBonusLedger.value=false;walletAccount.value.activeStoreId=null;stopOrderTimer();tab.value='home';toast('已退出登录','info')}
 const profileMdT=computed(()=>{if(profileMod.value==='logout')return'退出登录';return''});
 const profileMdD=computed(()=>{if(profileMod.value==='logout')return'确定要退出当前账号吗？退出后需重新登录。';return''});
 const profileMdDanger=computed(()=>profileMod.value==='logout');
@@ -2933,7 +3273,7 @@ function refreshVd(){setTimeout(()=>{},800)}
 function refreshBd(){setTimeout(()=>{},800)}
 var rentPtrInit=false;function openRent(){showRent.value=true;nextTick(()=>{if(!rentPtrInit){initPullToRefresh('sc-rent','ptr-rent',refreshRent);rentPtrInit=true}})}
 onMounted(()=>{initPullToRefresh('sc-home','ptr-home',refreshHome);setInterval(()=>{homeBannerIdx.value=(homeBannerIdx.value+1)%homeBanners.length},4000)});
-return{tab,toasts,toast,copyText,setTab,luci,weatherScene,weatherData,demoActive,mapCtx,showFindPage,showTrackPage,locLoading,locRinging,locFocus,locAddressFull,locAddressShort,locDistM,locWalkMin,locVehPt,locUserPt,openFindPage,openFindPageBattery,closeFindPage,locFocusUser,locFocusVehicle,locRingDevice,locOpenNav,trackStartLabel,trackEndLabel,trackLoading,trackPoints,trackPolyline,trackStartPt,trackEndPt,trackPois,trackTimePicker,openTrackPage,openTrackPageBattery,closeTrackPage,openTrackTimePicker,cancelTrackTimePicker,confirmTrackTimePicker,trackDraft,trackDays,trackMonths,trackYears,trackHours,trackMins,p2u,trackWheelDay,trackWheelMonth,trackWheelYear,trackWheelHour,trackWheelMin,onTrackWheelScroll,vehicles,vehicleCount,setVehicleCount,vehicleSource,setVehicleSource,opLock,opHorn,myVehicleIdx,showVehiclePicker,currentVehicle,toggleVehiclePicker,selectMyVehicle,openMyVehicleFromHome,openVehicleDetail,closeVehicleDetail,openVNameEdit,closeVNameEdit,saveVNameEdit,vNameLoading,openUnbindConfirm,closeUnbindConfirm,confirmUnbind,unbindLoading,showVehicleDetail,showUnbindConfirm,showVNameEdit,vNameInput,vNameError,locked,lockLoading,toggleLock,hornLoading,sendHorn,openMyCarOrder,currentOrder,refreshHome,refreshRent,openRent,loggedIn,pendingRoute,appLang,appLangLabel,langOptions,showLogin,loginView,loginMode,loginSub,loginDial,loginPhone,loginEmail,loginAccount,loginPwd,loginCode,loginPwdVisible,loginAgree,loginCd,dialQ,dialFiltered,showDialPicker,activeDialCode,closeDialPicker,canSendCode,canLogin,loginOpenLang,selectLangFromLogin,openDialCode,pickDial,setLoginMode,setLoginSub,sendLoginCode,doLogin,openLogin,profileOV,profileSub,profileMod,profileModLoading,hasPhone,hasEmail,hasPwd,boundPhone,boundEmail,bpArea,bpPhone,bpCode,bpCd,beEmail,beCode,beCd,openBindPhone,openBindEmail,sendBpCode,doBindPhone,sendBeCode,doBindEmail,pwdChannel,pwdCode,pwdCd,npwd,npwd2,npwdVis,npwd2Vis,canConfirmPwd,openPwdFlow,switchPwdChannel,sendPwdCode,nextPwdVerify,doResetPwd,checkVersion,goUpdate,exitApp,relaunchApp,scanning,doScan,scanTorch,manualVin,showManualVin,scanCtx,openManualInput,confirmManualVin,scanBindMode,scanBindDevice,vdDevice,bdDevice,showBindConfirm,bindConfirmLoading,openBindConfirm,closeBindConfirm,confirmBind,homeDevSeg,homeBatteries,bSocColor,batteryAdd,showBatteryDetail,currentBattery,openBatteryDetail,openBatteryOrder,closeBatteryDetail,openBatteryUnbind,closeBatteryUnbind,confirmBatteryUnbind,showBatteryUnbind,batteryUnbindLoading,showVersionCheck,hasNewVersion,latestVersion,updateDesc,updating,appExited,selectLang,doLogout,profileMdT,profileMdD,profileMdDanger,profileMdOk,showRent,rentBannerIdx,rentBanners,showRentLoading,homeBannerIdx,homeBanners,showDatePicker,rentDateIdx,dateOptions,rentDateLabel,selectDate,showPeriodPicker,rentPeriodIdx,periodOptions,rentPeriodLabel,periodUnit,selectPeriod,showStore,storeSearch,storeFiltered,storeListEmpty,selectStore,openStore,searchStore,selectedStore,showVehicle,vehicleList,vehicleListEmpty,rentNow,showConfirm,selectedVehicle,confRentDays,confTotal,confTotalDays,confDurationLabel,confPeriodDetail,orderPlanDisplay,confTab,confPayType,cancelRules,noticeRules,billingRules,overdueRules,confAddDays,confSubDays,confirmOrder,confTotal,confDeposit,confGrandTotal,confPickupDate,confReturnDate,confPickupISO,confReturnISO,showOrderDetail,orderDetailBack,showRefundList,openRefundList,refundRecords,confirmDocs,showConfirmDocs,showDocSheet,docSheetTab,docText,docImageTypes,docDeleteMod,docDeleteTarget,previewImage,openDocSheet,addDocImage,addDocText,requestDeleteDoc,confirmDeleteDoc,showCancelModal,idInfoList,showIdInfoSheet,idInfoTypes,idInfoCount,openIdInfoSheet,addIdInfo,removeIdInfo,cancelLoading,orderCountdown,orderCountdownText,orderDetailTab,cancelOrder,goToPay,orderInfo,startOrderTimer,stopOrderTimer,showMyOrders,showOrderList,orderListCategory,currentOrderList,orderListEmpty,openOrderCategory,openMyOrders,openOrderDetailFromList,orderFilter,orderFilterTabs,orderFilterMap,setOrderFilter,relocateRent,payChannel,setPayChannel,cancelBeforePay,setCancelBeforePay,delDocLoading,showWallet,showWalletLedger,showTopup,showRechargeLedger,showBonusLedger,walletBalanceVisible,walletAccount,walletActive,walletLedgerActive,walletStorePick,pickStoreForWallet,walletStoreSheet,walletOpenedStores,walletSwitchStore,storeInfoOf,ensureWalletOpened,walletLedger,walletLedgerTab,walletLedgerGroups,walletLedgerMonthOpen,setWalletLedgerTab,toggleWalletLedgerMonth,rechargeLedger,bonusLedger,topupAmount,topupCustom,topupShowCustom,walletTopupAmounts,openWallet,openWalletLedger,openTopup,selectTopupAmount,confirmTopup,onCustomAmountInput};
+return{tab,toasts,toast,copyText,setTab,luci,weatherScene,weatherData,demoActive,mapCtx,showFindPage,showTrackPage,locLoading,locRinging,locFocus,locAddressFull,locAddressShort,locDistM,locWalkMin,locVehPt,locUserPt,openFindPage,openFindPageBattery,closeFindPage,locFocusUser,locFocusVehicle,locRingDevice,locOpenNav,trackStartLabel,trackEndLabel,trackLoading,trackPoints,trackPolyline,trackStartPt,trackEndPt,trackPois,trackTimePicker,openTrackPage,openTrackPageBattery,closeTrackPage,openTrackTimePicker,cancelTrackTimePicker,confirmTrackTimePicker,trackDraft,trackDays,trackMonths,trackYears,trackHours,trackMins,p2u,trackWheelDay,trackWheelMonth,trackWheelYear,trackWheelHour,trackWheelMin,onTrackWheelScroll,vehicles,vehicleCount,setVehicleCount,vehicleSource,setVehicleSource,opLock,opHorn,myVehicleIdx,showVehiclePicker,currentVehicle,toggleVehiclePicker,selectMyVehicle,openMyVehicleFromHome,openVehicleDetail,closeVehicleDetail,openVNameEdit,closeVNameEdit,saveVNameEdit,vNameLoading,openUnbindConfirm,closeUnbindConfirm,confirmUnbind,pushNotify,showPushNotify,renewNotifyTemplates,unbindLoading,showVehicleDetail,showUnbindConfirm,showVNameEdit,vNameInput,vNameError,locked,lockLoading,toggleLock,hornLoading,sendHorn,openMyCarOrder,currentOrder,refreshHome,refreshRent,openRent,loggedIn,pendingRoute,appLang,appLangLabel,langOptions,showLogin,loginView,loginMode,loginSub,loginDial,loginPhone,loginEmail,loginAccount,loginPwd,loginCode,loginPwdVisible,loginAgree,loginCd,dialQ,dialFiltered,showDialPicker,activeDialCode,closeDialPicker,canSendCode,canLogin,loginOpenLang,selectLangFromLogin,openDialCode,pickDial,setLoginMode,setLoginSub,sendLoginCode,doLogin,openLogin,profileOV,profileSub,profileMod,profileModLoading,hasPhone,hasEmail,hasPwd,boundPhone,boundEmail,bpArea,bpPhone,bpCode,bpCd,beEmail,beCode,beCd,openBindPhone,openBindEmail,sendBpCode,doBindPhone,sendBeCode,doBindEmail,pwdChannel,pwdCode,pwdCd,npwd,npwd2,npwdVis,npwd2Vis,canConfirmPwd,openPwdFlow,switchPwdChannel,sendPwdCode,nextPwdVerify,doResetPwd,checkVersion,goUpdate,exitApp,relaunchApp,scanning,doScan,scanTorch,manualVin,showManualVin,scanCtx,openManualInput,confirmManualVin,scanBindMode,scanBindDevice,vdDevice,bdDevice,showBindConfirm,bindConfirmLoading,openBindConfirm,closeBindConfirm,confirmBind,homeDevSeg,homeBatteries,bSocColor,batteryAdd,showBatteryDetail,currentBattery,openBatteryDetail,openBatteryOrder,closeBatteryDetail,openBatteryUnbind,closeBatteryUnbind,confirmBatteryUnbind,showBatteryUnbind,batteryUnbindLoading,showVersionCheck,hasNewVersion,latestVersion,updateDesc,updating,appExited,selectLang,doLogout,profileMdT,profileMdD,profileMdDanger,profileMdOk,showRent,rentBannerIdx,rentBanners,showRentLoading,homeBannerIdx,homeBanners,showDatePicker,rentDateIdx,dateOptions,rentDateLabel,selectDate,showPeriodPicker,rentPeriodIdx,periodOptions,rentPeriodLabel,periodUnit,selectPeriod,showStore,storeSearch,storeFiltered,storeListEmpty,selectStore,openStore,searchStore,selectedStore,showVehicle,vehicleList,vehicleListEmpty,rentNow,showConfirm,selectedVehicle,confRentDays,confTotal,confTotalDays,confDurationLabel,confPeriodDetail,orderPlanDisplay,confTab,confPayType,cancelRules,noticeRules,billingRules,overdueRules,confAddDays,confSubDays,confirmOrder,confTotal,confDeposit,confGrandTotal,confPickupDate,confReturnDate,confPickupISO,confReturnISO,showOrderDetail,orderDetailBack,showRefundList,openRefundList,refundRecords,confirmDocs,autoRenew,uploadIdEnabled,showConfirmDocs,showDocSheet,docSheetTab,docText,docImageTypes,docDeleteMod,docDeleteTarget,previewImage,openDocSheet,addDocImage,addDocText,requestDeleteDoc,confirmDeleteDoc,showCancelModal,idInfoList,showIdInfoSheet,idInfoTypes,idInfoCount,openIdInfoSheet,idName,idEditingId,openIdAdd,openIdEditRecord,deleteIdRecord,idCardNo,driverNo,idPhotos,driverPhotos,idDetailRec,openIdDetail,openIdDetailPreview,idNameErr,idCardErr,driverErr,idPhotoErr,driverPhotoErr,idActionTarget,openIdEditRecord,deleteIdRecord,showIdDelete,idDeleteTarget,openIdDelete,confirmIdDelete,idSelectMode,confirmIdInfo,openIdSelect,closeIdSelect,confirmIdSelect,showIdAction,idPickerSource,showIdPreview,idPreviewItem,showIdPicker,idPickerKind,idPickerSH,maskNo,maskNoFull,submitIdInfo,openIdPicker,pickIdSource,commitIdPhoto,openIdMore,idActionView,idActionReupload,doIdReupload,idActionDelete,openIdPreview,cancelLoading,orderCountdown,orderCountdownText,orderDetailTab,cancelOrder,goToPay,orderInfo,startOrderTimer,stopOrderTimer,showMyOrders,showOrderList,orderListCategory,currentOrderList,orderListEmpty,openOrderCategory,openMyOrders,openOrderDetailFromList,orderFilter,orderFilterTabs,orderFilterMap,setOrderFilter,relocateRent,payChannel,setPayChannel,cancelBeforePay,setCancelBeforePay,delDocLoading,showWallet,showWalletLedger,showTopup,showRechargeLedger,showBonusLedger,walletBalanceVisible,walletAccount,walletActive,walletLedgerActive,walletStorePick,pickStoreForWallet,walletStoreSheet,walletOpenedStores,walletSwitchStore,storeInfoOf,ensureWalletOpened,walletLedger,walletLedgerTab,walletLedgerGroups,walletLedgerMonthOpen,setWalletLedgerTab,toggleWalletLedgerMonth,rechargeLedger,bonusLedger,topupAmount,topupCustom,topupShowCustom,walletTopupAmounts,walletTopupBonus,openWallet,openWalletLedger,openTopup,selectTopupAmount,confirmTopup,onCustomAmountInput};
 }
 });
 function initPullToRefresh(containerId,indicatorId,onRefresh){var c=document.getElementById(containerId),i=document.getElementById(indicatorId);if(!c||!i)return;var sy=0,pull=false,active=false;
