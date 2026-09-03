@@ -26,6 +26,9 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 @keyframes shimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
 .sk{background:linear-gradient(90deg,#eee 25%,#f5f5f5 50%,#eee 75%);background-size:400px 100%;animation:shimmer 1.5s infinite;border-radius:4px}
 .item-enter-active{transition:all .35s cubic-bezier(.32,.72,0,1)}.item-enter-from{opacity:0;transform:translateY(12px)}
+.filter-tabs{display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;user-select:none;width:100%;flex-wrap:nowrap;white-space:nowrap}
+.filter-tabs::-webkit-scrollbar{display:none}
+.filter-pill{padding:6px 16px;border-radius:20px;font-size:13px;font-weight:500;white-space:nowrap;cursor:pointer;flex-shrink:0;transition:background .15s,color .15s,border-color .15s}
 .toast-wrap{position:absolute;top:50px;left:16px;right:16px;z-index:99999;display:flex;flex-direction:column;align-items:center;pointer-events:none}
 .toast-item{padding:10px 20px;border-radius:12px;font-size:14px;font-weight:500;color:#fff;pointer-events:auto;backdrop-filter:blur(10px);text-align:center;max-width:80%;line-height:1.4}
 .toast-success,.toast-error,.toast-info,.toast-warn{background:rgba(23,163,74,.9)}
@@ -642,8 +645,8 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div>
 <div @click="openIdSelect" class="bg-white rounded-2xl p-4 mb-3 cursor-pointer active:bg-[#F6F7F9]" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="confirm-id-entry">
 <div class="flex items-center justify-between mb-2.5" v-if="confirmIdInfo">
-<div class="text-[14px] font-semibold text-[#111]">实名信息</div>
-<div class="flex items-center gap-1 text-[12px]" style="color:var(--link)"><span class="leading-none">更换</span><span class="inline-flex items-center justify-center w-3.5 h-3.5 shrink-0"><span v-html="luci('chevron-right','w-3.5 h-3.5')"></span></span></div>
+<div class="text-[14px] font-semibold text-[#111]"><span v-if="uploadIdEnabled" class="mr-0.5" style="color:#DC2626">*</span>实名信息</div>
+<div class="flex items-center gap-1 text-[12px]" style="color:var(--link)"><span class="leading-none">更换</span><span class="inline-flex items-center justify-center w-3.5 h-3.5 shrink-0" style="transform:translateY(1.5px)"><span v-html="luci('chevron-right','w-3.5 h-3.5')"></span></span></div>
 </div>
 <div v-if="confirmIdInfo">
 <div class="flex items-center justify-between"><span class="text-[13px] text-[#999]">姓名</span><span class="text-[14px] text-[#111] font-medium">{{ confirmIdInfo.name }}</span></div>
@@ -651,8 +654,8 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="flex items-center justify-between mt-2"><span class="text-[13px] text-[#999]">驾驶证</span><span class="text-[14px] text-[#111]">{{ confirmIdInfo.driverNo?maskNo(confirmIdInfo.driverNo):'—' }}</span></div>
 </div>
 <div v-else class="flex items-center justify-between">
-<div class="text-[14px] font-semibold text-[#111]">实名信息</div>
-<div class="flex items-center gap-1 text-[13px] text-[#999]">请选择<span v-html="luci('chevron-right','w-4 h-4')"></span></div>
+<div class="text-[14px] font-semibold text-[#111]"><span v-if="uploadIdEnabled" class="mr-0.5" style="color:#DC2626">*</span>实名信息</div>
+<div class="flex items-center gap-1 text-[12px]" style="color:var(--link)"><span>请选择</span><span class="inline-flex items-center justify-center w-3.5 h-3.5 shrink-0" style="transform:translateY(1.5px)" v-html="luci('chevron-right','w-3.5 h-3.5')"></span></div>
 </div>
 </div>
 <div class="bg-white rounded-2xl p-4 mb-3" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
@@ -661,7 +664,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="conf-pay" :class="confPayType==='2c2p'?'is-selected':''" @click="confPayType='2c2p'">2C2P</div>
 <div class="conf-pay" :class="confPayType==='offline'?'is-selected':''" @click="confPayType='offline'">线下支付</div>
 <div class="conf-pay" :class="confPayType==='balance'?'is-selected':''" @click="confPayType='balance'">
-<span class="text-[11px]">余额支付</span>
+<span class="text-[11px]">钱包</span>
 <span class="text-[10px] text-[#999]">Rp {{ (walletActive?walletActive.totalBalance.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}):'—') }}</span>
 </div>
 </div>
@@ -669,7 +672,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="bg-white rounded-2xl p-4 mb-3 flex items-center justify-between" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="confirm-autorenew">
 <div class="flex-1 min-w-0 pr-3">
 <div class="text-[14px] font-semibold text-[#111]">自动续租</div>
-<div class="text-[12px] text-[#999] mt-0.5">到期未归还将自动续租，续租费用从钱包扣款</div>
+<div class="text-[12px] text-[#999] mt-0.5">续租费用从钱包自动扣除</div>
 </div>
 <div class="relative w-11 h-6 rounded-full transition-colors duration-200 cursor-pointer shrink-0" :class="autoRenew?'bg-[#2B3F5F]':'bg-[#E5E5E5]'" @click="autoRenew=!autoRenew" data-od-id="autorenew-switch">
 <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200" :class="autoRenew?'translate-x-5':''"></div>
@@ -730,12 +733,15 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="p-4 text-[13px] text-[#666] leading-[1.6] whitespace-pre-line">{{ confTab==='cancel'?cancelRules:confTab==='notice'?noticeRules:confTab==='overdue'?overdueRules:billingRules }}</div>
 </div>
 </div>
-<div class="absolute bottom-0 left-0 right-0 z-20 bg-white px-4 py-3 flex items-center justify-between" style="border-top:1px solid #F0F0F0;box-shadow:0 -2px 8px rgba(0,0,0,.04);padding-bottom:max(12px,env(safe-area-inset-bottom))">
+<div class="absolute bottom-0 left-0 right-0 z-20 bg-white px-4 py-3" style="border-top:1px solid #F0F0F0;box-shadow:0 -2px 8px rgba(0,0,0,.04);padding-bottom:max(12px,env(safe-area-inset-bottom))">
+<div v-if="uploadIdEnabled&&!confirmIdInfo" class="text-[12px] mb-2" style="color:#DC2626">请先选择实名信息</div>
+<div class="flex items-center justify-between">
 <div class="flex items-baseline gap-1">
 <span class="text-[14px] text-[#666]">合计</span>
 <span class="text-[20px] font-bold" style="color:#FF6A00">Rp {{ confTotal.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</span>
 </div>
-<div class="px-8 py-3 rounded-xl text-white text-[16px] font-semibold cursor-pointer active:opacity-90 transition-opacity" style="background:#2B3F5F" @click="confirmOrder()">确认订单</div>
+<div class="px-8 py-3 rounded-xl text-white text-[16px] font-semibold cursor-pointer active:opacity-90 transition-opacity" :style="uploadIdEnabled&&!confirmIdInfo?{background:'#C9CFD8',cursor:'not-allowed'}:{background:'#2B3F5F'}" :class="(uploadIdEnabled&&!confirmIdInfo)?'pointer-events-none':''" @click="confirmOrder()">确认订单</div>
+</div>
 </div>
 </div></transition>
 
@@ -1736,8 +1742,11 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div>
 </div>
 
-<div class="bg-white rounded-2xl p-4 mb-3" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="od-docs-entry">
-<div class="text-[14px] font-semibold text-[#111] mb-2.5">实名信息</div>
+<div class="bg-white rounded-2xl p-4 mb-3" :class="(orderInfo.status==='created'||orderInfo.status==='pickup')?'cursor-pointer active:bg-[#F6F7F9]':''" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="od-docs-entry" @click="(orderInfo.status==='created'||orderInfo.status==='pickup')&&openIdSelect()">
+<div class="flex items-center justify-between mb-2.5">
+<div class="text-[14px] font-semibold text-[#111]"><span v-if="uploadIdEnabled" class="mr-0.5" style="color:#DC2626">*</span>实名信息</div>
+<div v-if="orderInfo.status==='created'||orderInfo.status==='pickup'" class="flex items-center gap-1 text-[12px]" style="color:var(--link)"><span class="leading-none">{{ confirmIdInfo?'更换':'请选择' }}</span><span class="inline-flex items-center justify-center w-3.5 h-3.5 shrink-0" style="transform:translateY(1.5px)"><span v-html="luci('chevron-right','w-3.5 h-3.5')"></span></span></div>
+</div>
 <template v-if="confirmIdInfo">
 <div class="flex items-center justify-between"><span class="text-[13px] text-[#999]">姓名</span><span class="text-[14px] text-[#111] font-medium">{{ confirmIdInfo.name }}</span></div>
 <div class="flex items-center justify-between mt-2"><span class="text-[13px] text-[#999]">身份证</span><span class="text-[14px] text-[#111]">{{ maskNo(confirmIdInfo.idNo) }}</span></div>
@@ -1745,7 +1754,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </template>
 <div v-else class="text-[13px] text-[#999]">未选择实名信息</div>
 <div class="h-px bg-[#F0F0F0] my-3"></div>
-<div class="flex items-center py-1 cursor-pointer active:bg-[#F6F7F9]" @click="showConfirmDocs=true">
+<div class="flex items-center py-1 cursor-pointer active:bg-[#F6F7F9]" @click.stop="showConfirmDocs=true">
 <div class="w-10 h-10 rounded-full bg-[#FFF8F3] flex items-center justify-center mr-3 shrink-0"><span v-html="luci('folder-open','w-5 h-5 text-[#FF6A00]')"></span></div>
 <div class="flex-1 min-w-0">
 <div class="text-[14px] font-medium text-[#1A1A1A]">补充资料</div>
@@ -2206,7 +2215,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
     </div>
   </div>
   <div class="absolute bottom-7 left-5 right-5">
-    <button @click="submitIdInfo" class="w-full h-[50px] flex items-center justify-center rounded-xl text-[16px] font-semibold text-white border-none cursor-pointer transition-colors active:opacity-90" style="background:#2B3F5F">提交</button>
+    <button @click="submitIdInfo" class="w-full h-[50px] flex items-center justify-center rounded-xl text-[16px] font-semibold text-white border-none cursor-pointer transition-colors active:opacity-90" style="background:#2B3F5F">保存</button>
   </div>
 </div></transition>
 
@@ -2238,7 +2247,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="text-[14px] text-[#666] text-center leading-relaxed">确定要删除该实名信息吗？<br>删除后不可恢复</div>
 <div class="flex gap-3 mt-2">
 <div @click="showIdDelete=false" class="flex-1 py-3 rounded-xl text-[15px] font-medium text-center cursor-pointer active:bg-[#F6F7F9] transition-colors" style="border:1px solid #E5E5E5;background:#fff">取消</div>
-<div @click="confirmIdDelete" class="flex-1 py-3 rounded-xl text-white text-[15px] font-semibold text-center cursor-pointer active:opacity-80 transition-colors" style="background:#DC2626">确认</div>
+<div @click="confirmIdDelete" class="flex-1 py-3 rounded-xl text-white text-[15px] font-semibold text-center cursor-pointer active:opacity-80 transition-colors" style="background:#2B3F5F">确认</div>
 </div>
 </div>
 </div>
@@ -2253,7 +2262,6 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
     <div class="absolute right-4 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer active:bg-[#F6F7F9]" @click="showIdAction=false"><span v-html="luci('x','w-5 h-5 text-[#999]')"></span></div>
   </div>
   <div class="px-5 pt-1 pb-8">
-    <div @click="idActionView" class="py-3.5 text-center text-[15px] text-[#1A1A1A] cursor-pointer active:bg-[#F6F7F9]" style="border-bottom:1px solid #F5F5F5">查看大图</div>
     <div @click="idActionReupload" class="py-3.5 text-center text-[15px] text-[#1A1A1A] cursor-pointer active:bg-[#F6F7F9]" style="border-bottom:1px solid #F5F5F5">重新上传</div>
     <div @click="idActionDelete" class="py-3.5 text-center text-[15px] text-[#FF4343] cursor-pointer active:bg-[#F6F7F9]">删除照片</div>
   </div>
@@ -2370,9 +2378,9 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div id="ptr-wallet" class="ptr-indicator"><span class="ptr-spinner"></span>下拉刷新</div>
 <div v-if="!walletAccount.activeStoreId" class="flex flex-col items-center justify-center pt-16 pb-10 text-center" data-od-id="wallet-guide">
 <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4" style="background:#F0F0F0"><span v-html="luci('wallet','w-8 h-8 text-[#BBB]')"></span></div>
-<div class="text-[16px] font-semibold text-[#111] mb-1.5">选择门店后查看钱包余额</div>
+<div class="text-[16px] font-semibold text-[#111] mb-1.5">开通门店钱包后可查看余额</div>
 <div class="text-[13px] text-[#999] mb-7 px-6 leading-relaxed">各门店钱包独立结算，充值 / 余额仅对应所选门店</div>
-<button @click="pickStoreForWallet" class="w-56 h-11 rounded-xl text-white text-[15px] font-semibold active:opacity-90 transition-opacity" style="background:var(--accent)">选择门店</button>
+<button @click="pickStoreForWallet" class="w-56 h-11 rounded-xl text-white text-[15px] font-semibold active:opacity-90 transition-opacity" style="background:var(--accent)">开通门店钱包</button>
 </div>
 <template v-else>
 <!-- 余额一体卡片 -->
@@ -2381,7 +2389,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <span @click="walletStoreSheet=true" class="flex items-center gap-1 text-[14px] font-semibold text-[#111] cursor-pointer select-none" data-od-id="wallet-store-switch"><span class="max-w-[170px] truncate">{{ walletAccount.activeStoreId }}</span><span v-html="luci('chevron-down','w-4 h-4 text-[#999]')"></span></span>
 </div>
 <div class="flex items-center justify-between mb-1">
-<span class="text-[13px] text-[#666]">总余额</span>
+<span class="text-[13px] text-[#666]">可用余额</span>
 <span @click="walletBalanceVisible=!walletBalanceVisible" class="w-7 h-7 rounded-full flex items-center justify-center cursor-pointer active:bg-[#F6F7F9]" v-html="luci(walletBalanceVisible?'eye':'eye-off','w-[18px] h-[18px] text-[#999]')"></span>
 </div>
 <div class="text-[32px] font-bold text-[#111] tracking-tight mb-4">Rp {{ walletBalanceVisible?(walletActive?walletActive.totalBalance.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}):'—'):'•••••••' }}</div>
@@ -2413,8 +2421,8 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div v-else>
 <div v-for="(r,i) in walletLedgerActive.slice(0,5)" :key="i" class="px-4 py-3.5" :style="i<walletLedgerActive.slice(0,5).length-1?'border-bottom:1px solid #F5F5F5':''" :data-od-id="'wallet-ledger-row-'+r.type">
 <div class="flex items-center justify-between mb-2">
-<span class="text-[14px] font-semibold text-[#1A1A1A]">{{ r.type==='recharge'?'充值':r.type==='consume'?'消费':r.type==='refund'?'退款':r.type==='deduct'?'扣减':r.type }}</span>
-<span class="text-[16px] font-bold" :style="r.amount>=0?{color:'#17A34A'}:{color:'#DC2626'}">{{ r.amount>=0?'+':'' }}Rp {{ Math.abs(r.amount).toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</span>
+<span class="text-[14px] font-semibold text-[#1A1A1A]">{{ r.type==='recharge'?'充值':r.type==='consume'?'消费':r.type==='refund'?'退款':r.type==='deduct'?'扣减':r.type==='withdraw'?'提现':r.type }}</span>
+<span class="text-[16px] font-bold" :style="r.amount>=0?{color:'#17A34A'}:{color:'#DC2626'}">{{ r.amount<0?'-':(r.amount>0?'+':'') }}Rp {{ Math.abs(r.amount).toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</span>
 </div>
 <div class="flex items-center justify-between">
 <span class="text-[13px] text-[#999]">{{ new Date(r.createdAt).toLocaleString('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).replace(/\//g,'-') }}</span>
@@ -2463,34 +2471,26 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="bg-white shrink-0 flex items-center" style="border-bottom:1px solid #F0F0F0" data-od-id="wallet-ledger-tabs">
 <div v-for="t in [{v:'recharge',l:'充值余额'},{v:'bonus',l:'赠送余额'}]" :key="t.v" @click="setWalletLedgerTab(t.v)" class="flex-1 relative flex items-center justify-center py-3 text-[15px] cursor-pointer select-none transition-colors" :class="walletLedgerTab===t.v?'text-[#1677FF] font-semibold':'text-[#666]'">{{ t.l }}<span v-if="walletLedgerTab===t.v" class="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-[3px] rounded-full" style="background:#1677FF"></span></div>
 </div>
-<div class="flex-1 overflow-y-auto hide-scroll px-4">
-<div v-if="walletLedgerGroups.length===0" class="flex flex-col items-center justify-center pt-20">
+<div class="bg-white shrink-0 filter-tabs px-4 py-2.5" style="border-bottom:1px solid #F0F0F0" data-od-id="wallet-ledger-quickfilter">
+  <div v-for="t in walletLedgerTxnOpts" :key="t.v" @click="walletLedgerTxn=t.v" class="filter-pill" :style="walletLedgerTxn===t.v?{background:'var(--accent)',color:'#fff',border:'1px solid var(--accent)'}:{background:'#fff',color:'#666',border:'1px solid #E5E5E5'}">{{ t.l }}</div>
+</div>
+<div class="flex-1 overflow-y-auto hide-scroll px-4 pt-3">
+<div v-if="walletLedgerList.length===0" class="flex flex-col items-center justify-center pt-20">
 <span v-html="luci('wallet','w-12 h-12 text-[#CCC]')" class="mb-4"></span>
 <span class="text-[14px] text-[#999]">暂无交易记录</span>
 </div>
-<div v-else class="mt-2">
-<template v-for="(g,gi) in walletLedgerGroups" :key="g.key">
-<div @click="toggleWalletLedgerMonth(g.key)" class="flex items-center gap-1 pl-1 pr-2 pt-1.5 pb-2 cursor-pointer select-none" :data-od-id="'wallet-ledger-month-'+gi">
-<span class="text-[12px] text-[#999]">{{ g.label }}</span>
-<span class="flex items-center justify-center text-[#CCC] transition-transform duration-200" :class="walletLedgerMonthOpen[g.key]?'rotate-180':''"><span v-html="luci('chevron-down','w-3 h-3')"></span></span>
-</div>
-<template v-if="walletLedgerMonthOpen[g.key]">
-<div class="bg-white rounded-2xl overflow-hidden mb-3" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" :data-od-id="'wallet-ledger-month-card-'+gi">
-<div v-for="(r,i) in g.items" :key="r.id||i" class="px-4 py-3.5" :style="i<g.items.length-1?'border-bottom:1px solid #F5F5F5':''" :data-od-id="'wallet-ledger-row-'+r.type">
+<template v-else>
+<div v-for="r in walletLedgerList" :key="r.id" class="bg-white rounded-2xl px-4 py-3.5 mb-2.5" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
 <div class="flex items-center justify-between mb-2">
-<span class="text-[14px] font-semibold text-[#1A1A1A]">{{ r.type==='recharge'?'充值':r.type==='consume'?'消费':r.type==='refund'?'退款':r.type==='deduct'?'扣减':r.type }}</span>
-<span class="text-[16px] font-bold" :style="r.amount>=0?{color:'#17A34A'}:{color:'#DC2626'}">{{ r.amount>=0?'+':'' }}Rp {{ Math.abs(r.amount).toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</span>
+<span class="text-[14px] font-semibold text-[#1A1A1A]">{{ r.type==='recharge'?'充值':r.type==='consume'?'消费':r.type==='refund'?'退款':r.type==='deduct'?'扣减':r.type==='withdraw'?'提现':r.type }}</span>
+<span class="text-[16px] font-bold" :style="r.amount>=0?{color:'#17A34A'}:{color:'#DC2626'}">{{ r.amount<0?'-':(r.amount>0?'+':'') }}Rp {{ Math.abs(r.amount).toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</span>
 </div>
 <div class="flex items-center justify-between">
 <span class="text-[13px] text-[#999]">{{ new Date(r.createdAt).toLocaleString('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).replace(/\//g,'-') }}</span>
 <span class="text-[12px] text-[#999]">余额 <span class="text-[#666] font-medium">Rp {{ r.balanceAfter!=null?r.balanceAfter.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}):'—' }}</span></span>
 </div>
-
 </div>
 </template>
-</div>
-</template>
-</div>
 <div class="h-4"></div>
 </div>
 </div></transition>
@@ -2515,65 +2515,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="login-field flex items-center px-3"><span class="text-[15px] text-[#999] mr-1 shrink-0">Rp</span><input v-model="topupCustom" type="number" class="flex-1 text-[15px]" placeholder="请输入充值金额" style="height:44px" @input="onCustomAmountInput($event)"></div>
 </div>
 </div>
-<button @click="confirmTopup" class="h-12 w-full mt-4 rounded-xl text-white text-[15px] font-semibold cursor-pointer active:opacity-90 transition-opacity flex items-center justify-center" style="background:var(--accent)">确认充值</button>
-</div>
-</div></transition>
-
-<!-- 充值余额流水 -->
-<transition name="sl"><div v-if="showRechargeLedger" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="recharge-ledger-page">
-<div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showRechargeLedger=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="flex-1 text-center text-[17px] font-semibold">充值余额流水</span>
-<div class="w-8 h-8"></div>
-</div>
-<div class="flex-1 overflow-y-auto hide-scroll px-4">
-<div v-if="rechargeLedger.length===0" class="flex flex-col items-center justify-center pt-20">
-<span v-html="luci('wallet','w-12 h-12 text-[#CCC]')" class="mb-4"></span>
-<span class="text-[14px] text-[#999]">暂无流水记录</span>
-</div>
-<div v-else class="mt-3 space-y-2">
-<div v-for="(r,i) in rechargeLedger" :key="i" class="bg-white rounded-xl p-4" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-<div class="flex items-center justify-between mb-2">
-<span class="text-[12px] text-[#999]">{{ r.id }}</span>
-<span class="text-[13px] font-semibold" :style="r.amount>=0?{color:'#17A34A'}:{color:'#DC2626'}">{{ r.amount>=0?'+':'' }}{{ r.amount.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</span>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-[13px] text-[#111] font-medium">{{ r.type==='recharge'?'充值':r.type==='consume'?'消费':r.type==='refund'?'退款':r.type }}</span>
-<span class="text-[11px] text-[#999]">{{ new Date(r.createdAt).toLocaleString('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).replace(/\//g,'-') }}</span>
-</div>
-<div v-if="r.remark" class="text-[12px] text-[#999] mt-1">{{ r.remark }}</div>
-</div>
-</div>
-<div class="h-4"></div>
-</div>
-</div></transition>
-
-<!-- 赠送余额流水 -->
-<transition name="sl"><div v-if="showBonusLedger" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="bonus-ledger-page">
-<div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showBonusLedger=false"><span v-html="luci('chevron-left','w-5 h-5')"></span></div>
-<span class="flex-1 text-center text-[17px] font-semibold">赠送余额流水</span>
-<div class="w-8 h-8"></div>
-</div>
-<div class="flex-1 overflow-y-auto hide-scroll px-4">
-<div v-if="bonusLedger.length===0" class="flex flex-col items-center justify-center pt-20">
-<span v-html="luci('gift','w-12 h-12 text-[#CCC]')" class="mb-4"></span>
-<span class="text-[14px] text-[#999]">暂无流水记录</span>
-</div>
-<div v-else class="mt-3 space-y-2">
-<div v-for="(r,i) in bonusLedger" :key="i" class="bg-white rounded-xl p-4" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-<div class="flex items-center justify-between mb-2">
-<span class="text-[12px] text-[#999]">{{ r.id }}</span>
-<span class="text-[13px] font-semibold" :style="r.amount>=0?{color:'#FF6A00'}:{color:'#DC2626'}">{{ r.amount>=0?'+':'' }}{{ r.amount.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</span>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-[13px] text-[#111] font-medium">{{ r.type==='recharge'?'充值':r.type==='deduct'?'扣减':r.type==='consume'?'消费':r.type==='refund'?'退款':r.type }}</span>
-<span class="text-[11px] text-[#999]">{{ new Date(r.createdAt).toLocaleString('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).replace(/\//g,'-') }}</span>
-</div>
-<div v-if="r.remark" class="text-[12px] text-[#999] mt-1">{{ r.remark }}</div>
-</div>
-</div>
-<div class="h-4"></div>
+<button @click="confirmTopup" class="h-12 w-full mt-4 rounded-xl text-white text-[15px] font-semibold cursor-pointer active:opacity-90 transition-opacity flex items-center justify-center" style="background:var(--accent)">充值</button>
 </div>
 </div></transition>
 
@@ -2584,7 +2526,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <aside class="demo-ops is-active">
 <div class="demo-ops-title">原型操作</div>
 <div class="demo-ops-group-hd">功能控制</div>
-<template v-if="tab==='home'&&!showLogin&&!showRent&&!showStore&&!showVehicle&&!showConfirm&&!showOrderDetail&&!showMyOrders&&!showOrderList&&!profileOV&&!profileSub&&!profileMod&&!showVehicleDetail&&!showBatteryDetail&&!scanning&&!showManualVin&&!showFindPage&&!showTrackPage&&!showWallet&&!showTopup&&!showRechargeLedger&&!showBonusLedger">
+<template v-if="tab==='home'&&!showLogin&&!showRent&&!showStore&&!showVehicle&&!showConfirm&&!showOrderDetail&&!showMyOrders&&!showOrderList&&!profileOV&&!profileSub&&!profileMod&&!showVehicleDetail&&!showBatteryDetail&&!scanning&&!showManualVin&&!showFindPage&&!showTrackPage&&!showWallet&&!showTopup">
 
 <div class="demo-ops-section">
 <div class="demo-ops-label">登录状态</div>
@@ -2669,7 +2611,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div>
 </div>
 </template>
-<template v-if="showWallet&&!showTopup&&!showWalletLedger&&!showRechargeLedger&&!showBonusLedger">
+<template v-if="showWallet&&!showTopup&&!showWalletLedger">
 
 <div class="demo-ops-section">
 <div class="demo-ops-label">钱包空态</div>
@@ -2762,7 +2704,7 @@ function openBatteryUnbind(){showBatteryUnbind.value=true}
 function closeBatteryUnbind(){showBatteryUnbind.value=false}
 function confirmBatteryUnbind(){if(batteryUnbindLoading.value)return;batteryUnbindLoading.value=true;setTimeout(()=>{homeBatteries.value.splice(currentBatteryIdx.value,1);batteryUnbindLoading.value=false;showBatteryUnbind.value=false;showBatteryDetail.value=false;toast('设备已解绑','success');if(homeBatteries.value.length===0)homeDevSeg.value='vehicles'},800)}
 const demoActive=computed(()=>{
-  if(scanning.value||showManualVin.value||showBatteryDetail.value||showFindPage.value||showTrackPage.value||showWallet.value||showTopup.value||showRechargeLedger.value||showBonusLedger.value)return false;
+  if(scanning.value||showManualVin.value||showBatteryDetail.value||showFindPage.value||showTrackPage.value||showWallet.value||showTopup.value)return false;
   const t=tab.value;
   return (t==='home'&&!showLogin.value&&!showRent.value&&!showStore.value&&!showVehicle.value&&!showConfirm.value&&!showOrderDetail.value&&!showMyOrders.value&&!showOrderList.value&&!profileOV.value&&!profileSub.value&&!profileMod.value)
   ||(showRent.value&&!showStore.value&&!showVehicle.value&&!showConfirm.value&&!showOrderDetail.value&&t!=='profile'&&t!=='vehicles')
@@ -3121,7 +3063,6 @@ function openIdPicker(kind,sh){idPickerKind.value=kind;idPickerSH.value=sh;showI
 function pickIdSource(src){const label=src==='camera'?'模拟拍照':'模拟相册';if(idPickerSH.value==='reupload'){if(src==='camera'||src==='album'){toast(label+'：已替换当前图片','success');doIdReupload()}}else{if(src==='camera'||src==='album'){toast(label+'：已选中一张图片','success');commitIdPhoto()}}showIdPicker.value=false}
 function commitIdPhoto(){const arr=idPickerKind.value==='driver'?driverPhotos.value:idPhotos.value;if(arr.length>=2){toast('最多上传2张','warn');return}arr.push({id:Date.now()+'-'+(Math.random().toString(36).slice(2,7)),time:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-'),kind:idPickerKind.value});if(idPickerKind.value==='driver'){driverPhotos.value=[...arr];driverPhotoErr.value=''}else{idPhotos.value=[...arr];idPhotoErr.value=''}}
 function openIdMore(kind,idx){idActionTarget.value={kind,idx};showIdAction.value=true}
-function idActionView(){const t=idActionTarget.value;if(!t)return;const arr=t.kind==='driver'?driverPhotos.value:idPhotos.value;idPreviewItem.value=arr[t.idx];showIdAction.value=false;showIdPreview.value=true}
 function openIdPreview(kind,idx){const arr=kind==='driver'?driverPhotos.value:idPhotos.value;idPreviewItem.value=arr[idx];showIdPreview.value=true}
 function idActionReupload(){const t=idActionTarget.value;if(!t)return;showIdAction.value=false;idPickerKind.value=t.kind;openIdPicker(t.kind,'reupload')}
 function doIdReupload(){const idx=idActionTarget.value.idx;const kind=idActionTarget.value.kind;const arr=kind==='driver'?driverPhotos.value:idPhotos.value;if(arr[idx]){arr[idx]={id:Date.now()+'-'+(Math.random().toString(36).slice(2,7)),time:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-'),kind}}if(kind==='driver')driverPhotos.value=[...arr];else idPhotos.value=[...arr];idActionTarget.value=null}
@@ -3205,8 +3146,8 @@ function nextPwdVerify(){if(!(pwdCode.value||'').trim()){toast(MSG.codeRequired,
 function doResetPwd(){const a=(npwd.value||'').trim(),b=(npwd2.value||'').trim();if(!a){toast(MSG.pwdRequired,'warn');return}if(!b){toast(MSG.confirmRequired,'warn');return}if(a.length<6||a.length>64){toast(MSG.pwdLen,'warn');return}if(!/^[!-~]{6,64}$/.test(a)){toast(MSG.pwdChars,'warn');return}if(a!==b){toast(MSG.confirmMismatch,'warn');return}showRentLoading.value=true;setTimeout(function(){showRentLoading.value=false;hasPwd.value=true;toast('密码已更新','success');clearInterval(pwdTmr);pwdCd.value=0;pwdCode.value='';npwd.value='';npwd2.value='';profileSub.value=null},600)}
 
 const showVersionCheck=ref(false),hasNewVersion=ref(false),latestVersion=ref('V1.30.0'),updateDesc=ref(''),updating=ref(0),appExited=ref(false);
-const showWallet=ref(false),showWalletLedger=ref(false),showTopup=ref(false),showRechargeLedger=ref(false),showBonusLedger=ref(false),walletBalanceVisible=ref(true);
-const walletAccount=ref({activeStoreId:null,wallets:{'雅迪电动车(双流区雅和北路店)':{rechargeBalance:250000,bonusBalance:50000,rechargeFrozen:0,bonusFrozen:0,totalBalance:300000,totalFrozen:0,lastUpdated:new Date().toISOString(),opened:true},'雅迪电动车(锦江区春熙路店)':{rechargeBalance:80000,bonusBalance:20000,rechargeFrozen:0,bonusFrozen:0,totalBalance:100000,totalFrozen:0,lastUpdated:new Date().toISOString(),opened:true},'雅迪电动车(武侯区磨子桥店)':{rechargeBalance:0,bonusBalance:0,rechargeFrozen:0,bonusFrozen:0,totalBalance:0,totalFrozen:0,lastUpdated:new Date().toISOString(),opened:false},'雅迪电动车(高新区天府大道店)':{rechargeBalance:0,bonusBalance:0,rechargeFrozen:0,bonusFrozen:0,totalBalance:0,totalFrozen:0,lastUpdated:new Date().toISOString(),opened:false}}});
+const showWallet=ref(false),showWalletLedger=ref(false),showTopup=ref(false),walletBalanceVisible=ref(true);
+const walletAccount=ref({activeStoreId:'雅迪电动车(双流区雅和北路店)',wallets:{'雅迪电动车(双流区雅和北路店)':{rechargeBalance:250000,bonusBalance:50000,rechargeFrozen:0,bonusFrozen:0,totalBalance:300000,totalFrozen:0,lastUpdated:new Date().toISOString(),opened:true},'雅迪电动车(锦江区春熙路店)':{rechargeBalance:80000,bonusBalance:20000,rechargeFrozen:0,bonusFrozen:0,totalBalance:100000,totalFrozen:0,lastUpdated:new Date().toISOString(),opened:true},'雅迪电动车(武侯区磨子桥店)':{rechargeBalance:0,bonusBalance:0,rechargeFrozen:0,bonusFrozen:0,totalBalance:0,totalFrozen:0,lastUpdated:new Date().toISOString(),opened:false},'雅迪电动车(高新区天府大道店)':{rechargeBalance:0,bonusBalance:0,rechargeFrozen:0,bonusFrozen:0,totalBalance:0,totalFrozen:0,lastUpdated:new Date().toISOString(),opened:false}}});
 const walletActive=computed(()=>walletAccount.value.activeStoreId&&walletAccount.value.wallets[walletAccount.value.activeStoreId]||null);
 const walletLedgerActive=computed(()=>walletAccount.value.activeStoreId?walletLedger.value.filter(r=>r.storeId===walletAccount.value.activeStoreId):[]);
 const walletStorePick=ref(false);
@@ -3216,19 +3157,26 @@ const walletOpenedStores=computed(()=>Object.keys(walletAccount.value.wallets).f
 function walletSwitchStore(n){walletAccount.value.activeStoreId=n;walletStoreSheet.value=false}
 function storeInfoOf(name){return storeList.find(x=>x.name===name)||{addr:''}}
 function ensureWalletOpened(name){if(walletAccount.value.wallets[name]){walletAccount.value.wallets[name].opened=true}else{walletAccount.value.wallets[name]={rechargeBalance:0,bonusBalance:0,rechargeFrozen:0,bonusFrozen:0,totalBalance:0,totalFrozen:0,lastUpdated:new Date().toISOString(),opened:true}}}
-const rechargeLedger=ref([{id:'RC20250601001',type:'recharge',amount:100000,balanceAfter:250000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2025-06-01T10:00:00Z'},{id:'RC20250601002',type:'consume',amount:-50000,balanceAfter:150000,relatedOrder:'YZ20250601001',operator:'系统',remark:'租金支付',createdAt:'2025-06-01T14:00:00Z'},{id:'RC20250528001',type:'refund',amount:50000,balanceAfter:200000,relatedOrder:'YZ20250528001',operator:'系统',remark:'订单退款',createdAt:'2025-05-28T16:00:00Z'},{id:'RC20250520001',type:'recharge',amount:200000,balanceAfter:150000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2025-05-20T09:00:00Z'}]);
-const bonusLedger=ref([{id:'BN20250615001',type:'recharge',amount:50000,balanceAfter:50000,relatedOrder:null,operator:'运营',remark:'新用户注册赠送',createdAt:'2025-06-15T08:00:00Z'},{id:'BN20250610001',type:'consume',amount:-10000,balanceAfter:0,relatedOrder:'YZ20250610001',operator:'系统',remark:'租金抵扣',createdAt:'2025-06-10T12:00:00Z'}]);const walletLedger=ref([{id:'WL260828001',type:'recharge',amount:30000,balanceAfter:250000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-08-28T14:20:00'},{id:'WL260824001',type:'recharge',amount:50000,balanceAfter:220000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-08-24T10:15:00'},{id:'WL260813001',type:'recharge',amount:10000,balanceAfter:50000,relatedOrder:null,operator:'运营',remark:'活动赠送',createdAt:'2026-08-13T09:00:00'},{id:'WL260806001',type:'consume',amount:-10000,balanceAfter:200000,relatedOrder:'YZ20260806001',operator:'系统',remark:'租金支付',createdAt:'2026-08-06T15:30:00'},{id:'WL260801001',type:'recharge',amount:50000,balanceAfter:210000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-08-01T11:20:00'},{id:'WL260725001',type:'consume',amount:-30000,balanceAfter:160000,relatedOrder:'YZ20260725001',operator:'系统',remark:'租金支付',createdAt:'2026-07-25T17:40:00'},{id:'WL260719001',type:'consume',amount:-10000,balanceAfter:40000,relatedOrder:null,operator:'系统',remark:'赠送余额抵扣',createdAt:'2026-07-19T12:10:00'},{id:'WL260712001',type:'recharge',amount:50000,balanceAfter:50000,relatedOrder:null,operator:'运营',remark:'新用户注册赠送',createdAt:'2026-07-12T08:00:00'},{id:'WL260708001',type:'recharge',amount:50000,balanceAfter:190000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-07-08T14:50:00'},{id:'WL260620001',type:'consume',amount:-50000,balanceAfter:150000,relatedOrder:'YZ20260620001',operator:'系统',remark:'租金支付',createdAt:'2026-06-20T10:05:00'},{id:'WL260610001',type:'recharge',amount:200000,balanceAfter:200000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-06-10T09:00:00'}]);walletLedger.value.forEach(function(r){if(!r.storeId)r.storeId='雅迪电动车(双流区雅和北路店)'});walletLedger.value.push({id:'WL265180001',type:'consume',amount:-20000,balanceAfter:60000,relatedOrder:'YZ20260518001',operator:'系统',remark:'租金支付',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-05-18T15:00:00'},{id:'WL265120001',type:'recharge',amount:50000,balanceAfter:80000,relatedOrder:null,operator:'当前账号',remark:'用户充值',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-05-12T10:30:00'},{id:'WL264220001',type:'recharge',amount:20000,balanceAfter:20000,relatedOrder:null,operator:'运营',remark:'新用户注册赠送',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-04-22T08:00:00'});
+const rechargeLedger=ref([{id:'RC20250601001',type:'recharge',amount:100000,balanceAfter:250000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2025-06-01T10:00:00Z'},{id:'RC20250601002',type:'consume',amount:-50000,balanceAfter:150000,relatedOrder:'YZ20250601001',operator:'系统',remark:'租金支付',createdAt:'2025-06-01T14:00:00Z'},{id:'RC20250528001',type:'refund',amount:50000,balanceAfter:200000,relatedOrder:'YZ20250528001',operator:'系统',remark:'订单退款',createdAt:'2025-05-28T16:00:00Z'},{id:'RC20250510001',type:'withdraw',amount:-30000,balanceAfter:120000,relatedOrder:null,operator:'当前账号',remark:'余额提现',createdAt:'2025-05-10T11:00:00Z'},{id:'RC20250520001',type:'recharge',amount:200000,balanceAfter:150000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2025-05-20T09:00:00Z'}]);
+const bonusLedger=ref([{id:'BN20250615001',type:'recharge',amount:50000,balanceAfter:50000,relatedOrder:null,operator:'运营',remark:'新用户注册赠送',createdAt:'2025-06-15T08:00:00Z'},{id:'BN20250610001',type:'consume',amount:-10000,balanceAfter:0,relatedOrder:'YZ20250610001',operator:'系统',remark:'租金抵扣',createdAt:'2025-06-10T12:00:00Z'},{id:'BN20250605001',type:'refund',amount:5000,balanceAfter:45000,relatedOrder:'YZ20250605001',operator:'系统',remark:'赠送余额退款',createdAt:'2025-06-05T14:00:00Z'},{id:'BN20250601001',type:'deduct',amount:-8000,balanceAfter:40000,relatedOrder:null,operator:'系统',remark:'赠送扣减',createdAt:'2025-06-01T10:00:00Z'}]);const walletLedger=ref([{id:'WL260828001',type:'recharge',amount:30000,balanceAfter:250000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-08-28T14:20:00'},{id:'WL260824001',type:'recharge',amount:50000,balanceAfter:220000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-08-24T10:15:00'},{id:'WL260815001',type:'refund',amount:20000,balanceAfter:230000,relatedOrder:'YZ20260815001',operator:'系统',remark:'订单退款',createdAt:'2026-08-15T15:00:00'},{id:'WL260810001',type:'withdraw',amount:-30000,balanceAfter:210000,relatedOrder:null,operator:'当前账号',remark:'余额提现',createdAt:'2026-08-10T10:00:00'},{id:'WL260813001',type:'recharge',amount:10000,balanceAfter:50000,relatedOrder:null,operator:'运营',remark:'活动赠送',createdAt:'2026-08-13T09:00:00'},{id:'WL260807001',type:'refund',amount:5000,balanceAfter:45000,relatedOrder:'YZ20260807001',operator:'系统',remark:'赠送余额退款',createdAt:'2026-08-07T14:00:00'},{id:'WL260802001',type:'deduct',amount:-8000,balanceAfter:40000,relatedOrder:null,operator:'系统',remark:'赠送扣减',createdAt:'2026-08-02T10:00:00'},{id:'WL260806001',type:'consume',amount:-10000,balanceAfter:200000,relatedOrder:'YZ20260806001',operator:'系统',remark:'租金支付',createdAt:'2026-08-06T15:30:00'},{id:'WL260801001',type:'recharge',amount:50000,balanceAfter:210000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-08-01T11:20:00'},{id:'WL260725001',type:'consume',amount:-30000,balanceAfter:160000,relatedOrder:'YZ20260725001',operator:'系统',remark:'租金支付',createdAt:'2026-07-25T17:40:00'},{id:'WL260719001',type:'consume',amount:-10000,balanceAfter:40000,relatedOrder:null,operator:'系统',remark:'赠送余额抵扣',createdAt:'2026-07-19T12:10:00'},{id:'WL260712001',type:'recharge',amount:50000,balanceAfter:50000,relatedOrder:null,operator:'运营',remark:'新用户注册赠送',createdAt:'2026-07-12T08:00:00'},{id:'WL260708001',type:'recharge',amount:50000,balanceAfter:190000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-07-08T14:50:00'},{id:'WL260620001',type:'consume',amount:-50000,balanceAfter:150000,relatedOrder:'YZ20260620001',operator:'系统',remark:'租金支付',createdAt:'2026-06-20T10:05:00'},{id:'WL260610001',type:'recharge',amount:200000,balanceAfter:200000,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:'2026-06-10T09:00:00'}]);walletLedger.value.forEach(function(r){if(!r.storeId)r.storeId='雅迪电动车(双流区雅和北路店)'});walletLedger.value.push({id:'WL265180001',type:'consume',amount:-20000,balanceAfter:60000,relatedOrder:'YZ20260518001',operator:'系统',remark:'租金支付',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-05-18T15:00:00'},{id:'WL265130001',type:'refund',amount:10000,balanceAfter:70000,relatedOrder:'YZ20260513001',operator:'系统',remark:'订单退款',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-05-13T11:00:00'},{id:'WL265110001',type:'withdraw',amount:-15000,balanceAfter:55000,relatedOrder:null,operator:'当前账号',remark:'余额提现',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-05-11T10:00:00'},{id:'WL265120001',type:'recharge',amount:50000,balanceAfter:80000,relatedOrder:null,operator:'当前账号',remark:'用户充值',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-05-12T10:30:00'},{id:'WL265070001',type:'consume',amount:-5000,balanceAfter:15000,relatedOrder:null,operator:'系统',remark:'赠送余额抵扣',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-05-07T12:00:00'},{id:'WL265040001',type:'refund',amount:3000,balanceAfter:20000,relatedOrder:'YZ20250504001',operator:'系统',remark:'赠送余额退款',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-05-04T14:00:00'},{id:'WL265010001',type:'deduct',amount:-2000,balanceAfter:18000,relatedOrder:null,operator:'系统',remark:'赠送扣减',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-05-01T10:00:00'},{id:'WL264220001',type:'recharge',amount:20000,balanceAfter:20000,relatedOrder:null,operator:'运营',remark:'新用户注册赠送',storeId:'雅迪电动车(锦江区春熙路店)',createdAt:'2026-04-22T08:00:00'});
 
 const topupAmount=ref(0),topupCustom=ref(''),topupShowCustom=ref(false),walletTopupAmounts=[50000,100000,200000,500000];
 const walletTopupBonus={50000:0,100000:20000,200000:50000,500000:150000};
 
 var walletPtrInit=false;function openWallet(){showWallet.value=true;walletStorePick.value=false;if(!walletAccount.value.activeStoreId&&currentOrder.value&&currentOrder.value.store&&walletAccount.value.wallets[currentOrder.value.store]){walletAccount.value.activeStoreId=currentOrder.value.store}nextTick(()=>{if(!walletPtrInit){initPullToRefresh('sc-wallet','ptr-wallet',refreshWallet);walletPtrInit=true}})}
-function refreshWallet(){setTimeout(()=>{},800)}function openWalletLedger(){showWalletLedger.value=true;walletLedgerTab.value='recharge'}
+function refreshWallet(){setTimeout(()=>{},800)}function openWalletLedger(){showWalletLedger.value=true;walletLedgerTab.value='recharge';walletLedgerTxn.value=''}
 const walletLedgerTab=ref('recharge');const walletLedgerMonthOpen=ref({});
-function setWalletLedgerTab(t){walletLedgerTab.value=t}
+const walletLedgerTxnEnum={
+  recharge:[{v:'',l:'全部'},{v:'recharge',l:'充值'},{v:'consume',l:'消费'},{v:'refund',l:'退款'},{v:'withdraw',l:'提现'}],
+  bonus:[{v:'',l:'全部'},{v:'recharge',l:'充值'},{v:'consume',l:'消费'},{v:'refund',l:'退款'},{v:'deduct',l:'扣减'}]
+};
+const walletLedgerTxnOpts=computed(()=>walletLedgerTxnEnum[walletLedgerTab.value]||walletLedgerTxnEnum.recharge);const walletLedgerTxn=ref('');
+function setWalletLedgerTab(t){walletLedgerTab.value=t;walletLedgerTxn.value=''}
 function toggleWalletLedgerMonth(k){walletLedgerMonthOpen.value[k]=!walletLedgerMonthOpen.value[k]}
-function wlMonthKey(iso){const d=new Date(iso);return d.getFullYear()+'-'+(d.getMonth()+1)}
-const walletLedgerGroups=computed(()=>{const base=walletLedgerActive.value;const list=walletLedgerTab.value==='bonus'?base.filter(r=>/(赠送)/.test(r.remark||'')):base.filter(r=>!(/(赠送)/.test(r.remark||'')));const order=[],map={};list.forEach(r=>{const k=wlMonthKey(r.createdAt);if(!map[k]){map[k]={key:k,label:(new Date(r.createdAt).getMonth()+1)+'月',items:[]};order.push(map[k])}map[k].items.push(r)});order.forEach(g=>{if(walletLedgerMonthOpen.value[g.key]===undefined)walletLedgerMonthOpen.value[g.key]=true});return order});
+function groupLedgerByMonth(list){const order=[],map={};list.forEach(r=>{const d=new Date(r.createdAt);const k=d.getFullYear()+'-'+(d.getMonth()+1);if(!map[k]){map[k]={key:k,label:d.getFullYear()+'年'+(d.getMonth()+1)+'月',items:[]};order.push(map[k])}map[k].items.push(r)});order.sort((a,b)=>b.key<a.key?-1:b.key>a.key?1:0);order.forEach(g=>{if(walletLedgerMonthOpen.value[g.key]===undefined)walletLedgerMonthOpen.value[g.key]=true});return order}
+const walletLedgerList=computed(()=>{const base=walletLedgerActive.value;let list=walletLedgerTab.value==='bonus'?base.filter(r=>/(赠送)/.test(r.remark||'')):base.filter(r=>!(/(赠送)/.test(r.remark||'')));if(walletLedgerTxn.value)list=list.filter(r=>r.type===walletLedgerTxn.value);return list.slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt))});
+const rechargeLedgerGroups=computed(()=>groupLedgerByMonth(rechargeLedger.value));
+const bonusLedgerGroups=computed(()=>groupLedgerByMonth(bonusLedger.value));
 function openTopup(){showTopup.value=true;topupAmount.value=0;topupCustom.value='';topupShowCustom.value=false}
 function selectTopupAmount(amt){topupAmount.value=amt;topupCustom.value=String(amt);topupShowCustom.value=false}
 function onCustomAmountInput(e){const el=e.target;let raw=el.value;if(raw.indexOf('.')>=0){const parts=raw.split('.');if(parts[1]&&parts[1].length>2){el.value=parts[0]+'.'+parts[1].slice(0,2);raw=el.value}topupCustom.value=raw}const v=parseFloat(raw);topupAmount.value=walletTopupAmounts.includes(v)?v:0}
@@ -3257,7 +3205,7 @@ function goUpdate(){updating.value=1;setTimeout(function(){updating.value=2;toas
 function exitApp(){showVersionCheck.value=false;appExited.value=true}
 function relaunchApp(){appExited.value=false}
 function selectLang(id){appLang.value=id;profileSub.value=null}
-function doLogout(){profileMod.value=null;profileOV.value=null;profileSub.value=null;dialPickerSource.value=null;resetLoginForm();loggedIn.value=false;showLogin.value=false;showRent.value=false;showStore.value=false;showVehicle.value=false;showConfirm.value=false;showOrderDetail.value=false;showMyOrders.value=false;showOrderList.value=false;showRefundList.value=false;showConfirmDocs.value=false;showDocSheet.value=false;docDeleteMod.value=false;previewImage.value=null;docText.value='';confirmDocs.value=[];idInfoList.value=[];showIdInfoSheet.value=false;idPhotos.value=[];driverPhotos.value=[];showIdAction.value=false;showIdPreview.value=false;showIdPicker.value=false;idActionTarget.value=null;showWallet.value=false;showTopup.value=false;showRechargeLedger.value=false;showBonusLedger.value=false;walletAccount.value.activeStoreId=null;stopOrderTimer();tab.value='home';toast('已退出登录','info')}
+function doLogout(){profileMod.value=null;profileOV.value=null;profileSub.value=null;dialPickerSource.value=null;resetLoginForm();loggedIn.value=false;showLogin.value=false;showRent.value=false;showStore.value=false;showVehicle.value=false;showConfirm.value=false;showOrderDetail.value=false;showMyOrders.value=false;showOrderList.value=false;showRefundList.value=false;showConfirmDocs.value=false;showDocSheet.value=false;docDeleteMod.value=false;previewImage.value=null;docText.value='';confirmDocs.value=[];idInfoList.value=[];showIdInfoSheet.value=false;idPhotos.value=[];driverPhotos.value=[];showIdAction.value=false;showIdPreview.value=false;showIdPicker.value=false;idActionTarget.value=null;showWallet.value=false;showTopup.value=false;walletAccount.value.activeStoreId=null;stopOrderTimer();tab.value='home';toast('已退出登录','info')}
 const profileMdT=computed(()=>{if(profileMod.value==='logout')return'退出登录';return''});
 const profileMdD=computed(()=>{if(profileMod.value==='logout')return'确定要退出当前账号吗？退出后需重新登录。';return''});
 const profileMdDanger=computed(()=>profileMod.value==='logout');
@@ -3273,7 +3221,7 @@ function refreshVd(){setTimeout(()=>{},800)}
 function refreshBd(){setTimeout(()=>{},800)}
 var rentPtrInit=false;function openRent(){showRent.value=true;nextTick(()=>{if(!rentPtrInit){initPullToRefresh('sc-rent','ptr-rent',refreshRent);rentPtrInit=true}})}
 onMounted(()=>{initPullToRefresh('sc-home','ptr-home',refreshHome);setInterval(()=>{homeBannerIdx.value=(homeBannerIdx.value+1)%homeBanners.length},4000)});
-return{tab,toasts,toast,copyText,setTab,luci,weatherScene,weatherData,demoActive,mapCtx,showFindPage,showTrackPage,locLoading,locRinging,locFocus,locAddressFull,locAddressShort,locDistM,locWalkMin,locVehPt,locUserPt,openFindPage,openFindPageBattery,closeFindPage,locFocusUser,locFocusVehicle,locRingDevice,locOpenNav,trackStartLabel,trackEndLabel,trackLoading,trackPoints,trackPolyline,trackStartPt,trackEndPt,trackPois,trackTimePicker,openTrackPage,openTrackPageBattery,closeTrackPage,openTrackTimePicker,cancelTrackTimePicker,confirmTrackTimePicker,trackDraft,trackDays,trackMonths,trackYears,trackHours,trackMins,p2u,trackWheelDay,trackWheelMonth,trackWheelYear,trackWheelHour,trackWheelMin,onTrackWheelScroll,vehicles,vehicleCount,setVehicleCount,vehicleSource,setVehicleSource,opLock,opHorn,myVehicleIdx,showVehiclePicker,currentVehicle,toggleVehiclePicker,selectMyVehicle,openMyVehicleFromHome,openVehicleDetail,closeVehicleDetail,openVNameEdit,closeVNameEdit,saveVNameEdit,vNameLoading,openUnbindConfirm,closeUnbindConfirm,confirmUnbind,pushNotify,showPushNotify,renewNotifyTemplates,unbindLoading,showVehicleDetail,showUnbindConfirm,showVNameEdit,vNameInput,vNameError,locked,lockLoading,toggleLock,hornLoading,sendHorn,openMyCarOrder,currentOrder,refreshHome,refreshRent,openRent,loggedIn,pendingRoute,appLang,appLangLabel,langOptions,showLogin,loginView,loginMode,loginSub,loginDial,loginPhone,loginEmail,loginAccount,loginPwd,loginCode,loginPwdVisible,loginAgree,loginCd,dialQ,dialFiltered,showDialPicker,activeDialCode,closeDialPicker,canSendCode,canLogin,loginOpenLang,selectLangFromLogin,openDialCode,pickDial,setLoginMode,setLoginSub,sendLoginCode,doLogin,openLogin,profileOV,profileSub,profileMod,profileModLoading,hasPhone,hasEmail,hasPwd,boundPhone,boundEmail,bpArea,bpPhone,bpCode,bpCd,beEmail,beCode,beCd,openBindPhone,openBindEmail,sendBpCode,doBindPhone,sendBeCode,doBindEmail,pwdChannel,pwdCode,pwdCd,npwd,npwd2,npwdVis,npwd2Vis,canConfirmPwd,openPwdFlow,switchPwdChannel,sendPwdCode,nextPwdVerify,doResetPwd,checkVersion,goUpdate,exitApp,relaunchApp,scanning,doScan,scanTorch,manualVin,showManualVin,scanCtx,openManualInput,confirmManualVin,scanBindMode,scanBindDevice,vdDevice,bdDevice,showBindConfirm,bindConfirmLoading,openBindConfirm,closeBindConfirm,confirmBind,homeDevSeg,homeBatteries,bSocColor,batteryAdd,showBatteryDetail,currentBattery,openBatteryDetail,openBatteryOrder,closeBatteryDetail,openBatteryUnbind,closeBatteryUnbind,confirmBatteryUnbind,showBatteryUnbind,batteryUnbindLoading,showVersionCheck,hasNewVersion,latestVersion,updateDesc,updating,appExited,selectLang,doLogout,profileMdT,profileMdD,profileMdDanger,profileMdOk,showRent,rentBannerIdx,rentBanners,showRentLoading,homeBannerIdx,homeBanners,showDatePicker,rentDateIdx,dateOptions,rentDateLabel,selectDate,showPeriodPicker,rentPeriodIdx,periodOptions,rentPeriodLabel,periodUnit,selectPeriod,showStore,storeSearch,storeFiltered,storeListEmpty,selectStore,openStore,searchStore,selectedStore,showVehicle,vehicleList,vehicleListEmpty,rentNow,showConfirm,selectedVehicle,confRentDays,confTotal,confTotalDays,confDurationLabel,confPeriodDetail,orderPlanDisplay,confTab,confPayType,cancelRules,noticeRules,billingRules,overdueRules,confAddDays,confSubDays,confirmOrder,confTotal,confDeposit,confGrandTotal,confPickupDate,confReturnDate,confPickupISO,confReturnISO,showOrderDetail,orderDetailBack,showRefundList,openRefundList,refundRecords,confirmDocs,autoRenew,uploadIdEnabled,showConfirmDocs,showDocSheet,docSheetTab,docText,docImageTypes,docDeleteMod,docDeleteTarget,previewImage,openDocSheet,addDocImage,addDocText,requestDeleteDoc,confirmDeleteDoc,showCancelModal,idInfoList,showIdInfoSheet,idInfoTypes,idInfoCount,openIdInfoSheet,idName,idEditingId,openIdAdd,openIdEditRecord,deleteIdRecord,idCardNo,driverNo,idPhotos,driverPhotos,idDetailRec,openIdDetail,openIdDetailPreview,idNameErr,idCardErr,driverErr,idPhotoErr,driverPhotoErr,idActionTarget,openIdEditRecord,deleteIdRecord,showIdDelete,idDeleteTarget,openIdDelete,confirmIdDelete,idSelectMode,confirmIdInfo,openIdSelect,closeIdSelect,confirmIdSelect,showIdAction,idPickerSource,showIdPreview,idPreviewItem,showIdPicker,idPickerKind,idPickerSH,maskNo,maskNoFull,submitIdInfo,openIdPicker,pickIdSource,commitIdPhoto,openIdMore,idActionView,idActionReupload,doIdReupload,idActionDelete,openIdPreview,cancelLoading,orderCountdown,orderCountdownText,orderDetailTab,cancelOrder,goToPay,orderInfo,startOrderTimer,stopOrderTimer,showMyOrders,showOrderList,orderListCategory,currentOrderList,orderListEmpty,openOrderCategory,openMyOrders,openOrderDetailFromList,orderFilter,orderFilterTabs,orderFilterMap,setOrderFilter,relocateRent,payChannel,setPayChannel,cancelBeforePay,setCancelBeforePay,delDocLoading,showWallet,showWalletLedger,showTopup,showRechargeLedger,showBonusLedger,walletBalanceVisible,walletAccount,walletActive,walletLedgerActive,walletStorePick,pickStoreForWallet,walletStoreSheet,walletOpenedStores,walletSwitchStore,storeInfoOf,ensureWalletOpened,walletLedger,walletLedgerTab,walletLedgerGroups,walletLedgerMonthOpen,setWalletLedgerTab,toggleWalletLedgerMonth,rechargeLedger,bonusLedger,topupAmount,topupCustom,topupShowCustom,walletTopupAmounts,walletTopupBonus,openWallet,openWalletLedger,openTopup,selectTopupAmount,confirmTopup,onCustomAmountInput};
+return{tab,toasts,toast,copyText,setTab,luci,weatherScene,weatherData,demoActive,mapCtx,showFindPage,showTrackPage,locLoading,locRinging,locFocus,locAddressFull,locAddressShort,locDistM,locWalkMin,locVehPt,locUserPt,openFindPage,openFindPageBattery,closeFindPage,locFocusUser,locFocusVehicle,locRingDevice,locOpenNav,trackStartLabel,trackEndLabel,trackLoading,trackPoints,trackPolyline,trackStartPt,trackEndPt,trackPois,trackTimePicker,openTrackPage,openTrackPageBattery,closeTrackPage,openTrackTimePicker,cancelTrackTimePicker,confirmTrackTimePicker,trackDraft,trackDays,trackMonths,trackYears,trackHours,trackMins,p2u,trackWheelDay,trackWheelMonth,trackWheelYear,trackWheelHour,trackWheelMin,onTrackWheelScroll,vehicles,vehicleCount,setVehicleCount,vehicleSource,setVehicleSource,opLock,opHorn,myVehicleIdx,showVehiclePicker,currentVehicle,toggleVehiclePicker,selectMyVehicle,openMyVehicleFromHome,openVehicleDetail,closeVehicleDetail,openVNameEdit,closeVNameEdit,saveVNameEdit,vNameLoading,openUnbindConfirm,closeUnbindConfirm,confirmUnbind,pushNotify,showPushNotify,renewNotifyTemplates,unbindLoading,showVehicleDetail,showUnbindConfirm,showVNameEdit,vNameInput,vNameError,locked,lockLoading,toggleLock,hornLoading,sendHorn,openMyCarOrder,currentOrder,refreshHome,refreshRent,openRent,loggedIn,pendingRoute,appLang,appLangLabel,langOptions,showLogin,loginView,loginMode,loginSub,loginDial,loginPhone,loginEmail,loginAccount,loginPwd,loginCode,loginPwdVisible,loginAgree,loginCd,dialQ,dialFiltered,showDialPicker,activeDialCode,closeDialPicker,canSendCode,canLogin,loginOpenLang,selectLangFromLogin,openDialCode,pickDial,setLoginMode,setLoginSub,sendLoginCode,doLogin,openLogin,profileOV,profileSub,profileMod,profileModLoading,hasPhone,hasEmail,hasPwd,boundPhone,boundEmail,bpArea,bpPhone,bpCode,bpCd,beEmail,beCode,beCd,openBindPhone,openBindEmail,sendBpCode,doBindPhone,sendBeCode,doBindEmail,pwdChannel,pwdCode,pwdCd,npwd,npwd2,npwdVis,npwd2Vis,canConfirmPwd,openPwdFlow,switchPwdChannel,sendPwdCode,nextPwdVerify,doResetPwd,checkVersion,goUpdate,exitApp,relaunchApp,scanning,doScan,scanTorch,manualVin,showManualVin,scanCtx,openManualInput,confirmManualVin,scanBindMode,scanBindDevice,vdDevice,bdDevice,showBindConfirm,bindConfirmLoading,openBindConfirm,closeBindConfirm,confirmBind,homeDevSeg,homeBatteries,bSocColor,batteryAdd,showBatteryDetail,currentBattery,openBatteryDetail,openBatteryOrder,closeBatteryDetail,openBatteryUnbind,closeBatteryUnbind,confirmBatteryUnbind,showBatteryUnbind,batteryUnbindLoading,showVersionCheck,hasNewVersion,latestVersion,updateDesc,updating,appExited,selectLang,doLogout,profileMdT,profileMdD,profileMdDanger,profileMdOk,showRent,rentBannerIdx,rentBanners,showRentLoading,homeBannerIdx,homeBanners,showDatePicker,rentDateIdx,dateOptions,rentDateLabel,selectDate,showPeriodPicker,rentPeriodIdx,periodOptions,rentPeriodLabel,periodUnit,selectPeriod,showStore,storeSearch,storeFiltered,storeListEmpty,selectStore,openStore,searchStore,selectedStore,showVehicle,vehicleList,vehicleListEmpty,rentNow,showConfirm,selectedVehicle,confRentDays,confTotal,confTotalDays,confDurationLabel,confPeriodDetail,orderPlanDisplay,confTab,confPayType,cancelRules,noticeRules,billingRules,overdueRules,confAddDays,confSubDays,confirmOrder,confTotal,confDeposit,confGrandTotal,confPickupDate,confReturnDate,confPickupISO,confReturnISO,showOrderDetail,orderDetailBack,showRefundList,openRefundList,refundRecords,confirmDocs,autoRenew,uploadIdEnabled,showConfirmDocs,showDocSheet,docSheetTab,docText,docImageTypes,docDeleteMod,docDeleteTarget,previewImage,openDocSheet,addDocImage,addDocText,requestDeleteDoc,confirmDeleteDoc,showCancelModal,idInfoList,showIdInfoSheet,idInfoTypes,idInfoCount,openIdInfoSheet,idName,idEditingId,openIdAdd,openIdEditRecord,deleteIdRecord,idCardNo,driverNo,idPhotos,driverPhotos,idDetailRec,openIdDetail,openIdDetailPreview,idNameErr,idCardErr,driverErr,idPhotoErr,driverPhotoErr,idActionTarget,openIdEditRecord,deleteIdRecord,showIdDelete,idDeleteTarget,openIdDelete,confirmIdDelete,idSelectMode,confirmIdInfo,openIdSelect,closeIdSelect,confirmIdSelect,showIdAction,idPickerSource,showIdPreview,idPreviewItem,showIdPicker,idPickerKind,idPickerSH,maskNo,maskNoFull,submitIdInfo,openIdPicker,pickIdSource,commitIdPhoto,openIdMore,idActionReupload,doIdReupload,idActionDelete,openIdPreview,cancelLoading,orderCountdown,orderCountdownText,orderDetailTab,cancelOrder,goToPay,orderInfo,startOrderTimer,stopOrderTimer,showMyOrders,showOrderList,orderListCategory,currentOrderList,orderListEmpty,openOrderCategory,openMyOrders,openOrderDetailFromList,orderFilter,orderFilterTabs,orderFilterMap,setOrderFilter,relocateRent,payChannel,setPayChannel,cancelBeforePay,setCancelBeforePay,delDocLoading,showWallet,showWalletLedger,showTopup,walletBalanceVisible,walletAccount,walletActive,walletLedgerActive,walletStorePick,pickStoreForWallet,walletStoreSheet,walletOpenedStores,walletSwitchStore,storeInfoOf,ensureWalletOpened,walletLedger,walletLedgerTab,walletLedgerList,walletLedgerMonthOpen,setWalletLedgerTab,toggleWalletLedgerMonth,rechargeLedger,bonusLedger,topupAmount,topupCustom,topupShowCustom,walletTopupAmounts,walletTopupBonus,openWallet,openWalletLedger,openTopup,selectTopupAmount,confirmTopup,onCustomAmountInput,walletLedgerTxn,walletLedgerTxnOpts};
 }
 });
 function initPullToRefresh(containerId,indicatorId,onRefresh){var c=document.getElementById(containerId),i=document.getElementById(indicatorId);if(!c||!i)return;var sy=0,pull=false,active=false;
