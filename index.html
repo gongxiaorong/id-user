@@ -1744,7 +1744,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 <div class="bg-white rounded-2xl p-4 mb-3" :class="(orderInfo.status==='created'||orderInfo.status==='pickup')?'cursor-pointer active:bg-[#F6F7F9]':''" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="od-docs-entry" @click="(orderInfo.status==='created'||orderInfo.status==='pickup')&&openIdSelect()">
 <div class="flex items-center justify-between mb-2.5">
-<div class="text-[14px] font-semibold text-[#111]"><span v-if="uploadIdEnabled" class="mr-0.5" style="color:#DC2626">*</span>实名信息</div>
+<div class="text-[14px] font-semibold text-[#111]">实名信息</div>
 <div v-if="orderInfo.status==='created'||orderInfo.status==='pickup'" class="flex items-center gap-1 text-[12px]" style="color:var(--link)"><span class="leading-none">{{ confirmIdInfo?'更换':'请选择' }}</span><span class="inline-flex items-center justify-center w-3.5 h-3.5 shrink-0" style="transform:translateY(1.5px)"><span v-html="luci('chevron-right','w-3.5 h-3.5')"></span></span></div>
 </div>
 <template v-if="confirmIdInfo">
@@ -1761,6 +1761,16 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="text-[12px] text-[#999] mt-0.5">{{ confirmDocs.length ? confirmDocs.length+' 份' : '可上传驾照、身份证、合同等' }}</div>
 </div>
 <span v-html="luci('chevron-right','w-4 h-4 text-[#999] shrink-0')"></span>
+</div>
+</div>
+
+<div v-if="orderInfo.status==='created'||orderInfo.status==='pickup'" class="bg-white rounded-2xl p-4 mb-3 flex items-center justify-between" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="od-autorenew">
+<div class="flex-1 min-w-0 pr-3">
+<div class="text-[14px] font-semibold text-[#111]">自动续租</div>
+<div class="text-[12px] text-[#999] mt-0.5">续租费用从钱包自动扣除</div>
+</div>
+<div class="relative w-11 h-6 rounded-full transition-colors duration-200 cursor-pointer shrink-0" :class="autoRenew?'bg-[#2B3F5F]':'bg-[#E5E5E5]'" @click="autoRenew=!autoRenew" data-od-id="autorenew-switch">
+<div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200" :class="autoRenew?'translate-x-5':''"></div>
 </div>
 </div>
 

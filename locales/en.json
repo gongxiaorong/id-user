@@ -23,7 +23,8 @@
     "phoneMode": "Phone Login",
     "phonePlaceholder": "Enter phone number",
     "privacyPolicy": "Privacy Policy",
-    "autoRegisterHint": "Unregistered accounts will be registered automatically"
+    "autoRegisterHint": "Unregistered accounts will be registered automatically",
+    "emailCodePlaceholder": "Please enter the email verification code"
   },
   "home": {
     "alertFilterProcessing": "Processing",
@@ -314,7 +315,8 @@
     "currentBound": "Currently bound: {value}",
     "newPwdPlaceholder": "Enter a new password (6-64 characters)",
     "phoneVerify": "Phone Verification",
-    "switchLang": "Switch Language"
+    "switchLang": "Switch Language",
+    "emailAddressPlaceholder": "Please enter your email address"
   },
   "version": {
     "appExited": "Application exited",
@@ -424,7 +426,9 @@
   "idInfo": {
     "title": "Document Info",
     "materialUploaded": "Materials uploaded",
-    "notUploaded": "Not uploaded"
+    "notUploaded": "Not uploaded",
+    "namePlaceholder": "Please enter your name",
+    "idNoPlaceholder": "Please enter the ID number"
   },
   "scan": {
     "qrHint": "Align the QR code with the frame"
@@ -464,6 +468,7 @@
     "typeRecharge": "Recharge",
     "typeRefund": "Refund",
     "typeWithdraw": "Withdrawal",
-    "withdraw": "Withdraw"
+    "withdraw": "Withdraw",
+    "topupAmountPlaceholder": "Please enter the top-up amount"
   }
 }

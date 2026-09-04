@@ -23,7 +23,8 @@
     "phoneMode": "手机号登录",
     "phonePlaceholder": "请输入手机号",
     "privacyPolicy": "用户隐私政策",
-    "autoRegisterHint": "未注册的账号将会自动注册"
+    "autoRegisterHint": "未注册的账号将会自动注册",
+    "emailCodePlaceholder": "请输入邮箱验证码"
   },
   "home": {
     "alertFilterProcessing": "处理中...",
@@ -314,7 +315,8 @@
     "currentBound": "当前已绑定：{value}",
     "newPwdPlaceholder": "请输入 6–64 位新密码",
     "phoneVerify": "手机号验证",
-    "switchLang": "切换语言"
+    "switchLang": "切换语言",
+    "emailAddressPlaceholder": "请输入邮箱地址"
   },
   "version": {
     "appExited": "应用已退出",
@@ -424,7 +426,9 @@
   "idInfo": {
     "title": "证件信息",
     "materialUploaded": "资料已上传",
-    "notUploaded": "未上传"
+    "notUploaded": "未上传",
+    "namePlaceholder": "请输入姓名",
+    "idNoPlaceholder": "请输入证件号码"
   },
   "scan": {
     "qrHint": "请将二维码对准取景框"
@@ -464,6 +468,7 @@
     "typeRecharge": "充值",
     "typeRefund": "退款",
     "typeWithdraw": "提现",
-    "withdraw": "提现"
+    "withdraw": "提现",
+    "topupAmountPlaceholder": "请输入充值金额"
   }
 }

@@ -23,7 +23,8 @@
     "phoneMode": "Masuk dengan Nomor Ponsel",
     "phonePlaceholder": "Masukkan nomor ponsel",
     "privacyPolicy": "Kebijakan Privasi",
-    "autoRegisterHint": "Akun yang belum terdaftar akan didaftarkan otomatis"
+    "autoRegisterHint": "Akun yang belum terdaftar akan didaftarkan otomatis",
+    "emailCodePlaceholder": "Masukkan kode verifikasi email"
   },
   "home": {
     "alertFilterProcessing": "Diproses",
@@ -314,7 +315,8 @@
     "currentBound": "Saat ini terikat: {value}",
     "newPwdPlaceholder": "Masukkan kata sandi baru (6-64 karakter)",
     "phoneVerify": "Verifikasi Nomor Ponsel",
-    "switchLang": "Ganti Bahasa"
+    "switchLang": "Ganti Bahasa",
+    "emailAddressPlaceholder": "Masukkan alamat email"
   },
   "version": {
     "appExited": "Aplikasi telah keluar",
@@ -424,7 +426,9 @@
   "idInfo": {
     "title": "Info Dokumen",
     "materialUploaded": "Materi diunggah",
-    "notUploaded": "Belum diunggah"
+    "notUploaded": "Belum diunggah",
+    "namePlaceholder": "Masukkan nama",
+    "idNoPlaceholder": "Masukkan nomor dokumen"
   },
   "scan": {
     "qrHint": "Arahkan kode QR ke bingkai"
@@ -464,6 +468,7 @@
     "typeRecharge": "Isi Ulang",
     "typeRefund": "Pengembalian Dana",
     "typeWithdraw": "Penarikan",
-    "withdraw": "Tarik Tunai"
+    "withdraw": "Tarik Tunai",
+    "topupAmountPlaceholder": "Masukkan jumlah isi ulang"
   }
 }

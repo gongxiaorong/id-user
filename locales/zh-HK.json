@@ -23,7 +23,8 @@
     "phoneMode": "手機號登入",
     "phonePlaceholder": "請輸入手機號",
     "privacyPolicy": "隱私政策",
-    "autoRegisterHint": "未註冊的帳號將會自動註冊"
+    "autoRegisterHint": "未註冊的帳號將會自動註冊",
+    "emailCodePlaceholder": "請輸入郵箱驗證碼"
   },
   "home": {
     "alertFilterProcessing": "處理中",
@@ -314,7 +315,8 @@
     "currentBound": "當前已綁定：{value}",
     "newPwdPlaceholder": "請輸入 6–64 位新密碼",
     "phoneVerify": "手機號驗證",
-    "switchLang": "切換語言"
+    "switchLang": "切換語言",
+    "emailAddressPlaceholder": "請輸入郵箱地址"
   },
   "version": {
     "appExited": "應用已退出",
@@ -424,7 +426,9 @@
   "idInfo": {
     "title": "證件資訊",
     "materialUploaded": "資料已上傳",
-    "notUploaded": "未上傳"
+    "notUploaded": "未上傳",
+    "namePlaceholder": "請輸入姓名",
+    "idNoPlaceholder": "請輸入證件號碼"
   },
   "scan": {
     "qrHint": "請將二維碼對準取景框"
@@ -464,6 +468,7 @@
     "typeRecharge": "充值",
     "typeRefund": "退款",
     "typeWithdraw": "提現",
-    "withdraw": "提現"
+    "withdraw": "提現",
+    "topupAmountPlaceholder": "請輸入充值金額"
   }
 }
