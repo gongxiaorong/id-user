@@ -3454,9 +3454,7 @@ el.addEventListener('touchstart',function(e){var t=this;var tp=e.touches[0];pres
 el.addEventListener('touchmove',function(e){var tp=e.touches[0];go(tp.clientX,tp.clientY)},{passive:true});
 el.addEventListener('touchend',function(e){clearTimeout(pressT);end();this._panning=false},{passive:true});
 el.addEventListener('click',function(e){if(this._panning&&moved){e.preventDefault();e.stopPropagation()}},true)}});
-app.config.errorHandler=function(err,instance,info){console.log('VH_STACK='+(err&&err.stack?err.stack:'?'));console.log('VH_INFO='+info);};
-try{app.mount('#app');}catch(e){console.log('MOUNT_THROW='+(e&&e.stack?e.stack:e));}
-window.app=app;console.log('MOUNT_OK_v13');
+app.mount('#app');
 </script>
 </body>
 </html>
