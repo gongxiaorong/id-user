@@ -60,6 +60,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 .demo-ops-chip{padding:6px 10px;border-radius:8px;font-size:11px;font-weight:500;cursor:pointer;border:1px solid #E5E5E5;background:#fff;color:#666;transition:background .15s,border-color .15s,color .15s,opacity .15s;user-select:none}
 .demo-ops-chip:hover{background:#F6F7F9}
 .demo-ops-chip.is-on{background:#2F6FEB;border-color:#2F6FEB;color:#fff}
+.demo-ops-chip.is-on-warn{background:#FF6A00;border-color:#FF6A00;color:#fff}
 .demo-ops-chip.is-off{opacity:.55;text-decoration:line-through}
 .demo-ops-section+.demo-ops-section{margin-top:4px;padding-top:12px;border-top:1px solid #E5E5E5}
 .demo-ops-group-hd{font-size:13px;font-weight:700;color:#111;margin:14px 0 8px;padding-bottom:6px;border-bottom:1px solid #E5E5E5}
@@ -171,7 +172,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="flex-1 min-w-0" data-page-node-id="YCLuGGiFIhMXn1yNc7Qtrm">
 <div class="flex items-center justify-between" data-page-node-id="9HBYxIQXnypJLYr3PBKNPB">
 <span class="push-title" data-page-node-id="B0uvW8ipNgNWeH3yIKzmWJ">{{ pushNotify.title }}</span>
-<span class="push-time" data-page-node-id="q63Ausfn4GNz869xH5rzNA">现在</span>
+<span class="push-time" data-page-node-id="q63Ausfn4GNz869xH5rzNA">{{ pushNotify.time }}</span>
 </div>
 <div class="push-body" data-page-node-id="cCfVYQaYXFlFF18knU4INe">{{ pushNotify.body }}</div>
 </div>
@@ -208,7 +209,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <!-- 登录主界面 -->
 <div v-show="loginView==='main'" class="flex-1 flex flex-col min-h-0 bg-[#F6F7F9]" data-page-node-id="2IvqQyPs0BVcb1TN3olfR4">
 <div class="pt-14 px-5 pb-1 flex items-center justify-between shrink-0" data-page-node-id="21OineCQrn9xELlxWCPLbe">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showLogin=false" data-od-id="login-close-btn" data-page-node-id="YQZG8VCAglT5fxqPWoe8ec"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="XdmnBRE1mymAw0s9z9EHeF"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-od-id="login-close-btn" data-page-node-id="YQZG8VCAglT5fxqPWoe8ec"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="XdmnBRE1mymAw0s9z9EHeF"></span></div>
 <button type="button" class="login-lang-chip" @click="loginOpenLang" data-od-id="login-lang-btn" data-page-node-id="6pd5dqNPDfggw2oiqrB2Fp">
 <span class="text-[#6B6B6B]" v-html="luci('globe','w-3.5 h-3.5')" data-page-node-id="fSQOdJAZCl27SQT1RsfRXz"></span>
 <span class="truncate" data-page-node-id="HRgU44lvaihUdEmXs4FgOK">{{ appLangLabel }}</span>
@@ -375,7 +376,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl" data-page-node-id="rViRQMOvaTbG5rAYnCvEEE"><div v-if="showRent" class="absolute inset-0 z-[1850] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="rent-page" data-page-node-id="LPSijM8VFeBK4kJXriCyO8">
 
 <div class="pt-14 px-4 pb-1 flex items-center justify-between shrink-0" style="background:#fff;border-bottom:1px solid #E5E5E5" data-page-node-id="t6GmGGLmnAaYWnyzmY4Yt1">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showRent=false" data-od-id="rent-back-btn" data-page-node-id="V4NTCBtkTuyqjEkx3vy4xC"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="Gzbismnh4qacH7Wga22Y9W"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-od-id="rent-back-btn" data-page-node-id="V4NTCBtkTuyqjEkx3vy4xC"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="Gzbismnh4qacH7Wga22Y9W"></span></div>
 <span class="text-[17px] font-bold" data-page-node-id="7WuIHcKw9UYDDgejWG3DmC">车辆租赁</span>
 <div class="w-8 h-8" data-page-node-id="QrVxB0Js8o4T76lGpaX1dB"></div>
 </div>
@@ -468,7 +469,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 <transition name="sl" data-page-node-id="SQUZQMwFhm25UPIIAR3GoG"><div v-if="showStore" class="absolute inset-0 z-[1860] bg-[#F6F7F9] flex flex-col overflow-hidden" :style="walletStorePick?{zIndex:1910}:{}" data-od-id="store-page" data-page-node-id="vMQtHQVMcjUPbPoBvLpi8a">
 <div class="pt-14 px-4 pb-2 bg-white flex items-center gap-3 shrink-0" style="box-shadow:0 1px 3px rgba(0,0,0,.04)" data-page-node-id="KSjOsVKEoHsYX1VL91OagT">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="walletStorePick=false;showStore=false" data-page-node-id="xGQPPIt8LEFbpqPTEizZ22"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="BcSLNroGKKOt9SeAXHFuyC"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="xGQPPIt8LEFbpqPTEizZ22"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="BcSLNroGKKOt9SeAXHFuyC"></span></div>
 <span class="text-[16px] font-bold flex-1 text-center pr-8" data-page-node-id="OpcRTv801J8F6LFtWqdwLD">选择门店</span>
 </div>
 <div class="px-4 py-3 shrink-0" data-page-node-id="eF0mBtfXSlkExZi7aNm0Ob">
@@ -500,7 +501,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 <transition name="sl" data-page-node-id="1xmCsecazXVzlO5iQLnSPb"><div v-if="showVehicle" class="absolute inset-0 z-[1870] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="vehicle-page" data-page-node-id="zNJMsGmHKWBzdvEHVN5iro">
 <div class="pt-14 px-4 pb-2 bg-white flex items-center gap-3 shrink-0" style="box-shadow:0 1px 3px rgba(0,0,0,.04)" data-page-node-id="CFZmV2khAgY9elOkH8Lma2">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showVehicle=false;showStore=true" data-page-node-id="TKMTvUjGyWvNtP5Un7Wxfd"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="nrPvtuZ2bwEK9Y7cRD4RYs"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="TKMTvUjGyWvNtP5Un7Wxfd"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="nrPvtuZ2bwEK9Y7cRD4RYs"></span></div>
 <span class="text-[16px] font-bold flex-1 text-center pr-8" data-page-node-id="tgrjn2NV8pqXRqjA7OWpbO">选择方案</span>
 </div>
 <div class="flex-1 overflow-y-auto min-h-0 hide-scroll px-4 pb-10" style="touch-action:pan-y;-webkit-overflow-scrolling:touch" data-page-node-id="2FqtQ6H4FBIVmxBIFiEy7O">
@@ -585,7 +586,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 <transition name="sl" data-page-node-id="BTh6zbyzypvnKh9B4fcq22"><div v-if="showConfirm" class="absolute inset-0 z-[1880] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="confirm-page" data-page-node-id="jLupaMHFo6NiEdMOd4MZOP">
 <div class="pt-14 px-5 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-page-node-id="NgeobWSOEjFU0WnEdmGFJ6">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showConfirm=false" data-page-node-id="HnryvJWXnUewvmIfl8w2Ra"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="KnCJfigQ3rqemIca0j4D1X"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="HnryvJWXnUewvmIfl8w2Ra"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="KnCJfigQ3rqemIca0j4D1X"></span></div>
 <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="qaKCT2nEgGYeuY7Gi1keXE">订单确认</span>
 <div class="w-8 h-8" data-page-node-id="e90nGfJ7DbGs15F0Uw1naS"></div>
 </div>
@@ -943,7 +944,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl" data-page-node-id="1U50Oc64IuBXiTZbf4BF39">
 <div v-if="showVehicleDetail" class="absolute inset-0 z-[1890] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="vehicle-detail-page" data-page-node-id="oIgjrgfa27llSOp6LED5rz">
   <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-od-id="vd-navbar" data-page-node-id="iBmjkujSp0scr8bUkxG2Nv">
-    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="closeVehicleDetail" data-page-node-id="czrLRTsSFU71IT8q4KZnXh"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="MFn65VTFcG8Kz5AGMimuAC"></span></div>
+    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="czrLRTsSFU71IT8q4KZnXh"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="MFn65VTFcG8Kz5AGMimuAC"></span></div>
     <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="Tgxxl3BAWEpiFHVOqw3Kax">车辆详情</span>
     <div class="w-8 h-8" data-page-node-id="WmP0urvxwju3nCgQGJa3fx"></div>
   </div>
@@ -1057,7 +1058,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl" data-page-node-id="TbbEAEm2NovtN7V4WIL3fU">
 <div v-if="showBatteryDetail" class="absolute inset-0 z-[1890] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="battery-detail-page" data-page-node-id="C7jmLKPhv1ReJ5BxK6yRJx">
   <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-od-id="bd-navbar" data-page-node-id="fHXiz8rtNxpZH1b837aAQZ">
-    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="closeBatteryDetail" data-page-node-id="iIydblR9rGOsR3hedV8hVN"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="5mdAOvzl3HQEfUZl2riln4"></span></div>
+    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="iIydblR9rGOsR3hedV8hVN"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="5mdAOvzl3HQEfUZl2riln4"></span></div>
     <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="aEOw1ix6qdfxveXa3OETQi">电池详情</span>
     <div class="w-8 h-8" data-page-node-id="ZYS0k8urENuf0q9RAcJHlw"></div>
   </div>
@@ -1140,9 +1141,9 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 <!-- 设备当前位置页（复用商户端车辆定位页） -->
 <transition name="sl" data-page-node-id="wlSEHuGN4M8CwUr8VoMARJ">
-<div v-if="showFindPage" v-swipe-close="closeFindPage" class="absolute inset-0 bg-[#F6F7F9] z-[1890] flex flex-col overflow-hidden" data-od-id="find-page" data-page-node-id="nqEDOOAFGpS7uTWMCOfDyB">
+<div v-if="showFindPage" v-swipe-close="navBack" class="absolute inset-0 bg-[#F6F7F9] z-[1890] flex flex-col overflow-hidden" data-od-id="find-page" data-page-node-id="nqEDOOAFGpS7uTWMCOfDyB">
 <div class="flex items-center pt-14 px-4 pb-3 bg-white shrink-0" style="border-bottom:1px solid #E5E5E5" data-od-id="find-nav" data-page-node-id="YgauLajUsgzaJaGqIlzmzG">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="closeFindPage" data-page-node-id="WhVgPetcBeGG3G29uAZwEb"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="2gwOEpGH4XFn8unJD1PSjw"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="WhVgPetcBeGG3G29uAZwEb"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="2gwOEpGH4XFn8unJD1PSjw"></span></div>
 <div class="flex-1 text-center text-[17px] font-semibold mr-8 truncate px-1" data-od-id="find-title" data-page-node-id="Pq1EGnCsVqd2x4v1WJYFDr">当前位置</div>
 </div>
 <div class="flex-1 min-h-0 relative track-map overflow-hidden" data-od-id="find-map" data-page-node-id="qPt3n1nq9G8ShnD9fvBZDo">
@@ -1197,9 +1198,9 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 <!-- 设备轨迹页（复用商户端车辆轨迹页） -->
 <transition name="sl" data-page-node-id="qG3Ci0nuF1ZqnXcDa4f6Nj">
-<div v-if="showTrackPage" v-swipe-close="closeTrackPage" class="absolute inset-0 bg-[#F6F7F9] z-[1890] flex flex-col overflow-hidden" data-od-id="track-page" data-page-node-id="lT1ZdRfj7rPt05ubqSIVHU">
+<div v-if="showTrackPage" v-swipe-close="navBack" class="absolute inset-0 bg-[#F6F7F9] z-[1890] flex flex-col overflow-hidden" data-od-id="track-page" data-page-node-id="lT1ZdRfj7rPt05ubqSIVHU">
 <div class="flex items-center pt-14 px-4 pb-3 bg-white shrink-0" style="border-bottom:1px solid #E5E5E5" data-page-node-id="2HuXbPAGr0MFRW4pO5tnyT">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="closeTrackPage" data-page-node-id="wOlI2HeUNeHBRqAXPeFSJX"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="LwOpJ2wpPasGaiyZKCDFYP"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="wOlI2HeUNeHBRqAXPeFSJX"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="LwOpJ2wpPasGaiyZKCDFYP"></span></div>
 <div class="flex-1 text-center text-[17px] font-semibold mr-8" data-page-node-id="J8Bid5CD1FaO7sdWD9cBzW">历史轨迹</div>
 </div>
 <div class="bg-white px-4 py-3 shrink-0 flex items-center gap-2" style="border-bottom:1px solid #E5E5E5" data-od-id="track-time-bar" data-page-node-id="UAOEJvp5bXcebYH2fyWCKA">
@@ -1330,11 +1331,11 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style="background:linear-gradient(145deg,#FF6A00 0%,#E55A00 100%);box-shadow:0 4px 12px rgba(255,106,0,.25)" data-page-node-id="5UyMBkF6ZjeMNULRjRp5fD">
 <span v-html="luci('bike','w-6 h-6 text-white')" data-page-node-id="lYaa6pgksmwOAag2qVrIkd"></span>
 </div>
-<div @click="profileOV='info'" class="flex-1 min-w-0 flex items-center gap-1.5 cursor-pointer active:opacity-70" data-page-node-id="IRx4Zq05bDpHqCXFyVJfL9">
+<div @click="navOpen('ovInfo')" class="flex-1 min-w-0 flex items-center gap-1.5 cursor-pointer active:opacity-70" data-page-node-id="IRx4Zq05bDpHqCXFyVJfL9">
 <span class="text-[16px] font-bold truncate" data-page-node-id="XQZV5hYRpLiBCP0eyPtE9V">User71970</span>
 <span v-html="luci('chevron-right','w-4 h-4 text-[#999]')" data-page-node-id="71UzRVKUzbMqOZDWxPy1Q7"></span>
 </div>
-<div @click="profileOV='settings'" class="w-9 h-9 flex items-center justify-center cursor-pointer active:bg-[#F0F0F0] rounded-full shrink-0" data-od-id="profile-settings" data-page-node-id="13yCysryZVCDr10uWVH7Gm">
+<div @click="navOpen('ovSettings')" class="w-9 h-9 flex items-center justify-center cursor-pointer active:bg-[#F0F0F0] rounded-full shrink-0" data-od-id="profile-settings" data-page-node-id="13yCysryZVCDr10uWVH7Gm">
 <span v-html="luci('settings','w-5 h-5 text-[#666]')" data-page-node-id="laRXpys5SS2LkJzYvTcmjE"></span>
 </div>
 </div>
@@ -1379,9 +1380,9 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div></transition>
 
   
-  <transition name="sl" data-page-node-id="BGuWchDSX964zEo5EqrP9W"><div v-if="profileOV==='info'" v-swipe-close="()=>profileOV=null" class="absolute inset-0 bg-[#F6F7F9] z-[500] flex flex-col">
+  <transition name="sl" data-page-node-id="BGuWchDSX964zEo5EqrP9W"><div v-if="profileOV==='info'" v-swipe-close="navBack" class="absolute inset-0 bg-[#F6F7F9] z-[500] flex flex-col">
   <div class="flex items-center pt-14 px-4 pb-3 bg-white shrink-0" style="border-bottom:1px solid #E5E5E5" data-page-node-id="UReo3vWmxb7XGjUABLH2lN">
-  <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="profileOV=null" data-page-node-id="AC0IM7Hji4WsLVUDyrgLfy"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="Qn0HGjGZBdztg5hq8krGKC"></span></div>
+  <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="AC0IM7Hji4WsLVUDyrgLfy"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="Qn0HGjGZBdztg5hq8krGKC"></span></div>
   <div class="flex-1 text-center text-[17px] font-semibold mr-8" data-page-node-id="UZRIyYKaIZeNz8kBNfnBIB">个人信息</div>
   </div>
   <div class="flex-1 overflow-y-auto px-5 pt-4 pb-10 hid" data-page-node-id="2q2ionmtVMNohvM3PYdKB7">
@@ -1417,7 +1418,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
     </div>
   </div>
   <div class="bg-white rounded-xl overflow-hidden mt-3" style="border:1px solid #E5E5E5" data-od-id="profile-id-entry" data-page-node-id="GDETHCsvvmjrQhaUyWLeHw">
-    <div class="flex items-center px-4 py-4 cursor-pointer active:bg-[#F6F7F9]" @click="profileSub='idInfo'" data-page-node-id="RH2afvpFVSajeld1GM32VY">
+    <div class="flex items-center px-4 py-4 cursor-pointer active:bg-[#F6F7F9]" @click="navOpen('subIdInfo')" data-page-node-id="RH2afvpFVSajeld1GM32VY">
       <span class="flex-1 text-[15px] text-[#666]" data-page-node-id="RFERu5QW9MdyAMUcF54BEY">实名信息</span>
       <span class="text-[15px] font-medium mr-1" :class="idInfoCount?'text-[#222]':'text-[#999]'" data-page-node-id="3WtXhlS6HHGl6TcLEf7ONZ">{{ idInfoCount?idInfoCount+' 份':'未上传' }}</span>
       <span v-html="luci('chevron-right','w-4 h-4 text-[#999]')" data-page-node-id="ynd4B4sLm0JWIVojmu3C91"></span>
@@ -1428,7 +1429,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
     <transition name="sl" data-page-node-id="2ixsY07cJpsL40uwV6QN4r"><div v-if="profileSub==='pwdVerify'" class="absolute inset-0 bg-[#F6F7F9] z-[600] flex flex-col" data-od-id="pwd-verify-page" data-page-node-id="aXPHYvuEc8boCwqwhFgso1">
       <div class="flex items-center pt-14 px-4 pb-3 bg-white shrink-0" style="border-bottom:1px solid #E5E5E5" data-page-node-id="V1oow5qU3y8UIIE6OU0xM9">
-        <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="profileSub=null" data-page-node-id="ypXOkObVd2ye1d8cfdgtHz"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="I0mvJoYc3dHjSgJWNApFin"></span></div>
+        <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="ypXOkObVd2ye1d8cfdgtHz"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="I0mvJoYc3dHjSgJWNApFin"></span></div>
         <div class="flex-1 text-center text-[17px] font-semibold mr-8" data-page-node-id="6QMPsDlu2o6EVfddtwmFI9">修改密码</div>
       </div>
       <div class="px-4 pt-4 flex-1 overflow-y-auto flex flex-col" data-page-node-id="J9QvAS7Z8mBasnTc4dMs5f">
@@ -1472,7 +1473,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 <transition name="sl" data-page-node-id="QM56ivjFNImwaKGX0BdpUZ"><div v-if="showMyOrders" class="absolute inset-0 z-[1885] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="my-orders-page" data-page-node-id="2Y4uhScn5XDsZr1BJF3bdK">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white" data-page-node-id="fftwVjB3rBHso4KpL88ELV">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showMyOrders=false" data-page-node-id="J5rNBbBjcj1mVYKfYfVrIi"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="8I2yHZ8xBaDzBU6HU9bHvG"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="J5rNBbBjcj1mVYKfYfVrIi"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="8I2yHZ8xBaDzBU6HU9bHvG"></span></div>
 <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="vM1ZzQbHzlG7DnHoaIKNOH">我的订单</span>
 <span class="w-8 h-8" data-page-node-id="vMP42SM9Re3NQM53EQziC2"></span>
 </div>
@@ -1508,7 +1509,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 <transition name="sl" data-page-node-id="CJvWFQFyIdyBMigZy8DsNm"><div v-if="showOrderList" class="absolute inset-0 z-[1886] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="order-list-page" data-page-node-id="VGS8m7TAdgoPuJJFigJmjl">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white" data-page-node-id="QcI6K4qtsHzJhgQBGEaf3j">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showOrderList=false;showMyOrders=true" data-page-node-id="SVJEHIHaSEY3gZG304HmkP"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="i8RlVx1kqmDm1v2Bjxev0n"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="SVJEHIHaSEY3gZG304HmkP"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="i8RlVx1kqmDm1v2Bjxev0n"></span></div>
 <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="jaC1XpZ6yHDjw12GHzZcoB">订单列表</span>
 <span class="w-8 h-8" data-page-node-id="DMIgwPusAjIBAq2iq7uiry"></span>
 </div>
@@ -1546,7 +1547,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 <transition name="sl" data-page-node-id="CXqpxALOlss4K6I3OOh1JM"><div v-if="showRefundList" class="absolute inset-0 z-[1895] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="refund-list-page" data-page-node-id="EI9HuQFhpqu8nSzGu6UEHC">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-page-node-id="foazVKEINSFVEDwqgk9G5X">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showRefundList=false" data-page-node-id="0RbhljBFcTI2qiKcFycgjK"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="g6q49AfJURzCLJnEEFOp50"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="0RbhljBFcTI2qiKcFycgjK"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="g6q49AfJURzCLJnEEFOp50"></span></div>
 <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="2QeYMJXHkzFcbvuGx9CNdk">退款记录</span>
 <span class="w-8 h-8" data-page-node-id="ew3PChvr4UQ0zP5JI3z6Bz"></span>
 </div>
@@ -1587,7 +1588,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 <transition name="sl" data-page-node-id="zQsRrT7id3tx60IyaAf74G"><div v-if="showConfirmDocs" class="absolute inset-0 z-[1896] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="confirm-docs-page" data-page-node-id="6mTQbmJl047jVCs2Yvorbi">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-page-node-id="xMUPdY4cmB1T1CbrRUtfnY">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showConfirmDocs=false" data-page-node-id="8ijkFFVsWPHBC3xAwTHsEl"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="H5WJ18p6SvTf4PqPXEvzpx"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="8ijkFFVsWPHBC3xAwTHsEl"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="H5WJ18p6SvTf4PqPXEvzpx"></span></div>
 <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="ICxf1J9FGFXxqNlzP6qTlt">补充资料</span>
 <span class="w-8 h-8" data-page-node-id="sWC0mexWKTZ6M7xzdwzltc"></span>
 </div>
@@ -1595,7 +1596,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div v-if="confirmDocs.length===0" class="flex flex-col items-center justify-center py-20 px-6 text-center" data-page-node-id="ODhuL3MAmouILZh5puerdj">
 <div class="w-14 h-14 rounded-full flex items-center justify-center mb-3" style="background:#F6F7F9;border:1px solid #E5E5E5" data-page-node-id="h5C0GGw1GtIpC6st3m2DCn"><span v-html="luci('file-plus','w-7 h-7 text-[#999]')" data-page-node-id="OS9IZG1J8tYppUjqwhElYf"></span></div>
 <div class="text-[15px] font-semibold text-[#111] mb-1" data-page-node-id="ahs2upYtv3FnIl8oauK7aK">暂无资料</div>
-<div v-if="orderInfo.status==='created'||orderInfo.status==='pickup'" class="text-[13px] text-[#999]" data-page-node-id="EZfhEIgQFAZnWCaCBBtbAH">可上传驾照、身份证、合同等</div>
+<div v-if="orderInfo.status==='created'||orderInfo.status==='pickup'" class="text-[13px] text-[#999]" data-page-node-id="EZfhEIgQFAZnWCaCBBtbAH">可上传身份证、驾驶证、合同等</div>
 <div v-else class="text-[13px] text-[#999]" data-page-node-id="FhFnvAqXXPpxK3YJZisjbV">当前订单状态暂不支持上传</div>
 </div>
 <template v-else data-page-node-id="JAQMjjVpXVnkRtdAVJwvtR">
@@ -1677,7 +1678,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 <transition name="sl" data-page-node-id="0SPfSTKdy9asKE5FGvbfJi"><div v-if="showOrderDetail" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="order-detail-page" data-page-node-id="qtYF64tY9nDtie0BpG4r5j">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-page-node-id="3V2VupkvNXwaxQccZpSdVa">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#999] active:bg-[#EBF1FD]" @click="stopOrderTimer();showOrderDetail=false;if(orderDetailBack==='mycar'){tab='vehicles'}else{showOrderList=true}" data-page-node-id="RZhz33oCe6j0JooXh7zNX8"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="Dkyw7LegZlG9AF6KjKy8N3"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#999] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="RZhz33oCe6j0JooXh7zNX8"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="Dkyw7LegZlG9AF6KjKy8N3"></span></div>
 <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="NZ04UNx7wZ4LuspI7SsxUE">订单详情</span>
 <span class="w-8 h-8" data-page-node-id="fCR1J7avO7GgIktE9cOxTJ"></span>
 </div>
@@ -1793,11 +1794,11 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </template>
 <div v-else class="text-[13px] text-[#999]" data-page-node-id="G8goiZKUBkL0b1cqR40JiF">未选择实名信息</div>
 <div class="h-px bg-[#F0F0F0] my-3" data-page-node-id="MwhFqCzuht1GUotgB7ucoi"></div>
-<div class="flex items-center py-1 cursor-pointer active:bg-[#F6F7F9]" @click.stop="showConfirmDocs=true" data-page-node-id="5pUK71d35wc1E0ZYOR3rHF">
+<div class="flex items-center py-1 cursor-pointer active:bg-[#F6F7F9]" @click.stop="navOpen('confirmDocs')" data-page-node-id="5pUK71d35wc1E0ZYOR3rHF">
 <div class="w-10 h-10 rounded-full bg-[#FFF8F3] flex items-center justify-center mr-3 shrink-0" data-page-node-id="1bho60DpzmqcwHBMDJhkQ3"><span v-html="luci('folder-open','w-5 h-5 text-[#FF6A00]')" data-page-node-id="vVQa47Qgl7uk9e0BZQbpjj"></span></div>
 <div class="flex-1 min-w-0" data-page-node-id="2ZDkfGo5CKuVasDqz6xYfA">
 <div class="text-[14px] font-medium text-[#1A1A1A]" data-page-node-id="EKcTJfaahMEIlkLEw7Bb3M">补充资料</div>
-<div class="text-[12px] text-[#999] mt-0.5" data-page-node-id="p7WAykvTmjWWcxd9giSw27">{{ confirmDocs.length ? confirmDocs.length+' 份' : '可上传驾照、身份证、合同等' }}</div>
+<div class="text-[12px] text-[#999] mt-0.5" data-page-node-id="p7WAykvTmjWWcxd9giSw27">{{ confirmDocs.length ? confirmDocs.length+' 份' : '可上传身份证、驾驶证、合同等' }}</div>
 </div>
 <span v-html="luci('chevron-right','w-4 h-4 text-[#999] shrink-0')" data-page-node-id="qKnacL32MoRybPmmNOFMtN"></span>
 </div>
@@ -1808,7 +1809,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div v-if="(orderInfo.status==='created'||orderInfo.status==='progress'||orderInfo.status==='pickup'||orderInfo.status==='return'||orderInfo.status==='overdue'||orderInfo.status==='breach'||orderInfo.status==='complete'||orderInfo.status==='cancelled')&&(orderInfo.category==='车辆租赁'||orderInfo.category==='车电套餐')" class="bg-white rounded-2xl p-4 mb-3" data-od-id="od-vehicle" data-page-node-id="NFFZpcuPif0tS5dinei8Jt">
 <div class="flex items-center justify-between mb-3" data-page-node-id="dtcC2jLgTmROr0QcNJhf2G">
 <span class="text-[14px] font-bold text-[#1A1A1A]" data-page-node-id="weGBUvDx5DwBnEmL5XSbN3">车辆信息</span>
-<span v-if="orderInfo.status==='pickup'" @click="scanCtx='vehicle';scanning=true" class="cursor-pointer text-[var(--link)] active:opacity-70 select-none" v-html="luci('link','w-3.5 h-3.5')" data-page-node-id="4RGnRyBK3GW3TTHz3ltaUg"></span>
+<span v-if="orderInfo.status==='pickup'" @click="scanCtx='vehicle';navOpen('scan')" class="cursor-pointer text-[var(--link)] active:opacity-70 select-none" v-html="luci('link','w-3.5 h-3.5')" data-page-node-id="4RGnRyBK3GW3TTHz3ltaUg"></span>
 </div>
 <div class="text-[13px] space-y-2.5" data-page-node-id="9850II58djgmf2GVoYeR6w">
 <div class="flex items-center gap-2" data-page-node-id="bSAvBPhmA0c8EvrH5tDXCx"><span class="text-[#999] w-16 flex-shrink-0" data-page-node-id="Y6wGE7uqiH3YTLCvMD3iK5">车型</span><span class="flex-1 text-right text-[#333]" data-page-node-id="kPUWWCMlDd8HEPO0yXrExb">{{ orderInfo.vModel || orderInfo.model }}</span></div>
@@ -1820,7 +1821,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div v-if="(orderInfo.status==='created'||orderInfo.status==='progress'||orderInfo.status==='pickup'||orderInfo.status==='return'||orderInfo.status==='overdue'||orderInfo.status==='breach'||orderInfo.status==='complete'||orderInfo.status==='cancelled')&&(orderInfo.category==='电池租赁'||orderInfo.category==='车电套餐')" class="bg-white rounded-2xl p-4 mb-3" data-od-id="od-battery" data-page-node-id="0iiObVS6ioYKU18dcI5Atp">
 <div class="flex items-center justify-between mb-3" data-page-node-id="oYMn7BywmG7kWXGx6b12Sm">
 <span class="text-[14px] font-bold text-[#1A1A1A]" data-page-node-id="rPJDqg7gzGCHLh8UCVylPe">电池信息</span>
-<span v-if="orderInfo.status==='pickup'" @click="scanCtx='battery';scanning=true" class="cursor-pointer text-[var(--link)] active:opacity-70 select-none" v-html="luci('link','w-3.5 h-3.5')" data-page-node-id="4R8yK2M2kPGVUonQ6D3H2p"></span>
+<span v-if="orderInfo.status==='pickup'" @click="scanCtx='battery';navOpen('scan')" class="cursor-pointer text-[var(--link)] active:opacity-70 select-none" v-html="luci('link','w-3.5 h-3.5')" data-page-node-id="4R8yK2M2kPGVUonQ6D3H2p"></span>
 </div>
 <div class="text-[13px] space-y-2.5" data-page-node-id="gKGYXs8hP1qNLm2cT5zqjK">
 <div class="flex items-center gap-2" data-page-node-id="hvqebkMMqYvaSEGYbQu1i5"><span class="text-[#999] w-16 flex-shrink-0" data-page-node-id="OzjPVmTtQ7xtcl2GElUld0">型号</span><span class="flex-1 text-right text-[#333]" data-page-node-id="EYHx9yquA0KLqQ2VftteJh">{{ orderInfo.bModel || orderInfo.model }}</span></div>
@@ -2016,7 +2017,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <!-- 扫码页（次级页面，样式固定） -->
 <transition name="sl" data-page-node-id="QfMXHkH40r1wWKCBWrjHkx"><div v-if="scanning" class="absolute inset-0 z-[1890] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="scan-page" data-page-node-id="fSdpdhQ8B2e2w1ab53CI7l">
 <div class="pt-14 px-4 py-3 flex items-center shrink-0" style="background:rgba(0,0,0,.85)" data-page-node-id="KA2ch11AA9UKNAvdBpJCXj">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-white active:bg-white/10" @click="scanning=false" data-page-node-id="aGXK0GCh9DWOBASCEiPCCQ"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="hXASBN8fkD5BELJdJe3nwK"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-white active:bg-white/10" @click="navBack()" data-page-node-id="aGXK0GCh9DWOBASCEiPCCQ"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="hXASBN8fkD5BELJdJe3nwK"></span></div>
 </div>
 <div class="flex-1 min-h-0 relative overflow-hidden" style="background:rgba(0,0,0,.85)" data-page-node-id="8r49Ct6GGE6zMTkK0Omi5N">
 <div class="absolute inset-0 flex flex-col" data-page-node-id="qkUexybWj0FOjImeOpQdWv">
@@ -2039,7 +2040,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <transition name="sl" data-page-node-id="4ZwMQCoHUGIDiqlqLAh7Xl">
 <div v-if="showManualVin" class="absolute inset-0 bg-[#F6F7F9] z-[1890] flex flex-col overflow-hidden" data-od-id="manual-vin-page" data-page-node-id="zJ0qLhUJX1i18VYpzYJnJB">
 <div class="pt-14 px-4 pb-3 flex items-center bg-[#F6F7F9] shrink-0" data-page-node-id="NMo4g7AGJREvcJJ1fP7wnJ">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showManualVin=false" data-page-node-id="gkyPsxuYVLcJiOkJjNimtM"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="Mg38Q4M02HBTVwVeVbG0Fy"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="gkyPsxuYVLcJiOkJjNimtM"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="Mg38Q4M02HBTVwVeVbG0Fy"></span></div>
 </div>
 <div class="flex-1 min-h-0 flex flex-col justify-start px-6 pt-[40px] pb-[calc(64px+env(safe-area-inset-bottom,0px))]" data-page-node-id="0X4SrIEUFUldFTsPXlHgqw">
 <div class="text-[22px] font-bold text-[#1A1A1A] text-center" data-page-node-id="xTzE6TyyilIcdsBjDmExMD">{{ scanCtx==='battery'?'电池编号':'车架号' }}</div>
@@ -2082,7 +2083,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
    <transition name="sl" data-page-node-id="YZYMeEaPVzGYe01lgkO8aj"><div v-if="profileSub==='pwdReset'" class="absolute inset-0 bg-[#F6F7F9] z-[600] flex flex-col" data-od-id="pwd-reset-page" data-page-node-id="cj9gXTChpNjCMWIbyJJHva">
      <div class="flex items-center pt-14 px-4 pb-3 bg-white shrink-0" style="border-bottom:1px solid #E5E5E5" data-page-node-id="uN5V3aUyA1s8Ies2iKoBJ3">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="profileSub='pwdVerify'" data-page-node-id="1DpaJaqXCjhYmHIkQLYSkY"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="kbQ3anJq7krEeFOjuT8klH"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="1DpaJaqXCjhYmHIkQLYSkY"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="kbQ3anJq7krEeFOjuT8klH"></span></div>
         <div class="flex-1 text-center text-[17px] font-semibold mr-8" data-page-node-id="3VXbCagpjoiFuBnoiTQwo7">重置密码</div>
      </div>
      <div class="px-4 pt-4 flex-1 overflow-y-auto" data-page-node-id="R2G08FOiNKRHjAcSdLpDgV">
@@ -2116,7 +2117,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
    <transition name="sl" data-page-node-id="QvGj4NUkehGX5G1NbE2frh"><div v-if="profileSub==='bindPhone'" class="absolute inset-0 bg-[#F6F7F9] z-[600] flex flex-col" data-od-id="bind-phone-page" data-page-node-id="zbamvxHxRNsqnA5LrZj4Ym">
      <div class="flex items-center pt-14 px-4 pb-3 bg-white shrink-0" style="border-bottom:1px solid #E5E5E5" data-page-node-id="2NxJ8ddRS1DwB9cWtPPa7H">
-       <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="profileSub=null" data-page-node-id="qKx9ns1f5rHF8tNPuKOwvP"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="2AjEXXz5rGt5lQvK7oaG8R"></span></div>
+       <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="qKx9ns1f5rHF8tNPuKOwvP"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="2AjEXXz5rGt5lQvK7oaG8R"></span></div>
        <div class="flex-1 text-center text-[17px] font-semibold mr-8" data-page-node-id="F0zCG80eStcZjpo7sEn7GO">绑定手机号</div>
      </div>
      <div v-if="hasPhone" class="bg-[#FFF8E6] px-4 py-2.5 text-[13px] text-[#B07B00] shrink-0" data-page-node-id="fiDB30Y8Uc5NaKuZQ422mu">当前已绑定：{{ boundPhone }}</div>
@@ -2154,7 +2155,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
    <transition name="sl" data-page-node-id="HrVxEzNpgb2LgBMXANQZFc"><div v-if="profileSub==='bindEmail'" class="absolute inset-0 bg-[#F6F7F9] z-[600] flex flex-col" data-od-id="bind-email-page" data-page-node-id="rLIjmHbPmS7Cr4lek7DPFR">
      <div class="flex items-center pt-14 px-4 pb-3 bg-white shrink-0" style="border-bottom:1px solid #E5E5E5" data-page-node-id="KcLDB6ziqZV5Q8AfRFVHQR">
-       <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="profileSub=null" data-page-node-id="kIGUjrEbcLYCrZtusUFUBN"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="Pv7EihnuKOepQ9FfRYizeZ"></span></div>
+       <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="kIGUjrEbcLYCrZtusUFUBN"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="Pv7EihnuKOepQ9FfRYizeZ"></span></div>
        <div class="flex-1 text-center text-[17px] font-semibold mr-8" data-page-node-id="PTDcQYmnlRzdbG2Ottccmj">绑定邮箱</div>
      </div>
      <div v-if="hasEmail" class="bg-[#FFF8E6] px-4 py-2.5 text-[13px] text-[#B07B00] shrink-0" data-page-node-id="Q5hRwEHvlKih9PT0VEH13d">当前已绑定：{{ boundEmail }}</div>
@@ -2184,15 +2185,15 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
      </div>
    </div></transition>
 <!-- 系统设置 -->
-<transition name="sl" data-page-node-id="e9sBHEKJ1KYFoCBG3fSYGe"><div v-if="profileOV==='settings'" v-swipe-close="()=>profileOV=null" class="absolute inset-0 bg-[#F6F7F9] z-[500] flex flex-col" data-od-id="settings-page">
+<transition name="sl" data-page-node-id="e9sBHEKJ1KYFoCBG3fSYGe"><div v-if="profileOV==='settings'" v-swipe-close="navBack" class="absolute inset-0 bg-[#F6F7F9] z-[500] flex flex-col" data-od-id="settings-page">
 <div class="flex items-center pt-14 px-4 pb-3 bg-white shrink-0" style="border-bottom:1px solid #E5E5E5" data-page-node-id="0mRKNlehE3fZ9BPQLGzV5D">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="profileOV=null" data-page-node-id="fxdCMSx09VNi5sr71UdVNs"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="IZCtZIWDIcDWCAMGBGamUF"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="fxdCMSx09VNi5sr71UdVNs"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="IZCtZIWDIcDWCAMGBGamUF"></span></div>
 <div class="flex-1 text-center text-[17px] font-semibold mr-8" data-page-node-id="mJrImKl4lCMzoLm6kE45zg">系统设置</div>
 </div>
 <div class="flex-1 overflow-y-auto px-5 pt-4 pb-28 hid" data-page-node-id="ixwcV2HNAueDz6Qln2PeoM">
 <div class="text-[13px] font-medium text-[#999] mb-2 px-1" data-page-node-id="Ps15cy0z8ngucTdzNy5BLq">通用设置</div>
 <div class="bg-white rounded-xl overflow-hidden" style="border:1px solid #E5E5E5" data-page-node-id="q9FVD4uuHrrR0gCnJGnVd4">
-<div @click="profileSub='lang'" class="flex items-center px-4 py-3.5 cursor-pointer active:bg-[#F6F7F9]" style="border-bottom:1px solid #EDEDED" data-od-id="settings-lang-row" data-page-node-id="4rusVz0lp1YmDrned8LSS0">
+<div @click="navOpen('subLang')" class="flex items-center px-4 py-3.5 cursor-pointer active:bg-[#F6F7F9]" style="border-bottom:1px solid #EDEDED" data-od-id="settings-lang-row" data-page-node-id="4rusVz0lp1YmDrned8LSS0">
 <span class="flex-1 text-[15px] font-medium" data-page-node-id="6XASv3lpOTUQABsMFJIHWT">切换语言</span>
 <div class="flex items-center gap-1" data-page-node-id="WiTXyVm3HwuybSx4n5xJ3Y"><span class="text-[13px] text-[#666] mr-1" data-page-node-id="5Sgk1eYBj6xPdzlnHXRUMZ">{{ appLangLabel }}</span><span v-html="luci('chevron-right','w-3 h-3 text-[#999]')" data-page-node-id="MD4mjwo5HUAnPGCm06WfBK"></span></div>
 </div>
@@ -2208,9 +2209,9 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div></transition>
 
 <!-- 实名信息 -->
-<transition name="sl" data-page-node-id="SDxJEaJrRtqF4sIJRtuked"><div v-if="profileSub==='idInfo'" v-swipe-close="()=> idSelectMode ? closeIdSelect() : (profileSub=null)" class="absolute inset-0 z-[600] bg-[#F6F7F9] flex flex-col overflow-hidden" :style="idSelectMode?{zIndex:'1910'}:{}" data-od-id="id-info-page">
+<transition name="sl" data-page-node-id="SDxJEaJrRtqF4sIJRtuked"><div v-if="profileSub==='idInfo'" v-swipe-close="navBack" class="absolute inset-0 z-[600] bg-[#F6F7F9] flex flex-col overflow-hidden" :style="idSelectMode?{zIndex:'1910'}:{}" data-od-id="id-info-page">
   <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-page-node-id="7LqDgY1kYU7fVWEZTp8Wkb">
-    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="idSelectMode?closeIdSelect():profileSub=null" data-page-node-id="IILZ8greIqNwqaeJL0AZok"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="aUIz5om7aHNJ46hVCDmwzi"></span></div>
+    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="IILZ8greIqNwqaeJL0AZok"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="aUIz5om7aHNJ46hVCDmwzi"></span></div>
     <span class="flex-1 text-center text-[17px] font-semibold mr-8" data-page-node-id="JmkOBWAAZYTpxb6qCKPVDr">{{ idSelectMode ? '选择实名信息' : '实名信息' }}</span>
     <span class="text-sm font-medium text-[#2F6FEB] cursor-pointer shrink-0 active:opacity-70" @click="openIdAdd" data-page-node-id="wW42VXNUgqSgHNeagFKEVC">新增</span>
   </div>
@@ -2244,9 +2245,9 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div></transition>
 
 <!-- 实名信息详情（只读） -->
-<transition name="sl" data-page-node-id="ka84SGnYcOdxa2U0tVKLGW"><div v-if="profileSub==='idDetail'" v-swipe-close="()=>profileSub='idInfo'" class="absolute inset-0 z-[600] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="id-detail-page">
+<transition name="sl" data-page-node-id="ka84SGnYcOdxa2U0tVKLGW"><div v-if="profileSub==='idDetail'" v-swipe-close="navBack" class="absolute inset-0 z-[600] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="id-detail-page">
   <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-page-node-id="49s8MKHLnBCNY1l2i7AMgG">
-    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="profileSub='idInfo'" data-page-node-id="J6FE7lENmIctP5iIOFL44E"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="8xQEDha776epnsog0o8YIQ"></span></div>
+    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="J6FE7lENmIctP5iIOFL44E"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="8xQEDha776epnsog0o8YIQ"></span></div>
     <span class="flex-1 text-center text-[17px] font-semibold mr-8" data-page-node-id="BbLgR2Qv4u6XnDzqSlB2Pz">实名详情</span>
     <span class="text-sm font-medium text-[#2F6FEB] cursor-pointer shrink-0 active:opacity-70" @click="openIdEditRecord(idDetailRec)" data-page-node-id="3I2rFBXGkH6q0ag8bgFitP">编辑</span>
   </div>
@@ -2315,9 +2316,9 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 
 <!-- 新增/编辑实名信息 -->
-<transition name="sl" data-page-node-id="n4qStQsSHyCA6DlhKILZhk"><div v-if="profileSub==='idAdd'" v-swipe-close="()=>profileSub='idInfo'" class="absolute inset-0 z-[600] bg-[#F6F7F9] flex flex-col overflow-hidden" :style="idSelectMode?{zIndex:'1920'}:{}" data-od-id="id-add-page">
+<transition name="sl" data-page-node-id="n4qStQsSHyCA6DlhKILZhk"><div v-if="profileSub==='idAdd'" v-swipe-close="navBack" class="absolute inset-0 z-[600] bg-[#F6F7F9] flex flex-col overflow-hidden" :style="idSelectMode?{zIndex:'1920'}:{}" data-od-id="id-add-page">
   <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-page-node-id="GFvAcOHUr8RYNJ5zsTOTuA">
-    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="profileSub='idInfo'" data-page-node-id="mbebrh3CyC9ANAFtEKU4Il"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="62INjKauccMcm3QkTDIyDb"></span></div>
+    <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="mbebrh3CyC9ANAFtEKU4Il"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="62INjKauccMcm3QkTDIyDb"></span></div>
     <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="7giIV6y35ub5Cp8x3uaydd">{{ idEditingId?'编辑实名信息':'新增实名信息' }}</span>
     <span class="w-8 h-8" data-page-node-id="0xqZyfAlWJ1ToW3iew8hlN"></span>
   </div>
@@ -2465,9 +2466,9 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
   <div class="text-white/30 text-[13px] mt-2" data-page-node-id="M9pIqtUL3a4m9EPoBCk1Gy">点击空白处关闭</div>
 </div></transition>
 
-<transition name="sl" data-page-node-id="KY5BYKblUJ96SwnLyLUpJJ"><div v-if="profileSub==='lang'" v-swipe-close="()=>profileSub=null" class="absolute inset-0 bg-[#F6F7F9] z-[510] flex flex-col" data-od-id="settings-lang-page">
+<transition name="sl" data-page-node-id="KY5BYKblUJ96SwnLyLUpJJ"><div v-if="profileSub==='lang'" v-swipe-close="navBack" class="absolute inset-0 bg-[#F6F7F9] z-[510] flex flex-col" data-od-id="settings-lang-page">
 <div class="flex items-center pt-14 px-4 pb-3 bg-white shrink-0" style="border-bottom:1px solid #E5E5E5" data-page-node-id="lPN9lsNwjr0aQRR5JyyXe9">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="profileSub=null" data-page-node-id="dGvRWHq2JOhUpChiowMoeb"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="uiYMIMFkAFqkv8rk6RlxSh"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="dGvRWHq2JOhUpChiowMoeb"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="uiYMIMFkAFqkv8rk6RlxSh"></span></div>
 <div class="flex-1 text-center text-[17px] font-semibold mr-8" data-page-node-id="ujv1qwsywWAV9voV6jmC6u">切换语言</div>
 </div>
 <div class="flex-1 overflow-y-auto px-5 pt-4 pb-10 hid" data-page-node-id="TaC8oeABnNvp63k0eWhF99">
@@ -2558,7 +2559,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </transition>
 <transition name="sl" data-page-node-id="0pepSwjdCBDusZepYstKcX"><div v-if="showWallet" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="wallet-page" data-page-node-id="9KPUcen23fY8nJlTB79lTN">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-page-node-id="I4bMCCFOL5gDYsHCxRrgsA">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showWallet=false" data-page-node-id="AWqyIsR10PtIZHgDqzdZR4"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="NTzooXq19gtP4SAEHW7Tyy"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="AWqyIsR10PtIZHgDqzdZR4"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="NTzooXq19gtP4SAEHW7Tyy"></span></div>
 <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="rEIWmoEHJYJkQFDzteVIVd">我的钱包</span>
 <div class="w-8 h-8" data-page-node-id="vfg4pM7AfyVLHwv9mW7gnm"></div>
 </div>
@@ -2652,7 +2653,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <!-- 余额流水页 -->
 <transition name="sl" data-page-node-id="1zMxy11qD0IqOkcRZotf1x"><div v-if="showWalletLedger" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="wallet-ledger-page" data-page-node-id="uf57ssSSYS2brhO3AEwuYv">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-page-node-id="TNkE86bpMctOSxSyV7DAPc">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showWalletLedger=false" data-page-node-id="TEdMWKysfUzgxhueziInPG"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="8dA9T8lER3BhWvwMvOgyc4"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="TEdMWKysfUzgxhueziInPG"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="8dA9T8lER3BhWvwMvOgyc4"></span></div>
 <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="p2t9NH8hGMA9YcD6XZZBIT">余额流水</span>
 <div class="w-8 h-8" data-page-node-id="hYd2BjMhH7qkBsdSBBt22x"></div>
 </div>
@@ -2685,7 +2686,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <!-- 充值页 -->
 <transition name="sl" data-page-node-id="kHte2CvAk1vkCTeikBP0cu"><div v-if="showTopup" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="topup-page" data-page-node-id="FwKlYUXumdJAPWW92LIhCg">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-page-node-id="BO0oxYFSIQtna9PfK7nt8z">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showTopup=false" data-page-node-id="inL8pa3nNGJHW1bHYt92cx"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="oQbmzBQz5YyApKtWIZsSwG"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="inL8pa3nNGJHW1bHYt92cx"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="oQbmzBQz5YyApKtWIZsSwG"></span></div>
 <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="r6XdbFGD5FkiJ0AtzEJAwQ">充值</span>
 <div class="w-8 h-8" data-page-node-id="FNAmRyhjRQks88WMBTUJM3"></div>
 </div>
@@ -2710,7 +2711,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <!-- ============ 充值订单列表（C端） ============ -->
 <transition name="sl" data-page-node-id="AfotMHqvl5q9rkq9yzxvGO"><div v-if="showRechargeList" class="absolute inset-0 z-[1888] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="recharge-list-page" data-page-node-id="PNqZqMCrbBUamTUAz6s9bT">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-page-node-id="9ZDCTeNYkiOOEwIjPY3uYx">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showRechargeList=false;showMyOrders=true" data-page-node-id="35z8n7wWvCSnMaqJeQOt9i"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="2mOaH05otYrJsmJdwKQeRG"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="35z8n7wWvCSnMaqJeQOt9i"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="2mOaH05otYrJsmJdwKQeRG"></span></div>
 <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="RAAY0mkg561wObq35X4HXz">充值订单</span>
 <div class="w-8 h-8" data-page-node-id="T8sxQWXTzZPjd6DuBEccF4"></div>
 </div>
@@ -2744,7 +2745,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <!-- ============ 充值订单详情（C端） ============ -->
 <transition name="sl" data-page-node-id="hIBXKzVUdSNjPcCdmqfBeD"><div v-if="showRechargeOrder" class="absolute inset-0 z-[1889] bg-[#F6F7F9] flex flex-col overflow-hidden" data-od-id="recharge-order-page" data-page-node-id="Xw0maWPCbFLO9CXjZsrqDG">
 <div class="pt-14 px-4 pb-3 flex items-center justify-between bg-white shrink-0" style="border-bottom:1px solid #F0F0F0" data-page-node-id="d7c0Djmoq4gF1hAgcyAZ8v">
-<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="showRechargeOrder=false;showRechargeList=true" data-page-node-id="TECDQlAP8asR6eGX2UeO4g"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="UAVMntk0RC9BjTqeVLyGgu"></span></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="TECDQlAP8asR6eGX2UeO4g"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="UAVMntk0RC9BjTqeVLyGgu"></span></div>
 <span class="flex-1 text-center text-[17px] font-semibold" data-page-node-id="4GNRVAvcQQaZZO9EtKgh7w">订单详情</span>
 <div class="w-8 h-8" data-page-node-id="bRoewWPyOlhPgCT3vGAr0p"></div>
 </div>
@@ -2851,28 +2852,31 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 
 <template v-if="showStore&&!showVehicle&&!showConfirm&& tab!=='profile'&& tab!=='vehicles'" data-page-node-id="N40FuQbT5vuybicDGsdqns">
 
-<div class="demo-ops-section" data-page-node-id="zQPPO3jeqL4XqbS15IRGGo">
-<div class="demo-ops-label" data-page-node-id="3yyROCEdG3Aw8wj3SPDDU2">门店列表数据</div>
-<div class="demo-ops-chips" data-page-node-id="XG3TA1iG0JL8ww8b4SdlLt">
-<div class="demo-ops-chip" :class="storeListEmpty?'is-on':''" @click="storeListEmpty=!storeListEmpty" data-page-node-id="6aWfrLFJtt0ArJwaqAdAJ2">空状态</div>
+<div class="demo-ops-section" data-od-id="demo-list-data">
+<div class="demo-ops-label">列表数据</div>
+<div class="demo-ops-chips">
+<div class="demo-ops-chip" :class="{'is-on':!demoListEmpty}" @click="demoSetListEmpty(false)">有数据</div>
+<div class="demo-ops-chip" :class="{'is-on':demoListEmpty}" @click="demoSetListEmpty(true)">空数据</div>
 </div>
 </div>
 </template>
 <template v-if="showVehicle&&!showConfirm&& tab!=='profile'&& tab!=='vehicles'" data-page-node-id="3zNkmJDxCCGt0HE0KcYXF0">
 
-<div class="demo-ops-section" data-page-node-id="b0GKnApL2FtE1Wy5GjnYYh">
-<div class="demo-ops-label" data-page-node-id="2mipWV0O8r5EIsCj1qsBF0">方案列表数据</div>
-<div class="demo-ops-chips" data-page-node-id="KkwE1yBAO2JoRyvLKkPfEC">
-<div class="demo-ops-chip" :class="vehicleListEmpty?'is-on':''" @click="vehicleListEmpty=!vehicleListEmpty" data-page-node-id="yRkCX639zTP6E2iszioH0A">空状态</div>
+<div class="demo-ops-section" data-od-id="demo-list-data">
+<div class="demo-ops-label">列表数据</div>
+<div class="demo-ops-chips">
+<div class="demo-ops-chip" :class="{'is-on':!demoListEmpty}" @click="demoSetListEmpty(false)">有数据</div>
+<div class="demo-ops-chip" :class="{'is-on':demoListEmpty}" @click="demoSetListEmpty(true)">空数据</div>
 </div>
 </div>
 </template>
-<template v-if="showOrderList&&!showOrderDetail&&!showConfirm&& tab!=='profile'&& tab!=='vehicles'" data-page-node-id="3JDuMvIFfW5UBqVIqzv9xk">
+<template v-if="showOrderList&&!showOrderDetail&&!showConfirm" data-page-node-id="3JDuMvIFfW5UBqVIqzv9xk">
 
-<div class="demo-ops-section" data-page-node-id="jIKf3gUzJD8YByfSfKynCM">
-<div class="demo-ops-label" data-page-node-id="fwfdE8Gn8Tr9jG0y5h3eCJ">订单列表数据</div>
-<div class="demo-ops-chips" data-page-node-id="iYBU6CIUFCFYQzWufqVp8Q">
-<div class="demo-ops-chip" :class="orderListEmpty?'is-on':''" @click="orderListEmpty=!orderListEmpty" data-page-node-id="3RFyjRMP6ZF0vN23KDK6vW">空状态</div>
+<div class="demo-ops-section" data-od-id="demo-list-data">
+<div class="demo-ops-label">列表数据</div>
+<div class="demo-ops-chips">
+<div class="demo-ops-chip" :class="{'is-on':!demoListEmpty}" @click="demoSetListEmpty(false)">有数据</div>
+<div class="demo-ops-chip" :class="{'is-on':demoListEmpty}" @click="demoSetListEmpty(true)">空数据</div>
 </div>
 </div>
 </template>
@@ -2946,34 +2950,38 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div>
 </template>
 <template v-if="showRechargeList&&!showRechargeOrder" data-page-node-id="E5LReblcnXnU4faPElN7DK">
-<div class="demo-ops-section" data-page-node-id="R3PuWLTmF40TyOmSAZkujP">
-<div class="demo-ops-label" data-page-node-id="e4rtAB0vbH3buITXjuhvjk">充值订单列表数据</div>
-<div class="demo-ops-chips" data-page-node-id="L44SBRGpiuNgrrugEVC53d">
-<div class="demo-ops-chip" :class="rechargeListEmpty?'is-on':''" @click="rechargeListEmpty=!rechargeListEmpty" data-page-node-id="dS3HeDoMvvBzbs0HYhBlQ9">空状态</div>
+<div class="demo-ops-section" data-od-id="demo-list-data">
+<div class="demo-ops-label">列表数据</div>
+<div class="demo-ops-chips">
+<div class="demo-ops-chip" :class="{'is-on':!demoListEmpty}" @click="demoSetListEmpty(false)">有数据</div>
+<div class="demo-ops-chip" :class="{'is-on':demoListEmpty}" @click="demoSetListEmpty(true)">空数据</div>
 </div>
 </div>
 </template>
 <template v-if="showRefundList" data-page-node-id="BN7LiEfKj1OWOttVvNFWUm">
-<div class="demo-ops-section" data-page-node-id="cnBUrxMnBy2cXHgVsKG7aF">
-<div class="demo-ops-label" data-page-node-id="UrYyZRiNcEBPJ0AqydbrCl">退款记录数据</div>
-<div class="demo-ops-chips" data-page-node-id="5KbzeDzsR3xsjmfRc45zzR">
-<div class="demo-ops-chip" :class="refundRecordsEmpty?'is-on':''" @click="refundRecordsEmpty=!refundRecordsEmpty" data-page-node-id="6afRgjFizkMeKvnK0ITYPs">空状态</div>
+<div class="demo-ops-section" data-od-id="demo-list-data">
+<div class="demo-ops-label">列表数据</div>
+<div class="demo-ops-chips">
+<div class="demo-ops-chip" :class="{'is-on':!demoListEmpty}" @click="demoSetListEmpty(false)">有数据</div>
+<div class="demo-ops-chip" :class="{'is-on':demoListEmpty}" @click="demoSetListEmpty(true)">空数据</div>
 </div>
 </div>
 </template>
 <template v-if="showWalletLedger" data-page-node-id="htV1OjxbIECapHWmf57Kg8">
-<div class="demo-ops-section" data-page-node-id="IB82qlDNpFXj8eVEhffEZT">
-<div class="demo-ops-label" data-page-node-id="C7QxQKrdEqAzBK0RCbJLlj">流水列表数据</div>
-<div class="demo-ops-chips" data-page-node-id="TvF4Gkkm20eE02n5lOPTwZ">
-<div class="demo-ops-chip" :class="walletLedgerEmpty?'is-on':''" @click="walletLedgerEmpty=!walletLedgerEmpty" data-page-node-id="NZIlv5zaRnl8oxj0JMNU8C">空状态</div>
+<div class="demo-ops-section" data-od-id="demo-list-data">
+<div class="demo-ops-label">列表数据</div>
+<div class="demo-ops-chips">
+<div class="demo-ops-chip" :class="{'is-on':!demoListEmpty}" @click="demoSetListEmpty(false)">有数据</div>
+<div class="demo-ops-chip" :class="{'is-on':demoListEmpty}" @click="demoSetListEmpty(true)">空数据</div>
 </div>
 </div>
 </template>
 <template v-if="showFeeDetail" data-page-node-id="Jd9FGSRUEdS7gLtAWB0MTJ">
-<div class="demo-ops-section" data-page-node-id="K2QSuEwooShx6HSUfcMB5L">
-<div class="demo-ops-label" data-page-node-id="QxZlsoDgwbsyJFgfBucHdZ">费用明细数据</div>
-<div class="demo-ops-chips" data-page-node-id="GDV3vndYQdIFvvQTNAD1fT">
-<div class="demo-ops-chip" :class="feeDetailEmpty?'is-on':''" @click="feeDetailEmpty=!feeDetailEmpty" data-page-node-id="ks332pcEQDFdkNIvK5sMaJ">空状态</div>
+<div class="demo-ops-section" data-od-id="demo-list-data">
+<div class="demo-ops-label">列表数据</div>
+<div class="demo-ops-chips">
+<div class="demo-ops-chip" :class="{'is-on':!demoListEmpty}" @click="demoSetListEmpty(false)">有数据</div>
+<div class="demo-ops-chip" :class="{'is-on':demoListEmpty}" @click="demoSetListEmpty(true)">空数据</div>
 </div>
 </div>
 </template>
@@ -3016,10 +3024,10 @@ reminder:{title:'扣款提醒',body:d=>`订单${d.orderId}${d.N}天后自动续�
 failed:{title:'扣款失败',body:d=>`订单${d.orderId}续租扣款失败${d.failCount}/${d.threshold}次，请尽快充值，否则将停止自动续租。`}
 };
 function renewNotifySample(){return{orderId:'YZ20260901001',dueDate:'2026-09-10',amount:'Rp 150.000',N:1,failCount:2,threshold:3}}
-const pushNotify=ref({show:false,title:'',body:''});
+const pushNotify=ref({show:false,title:'',body:'',time:''});
 let pushTimer=null;
-function showPushNotify(type){const t=renewNotifyTemplates[type];if(!t)return;const data=renewNotifySample();pushNotify.value={show:true,title:t.title,body:t.body(data)};if(pushTimer)clearTimeout(pushTimer);pushTimer=setTimeout(()=>{pushNotify.value.show=false},4500)}
-var myCarPtrInit=false;function setTab(t){if(!loggedIn.value&&(t==='vehicles'||t==='profile')){pendingRoute.value=t;showLogin.value=true;resetLoginForm();return}tab.value=t;if(t==='vehicles'&&!myCarPtrInit){nextTick(()=>{if(document.getElementById('sc-mycar')){initPullToRefresh('sc-mycar','ptr-mycar',refreshMyCar);myCarPtrInit=true}})}}
+function showPushNotify(type){const t=renewNotifyTemplates[type];if(!t)return;const data=renewNotifySample();pushNotify.value={show:true,title:t.title,body:t.body(data),time:fmtISO(new Date())};if(pushTimer)clearTimeout(pushTimer);pushTimer=setTimeout(()=>{pushNotify.value.show=false},4500)}
+var myCarPtrInit=false;function setTab(t){if(!loggedIn.value&&(t==='vehicles'||t==='profile')){openLogin(t);return}tab.value=t;if(t==='vehicles'&&!myCarPtrInit){nextTick(()=>{if(document.getElementById('sc-mycar')){initPullToRefresh('sc-mycar','ptr-mycar',refreshMyCar);myCarPtrInit=true}})}}
 
 
 const weatherScene=ref('sunny');
@@ -3053,12 +3061,12 @@ const currentBatteryIdx=ref(0);
 const currentBattery=computed(()=>homeBatteries.value[currentBatteryIdx.value]||null);
 const showBatteryUnbind=ref(false);
 const batteryUnbindLoading=ref(false);
-function openBatteryDetail(b){const i=homeBatteries.value.findIndex(x=>x.id===b.id);if(i>=0)currentBatteryIdx.value=i;scanBindMode.value=false;showBatteryDetail.value=true;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600);nextTick(()=>{initPullToRefresh('sc-bd','ptr-bd',refreshBd)})}
+function openBatteryDetail(b){const i=homeBatteries.value.findIndex(x=>x.id===b.id);if(i>=0)currentBatteryIdx.value=i;scanBindMode.value=false;navOpen('batteryDetail');showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600);nextTick(()=>{initPullToRefresh('sc-bd','ptr-bd',refreshBd)})}
 function openBatteryOrder(){if(currentOrder.value){openMyCarOrder()}}
 function closeBatteryDetail(){showBatteryDetail.value=false;if(scanBindMode.value){scanBindMode.value=false;scanBindDevice.value=null}}
 function openBatteryUnbind(){showBatteryUnbind.value=true}
 function closeBatteryUnbind(){showBatteryUnbind.value=false}
-function confirmBatteryUnbind(){if(batteryUnbindLoading.value)return;batteryUnbindLoading.value=true;setTimeout(()=>{homeBatteries.value.splice(currentBatteryIdx.value,1);batteryUnbindLoading.value=false;showBatteryUnbind.value=false;showBatteryDetail.value=false;toast('设备已解绑','success');if(homeBatteries.value.length===0)homeDevSeg.value='vehicles'},800)}
+function confirmBatteryUnbind(){if(batteryUnbindLoading.value)return;batteryUnbindLoading.value=true;setTimeout(()=>{homeBatteries.value.splice(currentBatteryIdx.value,1);batteryUnbindLoading.value=false;showBatteryUnbind.value=false;navDrop('batteryDetail');toast('设备已解绑','success');if(homeBatteries.value.length===0)homeDevSeg.value='vehicles'},800)}
 const demoActive=computed(()=>{
   if(scanning.value||showManualVin.value||showBatteryDetail.value||showFindPage.value||showTrackPage.value||showWallet.value||showTopup.value)return false;
   const t=tab.value;
@@ -3066,7 +3074,8 @@ const demoActive=computed(()=>{
   ||(showRent.value&&!showStore.value&&!showVehicle.value&&!showConfirm.value&&!showOrderDetail.value&&t!=='profile'&&t!=='vehicles')
   ||(showStore.value&&!showConfirm.value&&t!=='profile'&&t!=='vehicles')
   ||(showVehicle.value&&!showConfirm.value&&t!=='profile'&&t!=='vehicles')
-  ||(showOrderList.value&&!showOrderDetail.value&&!showConfirm.value&&t!=='profile'&&t!=='vehicles')
+  ||(showOrderList.value&&!showOrderDetail.value&&!showConfirm.value)
+  ||(showRefundList.value)
   ||(showOrderDetail.value&&orderInfo.value.status==='created'&&!showConfirmDocs.value&&!showConfirm.value&&t!=='profile'&&t!=='vehicles')
   ||(showOrderDetail.value&&orderInfo.value.status==='cancelled'&&!showConfirmDocs.value&&!showConfirm.value&&t!=='profile'&&t!=='vehicles')
   ||(t==='vehicles')
@@ -3082,8 +3091,8 @@ const locWalkMin=computed(()=>locDistM.value==='—'?'—':String(Math.max(1,Mat
 const locVehPt=computed(()=>({x:58,y:42}));
 const locUserPt=computed(()=>{const v=locVehPt.value;const dx=14+(locSeed.value%8);const dy=16+((locSeed.value>>3)%6);return{x:Math.max(10,Math.min(88,v.x-dx)),y:Math.max(14,Math.min(86,v.y+dy))}});
 function loadLocData(){locLoading.value=true;locFocus.value='vehicle';setTimeout(()=>{locLoading.value=false},380)}
-function openFindPage(){mapCtx.value='vehicle';showFindPage.value=true;locRinging.value=false;loadLocData()}
-function openFindPageBattery(){mapCtx.value='battery';showFindPage.value=true;locRinging.value=false;loadLocData()}
+function openFindPage(){mapCtx.value='vehicle';navOpen('findPage');locRinging.value=false;loadLocData()}
+function openFindPageBattery(){mapCtx.value='battery';navOpen('findPage');locRinging.value=false;loadLocData()}
 function closeFindPage(){showFindPage.value=false}
 function locFocusUser(){locFocus.value='user'}
 function locFocusVehicle(){locFocus.value='device'}
@@ -3113,8 +3122,8 @@ const trackStartPt=computed(()=>trackMapped.value[0]||null);
 const trackEndPt=computed(()=>{const a=trackMapped.value;return a.length?a[a.length-1]:null});
 function buildDemoTrack(){const baseLat=22.54,baseLng=114.06;const path=[[0,0],[0.0012,0.0018],[0.0026,0.0031],[0.0041,0.0024],[0.0055,0.0008],[0.0068,-0.0012],[0.0075,-0.003],[0.0062,-0.0046],[0.0044,-0.0052],[0.0025,-0.004],[0.0011,-0.0022],[0.0002,-0.0004]];return path.map(([dLat,dLng],i)=>({lat:baseLat+dLat,lng:baseLng+dLng,i}))}
 function loadTrackData(){trackLoading.value=true;trackPoints.value=[];setTimeout(()=>{trackPoints.value=buildDemoTrack();trackLoading.value=false},450)}
-function openTrackPage(){mapCtx.value='vehicle';showTrackPage.value=true;trackStart.value={year:2025,month:8,day:6,hour:17,min:8};trackEnd.value={year:2025,month:8,day:6,hour:17,min:28};trackTimePicker.value=null;loadTrackData()}
-function openTrackPageBattery(){mapCtx.value='battery';showTrackPage.value=true;trackStart.value={year:2025,month:8,day:6,hour:17,min:8};trackEnd.value={year:2025,month:8,day:6,hour:17,min:28};trackTimePicker.value=null;loadTrackData()}
+function openTrackPage(){mapCtx.value='vehicle';navOpen('trackPage');trackStart.value={year:2025,month:8,day:6,hour:17,min:8};trackEnd.value={year:2025,month:8,day:6,hour:17,min:28};trackTimePicker.value=null;loadTrackData()}
+function openTrackPageBattery(){mapCtx.value='battery';navOpen('trackPage');trackStart.value={year:2025,month:8,day:6,hour:17,min:8};trackEnd.value={year:2025,month:8,day:6,hour:17,min:28};trackTimePicker.value=null;loadTrackData()}
 function closeTrackPage(){showTrackPage.value=false}
 function openTrackTimePicker(which){const src=which==='start'?trackStart.value:trackEnd.value;trackDraft.value={...src};trackTimePicker.value=which;nextTick(()=>scrollTrackWheelsToDraft())}
 function cancelTrackTimePicker(){trackTimePicker.value=null}
@@ -3147,14 +3156,14 @@ const showVNameEdit=ref(false);
 const vNameInput=ref('');
 const vNameLoading=ref(false);
 const vNameError=ref(false);
-function openVehicleDetail(){if(!currentVehicle.value)return;scanBindMode.value=false;showVehicleDetail.value=true;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600);nextTick(()=>{initPullToRefresh('sc-vd','ptr-vd',refreshVd)})}
+function openVehicleDetail(){if(!currentVehicle.value)return;scanBindMode.value=false;navOpen('vehicleDetail');showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600);nextTick(()=>{initPullToRefresh('sc-vd','ptr-vd',refreshVd)})}
 function closeVehicleDetail(){showVehicleDetail.value=false;if(scanBindMode.value){scanBindMode.value=false;scanBindDevice.value=null}}
 function openVNameEdit(){vNameInput.value=currentVehicle.value?currentVehicle.value.displayName:'';vNameLoading.value=false;vNameError.value=false;showVNameEdit.value=true}
 function closeVNameEdit(){showVNameEdit.value=false}
 function saveVNameEdit(){if(vNameLoading.value)return;const n=vNameInput.value.trim();if(!n){vNameError.value=true;return}if(currentVehicle.value){vNameLoading.value=true;setTimeout(()=>{vehicleNames[currentVehicle.value.id]=n;vNameLoading.value=false;showVNameEdit.value=false;toast('保存成功','success')},600)}else{showVNameEdit.value=false}}
 function openUnbindConfirm(){showUnbindConfirm.value=true}
 function closeUnbindConfirm(){showUnbindConfirm.value=false}
-function confirmUnbind(){if(unbindLoading.value)return;unbindLoading.value=true;setTimeout(()=>{unbindLoading.value=false;showUnbindConfirm.value=false;showVehicleDetail.value=false;if(vehicleCount.value>0){vehicleCount.value=Math.max(0,vehicleCount.value-1);myVehicleIdx.value=0}toast('设备已解绑','success');setTab('home')},600)}
+function confirmUnbind(){if(unbindLoading.value)return;unbindLoading.value=true;setTimeout(()=>{unbindLoading.value=false;showUnbindConfirm.value=false;navDrop('vehicleDetail');if(vehicleCount.value>0){vehicleCount.value=Math.max(0,vehicleCount.value-1);myVehicleIdx.value=0}toast('设备已解绑','success');setTab('home')},600)}
 const locked=ref(false),lockLoading=ref(false);const PRESS_DURATION=1500;
 function toggleLock(){if(!currentVehicle.value)return;if(lockLoading.value)return;lockLoading.value=true;setTimeout(()=>{locked.value=!locked.value;lockLoading.value=false},800)}
 function endPress(){}
@@ -3162,7 +3171,7 @@ const hornLoading=ref(false);
 function sendHorn(){if(!currentVehicle.value)return;if(hornLoading.value)return;hornLoading.value=true;setTimeout(()=>{hornLoading.value=false},2500)}
     const myCarActiveOrder={id:'YZ202512100002',status:'progress',statusText:'进行中',statusColor:'#22D098',model:'雅迪冠能3 S9 MAX',vModel:'雅迪冠能3 S9 MAX',frame:'LSN9CA9A8L8193001',img:'#FF6A00',desc:'72V20Ah石墨烯电池·续航100km·蓝牙解锁·GPS定位·智能语音助手·APP远程控制',store:'雅迪电动车(锦江区春熙路店)',plan:'时租×3小时',created:'2025-12-10 14:05:00',payTime:'2025-12-10 14:12:00',pickupTime:'2025-12-10 14:18:00',returnTime:'2025-12-10 17:18:00',amount:'Rp 7,035'};
 const currentOrder=computed(()=>{return currentVehicle.value?myCarActiveOrder:null});
-function openMyCarOrder(){showRent.value=false;showStore.value=false;showVehicle.value=false;showConfirm.value=false;showMyOrders.value=false;showOrderList.value=false;showRefundList.value=false;showConfirmDocs.value=false;showDocSheet.value=false;openOrderDetailFromList(myCarActiveOrder);orderDetailBack.value='mycar'}
+function openMyCarOrder(){openOrderDetailCore(myCarActiveOrder);navOpen('orderDetail')}
 function relocateRent(){if(showRentLoading.value)return;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600)}
 
 const appLang=ref('zh-CN');
@@ -3241,8 +3250,8 @@ function doLogin(){
     else if(!/^[A-Za-z0-9!-~]{1,64}$/.test(loginPwd.value))err=MSG.pwdChars;
   }
   if(err){toast(err,'warn');return}
-  showRentLoading.value=true;setTimeout(function(){showRentLoading.value=false;showLogin.value=false;resetLoginForm();loggedIn.value=true;const r=pendingRoute.value;pendingRoute.value=null;if(r==='rent'){openRent();toast('登录成功','success');return}if(r==='vehicles'||r==='profile'){tab.value=r;toast('登录成功','success');return}tab.value='home';toast('登录成功','success')},600)}
-function openLogin(route){if(route)pendingRoute.value=route;showLogin.value=true;resetLoginForm()}
+  showRentLoading.value=true;setTimeout(function(){showRentLoading.value=false;resetLoginForm();loggedIn.value=true;const r=pendingRoute.value;pendingRoute.value=null;if(r==='rent'){navSwap('rent');toast('登录成功','success');return}navDrop('login');if(r==='vehicles'||r==='profile'){tab.value=r;toast('登录成功','success');return}tab.value='home';toast('登录成功','success')},600)}
+function openLogin(route){if(route)pendingRoute.value=route;navOpen('login')}
 
 const showRent=ref(false);
 const rentBannerIdx=ref(0);
@@ -3274,25 +3283,25 @@ const periodUnit=computed(()=>periodUnitMap[periodOptions[rentPeriodIdx.value]]|
 const showStore=ref(false);
 const storeSearch=ref('');
 const storeQuery=ref('');
-const storeListEmpty=ref(false);
+const demoListEmpty=ref(false);function demoSetListEmpty(v){demoListEmpty.value=!!v}
 const storeList=[
   {name:'雅迪电动车(双流区雅和北路店)',dist:'2.4km',addr:'四川省成都市双流区雅和北路博瑞都市花园西侧约90米处'},
   {name:'雅迪电动车(锦江区春熙路店)',dist:'5.8km',addr:'四川省成都市锦江区春熙路西段段太升南路与北纱帽街交汇处'},
   {name:'雅迪电动车(武侯区磨子桥店)',dist:'8.1km',addr:'四川省成都市武侯区磨子桥科华北路与一环路南二段交汇'},
   {name:'雅迪电动车(高新区天府大道店)',dist:'12.3km',addr:'四川省成都市高新区天府大道中段天府软件园B区附近'}
 ];
-const storeFiltered=computed(()=>{if(storeListEmpty.value)return[];const q=storeQuery.value.trim().toLowerCase();if(!q)return storeList;return storeList.filter(s=>s.name.toLowerCase().includes(q)||s.addr.toLowerCase().includes(q))});
+const storeFiltered=computed(()=>{if(demoListEmpty.value)return[];const q=storeQuery.value.trim().toLowerCase();if(!q)return storeList;return storeList.filter(s=>s.name.toLowerCase().includes(q)||s.addr.toLowerCase().includes(q))});
 const selectedStore=ref(null);
-var storePtrInit=false;function openStore(){showStore.value=true;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},800);nextTick(()=>{if(!storePtrInit){initPullToRefresh('sc-store','ptr-store',refreshStore);storePtrInit=true}})}function searchStore(){const q=storeSearch.value.trim();if(q===storeQuery.value.trim())return;storeQuery.value=storeSearch.value;if(showRentLoading.value)return;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600)}
-function selectStore(i){const s=storeFiltered.value[i];if(walletStorePick.value){walletStorePick.value=false;ensureWalletOpened(s.name);walletAccount.value.activeStoreId=s.name;showStore.value=false;toast('已选择门店','success')}else{selectedStore.value=s;showVehicle.value=true;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600)}}
+var storePtrInit=false;function openStore(){navOpen('store')}function searchStore(){const q=storeSearch.value.trim();if(q===storeQuery.value.trim())return;storeQuery.value=storeSearch.value;if(showRentLoading.value)return;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600)}
+function selectStore(i){const s=storeFiltered.value[i];if(walletStorePick.value){ensureWalletOpened(s.name);walletAccount.value.activeStoreId=s.name;navDrop('store');toast('已选择门店','success')}else{selectedStore.value=s;navOpen('vehicle');showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600)}}
 const showVehicle=ref(false);
-const vehicleListEmpty=ref(false);
+
 const vehicleData={
   0:{0:[{name:'乐迪SAA',desc:'72V32Ah锂电池·续航120km·智能防盗',price:'Rp2459800',period:'月租',img:'#2B3F5F'},{name:'雅迪冠能3 S9 MAX',desc:'72V20Ah石墨烯电池·续航100km·蓝牙解锁·GPS定位·智能语音助手·APP远程控制',price:'Rp3299800',period:'月租',img:'#FF6A00'}],1:[{name:'乐迪SAA',desc:'72V32Ah锂电池·续航120km·智能防盗',price:'Rp586400',period:'日租',img:'#2B3F5F'},{name:'雅迪冠能3 S9 MAX',desc:'72V20Ah石墨烯电池·续航100km·蓝牙解锁·GPS定位·智能语音助手·APP远程控制',price:'Rp786400',period:'日租',img:'#FF6A00'}],2:[{name:'乐迪SAA',desc:'72V32Ah锂电池·续航120km·智能防盗',price:'Rp3518200',period:'周租',img:'#2B3F5F'}],3:[{name:'乐迪SAA',desc:'72V32Ah锂电池·续航120km·智能防盗',price:'Rp2459800',period:'月租',img:'#2B3F5F'},{name:'雅迪冠能3 S9 MAX',desc:'72V20Ah石墨烯电池·续航100km·蓝牙解锁·GPS定位·智能语音助手·APP远程控制',price:'Rp3299800',period:'月租',img:'#FF6A00'}]},
   1:{0:[{name:'天能锂电72V20Ah',desc:'石墨烯锂电池·续航100km·可单独租赁',price:'Rp899800',period:'月租',img:'#17A34A'},{name:'超威黑金72V32Ah',desc:'大容量锂电池·续航130km·快充2小时·循环寿命1000次·智能BMS管理',price:'Rp1299800',period:'月租',img:'#2B3F5F'}],1:[{name:'天能锂电72V20Ah',desc:'石墨烯锂电池·续航100km·可单独租赁',price:'Rp224800',period:'日租',img:'#17A34A'}],2:[{name:'超威黑金72V32Ah',desc:'大容量锂电池·续航130km·快充2小时·循环寿命1000次·智能BMS管理',price:'Rp1299800',period:'周租',img:'#2B3F5F'}],3:[{name:'天能锂电72V20Ah',desc:'石墨烯锂电池·续航100km·可单独租赁',price:'Rp899800',period:'月租',img:'#17A34A'},{name:'超威黑金72V32Ah',desc:'大容量锂电池·续航130km·快充2小时·循环寿命1000次·智能BMS管理',price:'Rp1299800',period:'月租',img:'#2B3F5F'}]},
   2:{0:[{name:'乐迪SAA+天能72V20Ah',desc:'整车+电池套餐·续航100km·智能防盗',price:'Rp3299800',period:'月租',img:'#2B3F5F'}],1:[{name:'乐迪SAA+天能72V20Ah',desc:'整车+电池套餐·续航100km',price:'Rp786400',period:'日租',img:'#2B3F5F'}],2:[],3:[]}
 };
-const vehicleList=computed(()=>{if(vehicleListEmpty.value)return[];const t=vehicleData[rentDateIdx.value];if(!t)return[];return t[rentPeriodIdx.value]||[]});
+const vehicleList=computed(()=>{if(demoListEmpty.value)return[];const t=vehicleData[rentDateIdx.value];if(!t)return[];return t[rentPeriodIdx.value]||[]});
 const showConfirm=ref(false);
 const selectedVehicle=ref(null);
 const confRentDays=ref(2);
@@ -3326,9 +3335,9 @@ const idx=rentPeriodIdx.value;const base=confPeriodBase[idx];const units=['小�
 return{amt:base,unit:units[idx],label:labels[idx],daysWord:daysWords[idx]};});
 function fmtRp(n){const v=Number(n);if(!n&&n!==0)return 'Rp 0';if(isNaN(v))return 'Rp 0';return (v===0?'Rp 0':'Rp '+v.toLocaleString('id-ID'))}
 const orderPlanDisplay=computed(()=>{const d=confPeriodDetail.value;return d.label+'×'+confRentDays.value+d.unit});
-function rentNow(v){selectedVehicle.value=v;showConfirm.value=true}
-function confirmOrder(){if(uploadIdEnabled.value&&!confirmIdInfo.value){toast('请先选择实名信息','warn');return}showOrderDetail.value=true;showRentLoading.value=true;const amt=fmtRp(confTotal.value);const _oi={storeName:confStore.value.name,category:'车辆租赁',orderId:'YZ'+new Date().toISOString().slice(0,10).replace(/-/g,'')+(Math.floor(Math.random()*9000)+1000),createTime:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-'),payee:confPayType.value==='offline'?'线下支付':confPayType.value==='balance'?'钱包':'2C2P',status:'created',statusText:'已创建',statusColor:'#FF8C1B',model:selectedVehicle.value?selectedVehicle.value.name:'乐迪SAA',desc:selectedVehicle.value?selectedVehicle.value.desc:'',plan:orderPlanDisplay.value,amount:amt,deposit:'Rp 200.45',payStatus:'UNPAID',renewOrders:[]};setTimeout(()=>{payChannel.value='2C2P';cancelBeforePay.value='paid';orderInfo.value=_oi;startOrderTimer();showRentLoading.value=false},600)}
-const showOrderDetail=ref(false);const orderDetailBack=ref('list');
+function rentNow(v){selectedVehicle.value=v;navOpen('confirm')}
+function confirmOrder(){if(uploadIdEnabled.value&&!confirmIdInfo.value){toast('请先选择实名信息','warn');return}navOpen('orderDetail');showRentLoading.value=true;const amt=fmtRp(confTotal.value);const _oi={storeName:confStore.value.name,category:'车辆租赁',orderId:'YZ'+new Date().toISOString().slice(0,10).replace(/-/g,'')+(Math.floor(Math.random()*9000)+1000),createTime:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-'),payee:confPayType.value==='offline'?'线下支付':confPayType.value==='balance'?'钱包':'2C2P',status:'created',statusText:'已创建',statusColor:'#FF8C1B',model:selectedVehicle.value?selectedVehicle.value.name:'乐迪SAA',desc:selectedVehicle.value?selectedVehicle.value.desc:'',plan:orderPlanDisplay.value,amount:amt,deposit:'Rp 200.45',payStatus:'UNPAID',renewOrders:[]};setTimeout(()=>{payChannel.value='2C2P';cancelBeforePay.value='paid';orderInfo.value=_oi;startOrderTimer();showRentLoading.value=false},600)}
+const showOrderDetail=ref(false);
 const showCancelModal=ref(false);
 const cancelLoading=ref(false);
 const unbindLoading=ref(false);
@@ -3359,9 +3368,9 @@ const showMyOrders=ref(false);
 const showOrderList=ref(false);
 const showRefundList=ref(false);
 const refundRecOpen=ref({});
-const refundRecordsEmpty=ref(false);
+
 const refundRecords=computed(()=>{
-  if(refundRecordsEmpty.value)return[];
+  if(demoListEmpty.value)return[];
   const o=orderInfo.value;if(!o)return[];
   const dep=(feeSummary.value&&feeSummary.value.deposit)||0;
   const rent=(feeSummary.value&&feeSummary.value.rent)||0;
@@ -3374,7 +3383,7 @@ const refundRecords=computed(()=>{
     mk('TK20260819001',ago(14),ago(14,3), '押金原路退回',0,dep,'FAILED')
   ];
 });
-var refundPtrInit=false;function openRefundList(){showRefundList.value=true;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600);nextTick(()=>{if(!refundPtrInit){initPullToRefresh('sc-refund','ptr-refund',refreshRefund);refundPtrInit=true}})}
+var refundPtrInit=false;function openRefundList(){navOpen('refundList')}
 const confirmDocs=ref([]);
 const autoRenew=ref(false);
 function toggleAutoRenew(){const next=!autoRenew.value;autoRenew.value=next;const o=orderInfo.value;if(!o)return;if(next){if(['pickup','progress','return','overdue','breach'].includes(o.status)&&o.payStatus==='PAID'){const start=confReturnISO.value;const end=addPeriod(start,2);const no='RZ'+Date.now().toString().slice(-9);const fee=25000;const r={renewNo:no,parentOrderNo:o.orderId,plan:'周租×1周',newRentStart:start,newRentEnd:end,renewRentFee:fee,renewDeposit:0,payStatus:'PAID',payMethod:'钱包',payTime:formatNow(),createTime:formatNow(),renewType:'auto',autoGenerated:true};o.renewOrders=[...(o.renewOrders||[]),r];deductWallet(fee);orderInfo.value={...o};toast('已自动续租（钱包扣款 Rp '+fee.toLocaleString('id-ID')+'）','success')}}else{const list=(o.renewOrders||[]).filter(x=>!(x.renewType==='auto'&&x.autoGenerated));orderInfo.value={...o,renewOrders:list}}}
@@ -3400,9 +3409,9 @@ const idNameErr=ref(''),idCardErr=ref(''),driverErr=ref(''),idPhotoErr=ref(''),d
 const idDetailRec=ref(null);
 const idInfoCount=computed(()=>idInfoList.value.length);
 function openIdInfoSheet(){showIdInfoSheet.value=true}
-function openIdAdd(){idEditingId.value=null;idName.value='';idCardNo.value='';driverNo.value='';idPhotos.value=[];driverPhotos.value=[];idNameErr.value=idCardErr.value=driverErr.value=idPhotoErr.value=driverPhotoErr.value='';profileSub.value='idAdd'}
-function openIdEditRecord(rec){idEditingId.value=rec.id;idName.value=rec.name;idCardNo.value=rec.idNo;driverNo.value=rec.driverNo;idPhotos.value=[...(rec.idPhotos||[])];driverPhotos.value=[...(rec.driverPhotos||[])];profileSub.value='idAdd'}
-function openIdDetail(rec){idDetailRec.value=rec;profileSub.value='idDetail'}
+function openIdAdd(){idEditingId.value=null;idName.value='';idCardNo.value='';driverNo.value='';idPhotos.value=[];driverPhotos.value=[];idNameErr.value=idCardErr.value=driverErr.value=idPhotoErr.value=driverPhotoErr.value='';navOpen('subIdAdd')}
+function openIdEditRecord(rec){idEditingId.value=rec.id;idName.value=rec.name;idCardNo.value=rec.idNo;driverNo.value=rec.driverNo;idPhotos.value=[...(rec.idPhotos||[])];driverPhotos.value=[...(rec.driverPhotos||[])];navOpen('subIdAdd')}
+function openIdDetail(rec){idDetailRec.value=rec;navOpen('subIdDetail')}
 function openIdDetailPreview(kind,idx){const arr=kind==='driver'?(idDetailRec.value.driverPhotos||[]):(idDetailRec.value.idPhotos||[]);const it=arr[idx];if(!it)return;idPreviewItem.value={kind,time:it.time};showIdPreview.value=true}
 function deleteIdRecord(id){idInfoList.value=idInfoList.value.filter(r=>r.id!==id);toast('实名信息已删除','info')}
 const idActionTarget=ref(null);
@@ -3413,9 +3422,9 @@ function openIdDelete(rec){idDeleteTarget.value=rec;showIdDelete.value=true}
 function confirmIdDelete(){if(!idDeleteTarget.value)return;deleteIdRecord(idDeleteTarget.value.id);showIdDelete.value=false;idDeleteTarget.value=null}
 const confirmIdInfo=ref(null);
 const idSelectMode=ref(false);
-function openIdSelect(){idSelectMode.value=true;profileSub.value='idInfo'}
-function closeIdSelect(){idSelectMode.value=false;profileSub.value=null}
-function confirmIdSelect(rec){var r=rec||null;if(!r)return;confirmIdInfo.value=r;idSelectMode.value=false;profileSub.value=null;toast('已选择实名信息','info')}
+function openIdSelect(){idSelectMode.value=true;navOpen('subIdInfo')}
+function closeIdSelect(){navDrop('subIdInfo')}
+function confirmIdSelect(rec){var r=rec||null;if(!r)return;confirmIdInfo.value=r;navDrop('subIdInfo');toast('已选择实名信息','info')}
 const idPickerSource=ref(null);
 const showIdPreview=ref(false);
 const idPreviewItem=ref(null);
@@ -3424,7 +3433,7 @@ const idPickerKind=ref('');
 const idPickerSH=ref('');
 function maskNo(s){if(!s)return'';s=String(s);if(s.length<=7)return s[0]+'***'+s.slice(-1);return s.slice(0,3)+'********'+s.slice(-4)}
 function maskNoFull(s){if(!s)return'';s=String(s);if(s.length<=7)return s[0]+'***'+s.slice(-1);return s.slice(0,6)+'************'+s.slice(-4)}
-function submitIdInfo(){idNameErr.value=idCardErr.value=driverErr.value=idPhotoErr.value=driverPhotoErr.value='';let ok=true;if(!(idName.value||'').trim()){idNameErr.value='请输入姓名';ok=false}if(!(idCardNo.value||'').trim()){idCardErr.value='请输入证件号码';ok=false}if(!(driverNo.value||'').trim()){driverErr.value='请输入证件号码';ok=false}if(idPhotos.value.length<1){idPhotoErr.value='请至少上传1张身份证照片';ok=false}if(driverPhotos.value.length<1){driverPhotoErr.value='请至少上传1张驾驶证照片';ok=false}if(!ok)return;if(idPhotos.value.length>2||driverPhotos.value.length>2){toast('图片数量超出上限','warn');return}const rec={name:(idName.value||'').trim(),idNo:idCardNo.value,driverNo:driverNo.value,idPhotos:[...idPhotos.value],driverPhotos:[...driverPhotos.value]};if(idEditingId.value){const i=idInfoList.value.findIndex(r=>r.id===idEditingId.value);if(i>=0){rec.id=idInfoList.value[i].id;idInfoList.value[i]=rec;idInfoList.value=[...idInfoList.value]}toast('实名信息已更新','success')}else{rec.id=Date.now()+'-'+(Math.random().toString(36).slice(2,7));idInfoList.value=[...idInfoList.value,rec];toast('证件信息保存成功','success')}profileSub.value='idInfo'}
+function submitIdInfo(){idNameErr.value=idCardErr.value=driverErr.value=idPhotoErr.value=driverPhotoErr.value='';let ok=true;if(!(idName.value||'').trim()){idNameErr.value='请输入姓名';ok=false}if(!(idCardNo.value||'').trim()){idCardErr.value='请输入证件号码';ok=false}if(!(driverNo.value||'').trim()){driverErr.value='请输入证件号码';ok=false}if(idPhotos.value.length<1){idPhotoErr.value='请至少上传1张身份证照片';ok=false}if(driverPhotos.value.length<1){driverPhotoErr.value='请至少上传1张驾驶证照片';ok=false}if(!ok)return;if(idPhotos.value.length>2||driverPhotos.value.length>2){toast('图片数量超出上限','warn');return}const rec={name:(idName.value||'').trim(),idNo:idCardNo.value,driverNo:driverNo.value,idPhotos:[...idPhotos.value],driverPhotos:[...driverPhotos.value]};if(idEditingId.value){const i=idInfoList.value.findIndex(r=>r.id===idEditingId.value);if(i>=0){rec.id=idInfoList.value[i].id;idInfoList.value[i]=rec;idInfoList.value=[...idInfoList.value]}toast('实名信息已更新','success')}else{rec.id=Date.now()+'-'+(Math.random().toString(36).slice(2,7));idInfoList.value=[...idInfoList.value,rec];toast('证件信息保存成功','success')}navDrop('subIdAdd')}
 function openIdPicker(kind,sh){idPickerKind.value=kind;idPickerSH.value=sh;showIdPicker.value=true}
 function pickIdSource(src){const label=src==='camera'?'模拟拍照':'模拟相册';if(idPickerSH.value==='reupload'){if(src==='camera'||src==='album'){toast(label+'：已替换当前图片','success');doIdReupload()}}else{if(src==='camera'||src==='album'){toast(label+'：已选中一张图片','success');commitIdPhoto()}}showIdPicker.value=false}
 function commitIdPhoto(){const arr=idPickerKind.value==='driver'?driverPhotos.value:idPhotos.value;if(arr.length>=2){toast('最多上传2张','warn');return}arr.push({id:Date.now()+'-'+(Math.random().toString(36).slice(2,7)),time:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-'),kind:idPickerKind.value});if(idPickerKind.value==='driver'){driverPhotos.value=[...arr];driverPhotoErr.value=''}else{idPhotos.value=[...arr];idPhotoErr.value=''}}
@@ -3476,17 +3485,18 @@ const orderFilterTabs=['全部','待取用','进行中','已超期','已违约',
 const orderStatusOrder={created:1,pickup:2,progress:3,'return':4,overdue:5,breach:6,complete:7,cancelled:8};
 const orderFilterMap={'全部':'all','待取用':'pickup','进行中':'progress','已超期':'overdue','已违约':'breach','已完成':'complete'};
 const orderFilter=ref('all');
-const orderListEmpty=ref(false);
+
 const payChannel=ref('2C2P');
 function setPayChannel(ch){payChannel.value=ch;orderInfo.value={...orderInfo.value,payee:ch==='offline'?'线下支付':'2C2P'}}
 const cancelBeforePay=ref('paid');
 function setCancelBeforePay(v){cancelBeforePay.value=v}
-const currentOrderList=computed(()=>{if(orderListEmpty.value)return[];const list=orderDataByCategory[orderListCategory.value]||[];const sorted=[...list].sort((a,b)=>(orderStatusOrder[a.status]||99)-(orderStatusOrder[b.status]||99));return orderFilter.value==='all'?sorted:sorted.filter(o=>o.status===orderFilter.value)});
-function openMyOrders(){showMyOrders.value=true}
-var ordersPtrInit=false;function openOrderCategory(cat){orderListCategory.value=cat;orderFilter.value='all';showOrderList.value=true;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600);nextTick(()=>{if(!ordersPtrInit){initPullToRefresh('sc-orders','ptr-orders',refreshOrders);ordersPtrInit=true}})}
+const currentOrderList=computed(()=>{if(demoListEmpty.value)return[];const list=orderDataByCategory[orderListCategory.value]||[];const sorted=[...list].sort((a,b)=>(orderStatusOrder[a.status]||99)-(orderStatusOrder[b.status]||99));return orderFilter.value==='all'?sorted:sorted.filter(o=>o.status===orderFilter.value)});
+function openMyOrders(){navOpen('myOrders')}
+var ordersPtrInit=false;function openOrderCategory(cat){orderListCategory.value=cat;orderFilter.value='all';navOpen('orderList');showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600);nextTick(()=>{if(!ordersPtrInit){initPullToRefresh('sc-orders','ptr-orders',refreshOrders);ordersPtrInit=true}})}
 function setOrderFilter(v){orderFilter.value=v;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600)}
 const orderInfo=ref({category:'车辆租赁',storeName:'雅迪电动车(双流区雅和北路店)',orderId:'YZ202512180001',createTime:'2025-12-18 10:30:00',payTime:'2025-12-18 10:35:00',payee:'2C2P',status:'pickup',statusText:'待取用',statusColor:'#FF8C1B',model:'乐迪SAA',vModel:'乐迪SAA',frame:'',bModel:'',battNo:'',pickupTime:'',finishTime:'',cancelTime:'',img:'#2B3F5F',desc:'72V32Ah锂电池·续航120km·智能防盗',plan:'月租×2月',amount:'Rp 117,272',deposit:'Rp 200.45',payStatus:'PAID',renewOrders:[{renewNo:'RZ202602180001',parentOrderNo:'YZ202512180001',plan:'周租×1周',newRentStart:'2026-02-18 10:35:00',newRentEnd:'2026-02-25 10:35:00',renewRentFee:25000,renewDeposit:0,payStatus:'PAID',payMethod:'2C2P',payTime:'2026-02-18 10:36:00',createTime:'2026-02-18 10:35:00',renewType:'manual'},{renewNo:'RZ202602250002',parentOrderNo:'YZ202512180001',plan:'周租×1周',newRentStart:'2026-02-25 10:35:00',newRentEnd:'2026-03-04 10:35:00',renewRentFee:25000,renewDeposit:0,payStatus:'PAID',payMethod:'钱包',payTime:'2026-02-25 10:35:00',createTime:'2026-02-25 10:35:00',renewType:'auto'},{renewNo:'RZ202603040003',parentOrderNo:'YZ202512180001',plan:'周租×1周',newRentStart:'2026-03-04 10:35:00',newRentEnd:'2026-03-11 10:35:00',renewRentFee:25000,renewDeposit:0,payStatus:'UNPAID',createTime:'2026-03-04 10:35:00',renewType:'manual'}]});
-function openOrderDetailFromList(o){orderDetailBack.value='list';showOrderDetail.value=true;showRentLoading.value=true;payChannel.value='2C2P';cancelBeforePay.value='paid';const _oi={category:orderListCategory.value||'车辆租赁',storeName:o.store||'',orderId:o.id||'',createTime:o.created||'',payTime:o.payTime||'',payee:'2C2P',status:o.status||'pickup',statusText:o.statusText||'已创建',statusColor:o.statusColor||'#FF6A00',model:o.model||'乐迪SAA',vModel:o.vModel||'',frame:o.frame||'',bModel:o.bModel||'',battNo:o.battNo||'',pickupTime:o.pickupTime||'',finishTime:o.finishTime||'',cancelTime:o.cancelTime||'',desc:o.desc||(selectedVehicle.value?selectedVehicle.value.desc:''),plan:o.plan||'',amount:o.amount||'',deposit:o.deposit||'Rp 200.45',payStatus:o.payStatus||'PAID',renewOrders:o.renewOrders||[]};setTimeout(()=>{if(o.status==='pickup'||o.status==='created'){startOrderTimer()}else{stopOrderTimer()}orderInfo.value=_oi;showRentLoading.value=false},600)}
+function openOrderDetailFromList(o){openOrderDetailCore(o);navOpen('orderDetail')}
+function openOrderDetailCore(o){showRentLoading.value=true;payChannel.value='2C2P';cancelBeforePay.value='paid';const _oi={category:orderListCategory.value||'车辆租赁',storeName:o.store||'',orderId:o.id||'',createTime:o.created||'',payTime:o.payTime||'',payee:'2C2P',status:o.status||'pickup',statusText:o.statusText||'已创建',statusColor:o.statusColor||'#FF6A00',model:o.model||'乐迪SAA',vModel:o.vModel||'',frame:o.frame||'',bModel:o.bModel||'',battNo:o.battNo||'',pickupTime:o.pickupTime||'',finishTime:o.finishTime||'',cancelTime:o.cancelTime||'',desc:o.desc||(selectedVehicle.value?selectedVehicle.value.desc:''),plan:o.plan||'',amount:o.amount||'',deposit:o.deposit||'Rp 200.45',payStatus:o.payStatus||'PAID',renewOrders:o.renewOrders||[]};setTimeout(()=>{if(o.status==='pickup'||o.status==='created'){startOrderTimer()}else{stopOrderTimer()}orderInfo.value=_oi;showRentLoading.value=false},600)}
 function copyText(t,label){var v=(t||'').trim();if(!v||v==='—'){toast('无内容可复制','warn');return}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(function(){toast((label||'')+'已复制','success')},function(){toast('复制失败','warn')})}else{toast('复制失败','warn')}}
 
 const profileOV=ref(null),profileSub=ref(null),profileMod=ref(null),profileModLoading=ref(false);
@@ -3494,23 +3504,23 @@ const hasPhone=ref(true),hasEmail=ref(true),hasPwd=ref(true);
 const boundPhone=ref('+86 13086666758'),boundEmail=ref('hzjs@scin.com');
 const bpArea=ref('+86'),bpPhone=ref(''),bpCode=ref(''),bpCd=ref(0),beEmail=ref(''),beCode=ref(''),beCd=ref(0);
 let bpTmr,beTmr;
-function openBindPhone(){bpPhone.value='';bpCode.value='';clearInterval(bpTmr);bpCd.value=0;profileSub.value='bindPhone'}
-function openBindEmail(){beEmail.value='';beCode.value='';clearInterval(beTmr);beCd.value=0;profileSub.value='bindEmail'}
+function openBindPhone(){bpPhone.value='';bpCode.value='';clearInterval(bpTmr);bpCd.value=0;navOpen('subBindPhone')}
+function openBindEmail(){beEmail.value='';beCode.value='';clearInterval(beTmr);beCd.value=0;navOpen('subBindEmail')}
 function sendBpCode(){if(!bpPhone.value||bpCd.value>0)return;bpCd.value=60;clearInterval(bpTmr);bpTmr=setInterval(()=>{bpCd.value--;if(bpCd.value<=0)clearInterval(bpTmr)},1000)}
-function doBindPhone(){if(!(bpPhone.value||'').trim()){toast(MSG.phoneRequired,'warn');return}if(!/^\d+$/.test(bpPhone.value)){toast(MSG.phoneDigit,'warn');return}if(!simulatePhoneValid(bpArea.value,bpPhone.value)){toast(MSG.phoneMismatch,'warn');return}if(!(bpCode.value||'').trim()){toast(MSG.codeRequired,'warn');return}if(!/^\d{6}$/.test(bpCode.value)){toast(MSG.codeFormat,'warn');return}const next=bpArea.value+' '+bpPhone.value.trim();if(hasPhone.value&&next===boundPhone.value){toast('请输入新的手机号','info');return}showRentLoading.value=true;setTimeout(function(){showRentLoading.value=false;toast(hasPhone.value?'手机号替换成功':'手机号绑定成功','success');boundPhone.value=next;hasPhone.value=true;bpPhone.value='';bpCode.value='';clearInterval(bpTmr);bpCd.value=0;profileSub.value=null},600)}
+function doBindPhone(){if(!(bpPhone.value||'').trim()){toast(MSG.phoneRequired,'warn');return}if(!/^\d+$/.test(bpPhone.value)){toast(MSG.phoneDigit,'warn');return}if(!simulatePhoneValid(bpArea.value,bpPhone.value)){toast(MSG.phoneMismatch,'warn');return}if(!(bpCode.value||'').trim()){toast(MSG.codeRequired,'warn');return}if(!/^\d{6}$/.test(bpCode.value)){toast(MSG.codeFormat,'warn');return}const next=bpArea.value+' '+bpPhone.value.trim();if(hasPhone.value&&next===boundPhone.value){toast('请输入新的手机号','info');return}showRentLoading.value=true;setTimeout(function(){showRentLoading.value=false;toast(hasPhone.value?'手机号替换成功':'手机号绑定成功','success');boundPhone.value=next;hasPhone.value=true;bpPhone.value='';bpCode.value='';clearInterval(bpTmr);bpCd.value=0;navDrop('subBindPhone')},600)}
 function sendBeCode(){if(!beEmail.value||beCd.value>0)return;beCd.value=60;clearInterval(beTmr);beTmr=setInterval(()=>{beCd.value--;if(beCd.value<=0)clearInterval(beTmr)},1000)}
-function doBindEmail(){if(!(beEmail.value||'').trim()){toast(MSG.emailRequired,'warn');return}if((beEmail.value||'').length>255){toast(MSG.emailLen,'warn');return}if(!EMAIL_RE.test(beEmail.value)){toast(MSG.emailFormat,'warn');return}if(!(beCode.value||'').trim()){toast(MSG.codeRequired,'warn');return}if(!/^\d{6}$/.test(beCode.value)){toast(MSG.codeFormat,'warn');return}const next=beEmail.value.trim();if(hasEmail.value&&next===boundEmail.value){toast('请输入新的邮箱','info');return}showRentLoading.value=true;setTimeout(function(){showRentLoading.value=false;toast(hasEmail.value?'邮箱替换成功':'邮箱绑定成功','success');boundEmail.value=next;hasEmail.value=true;beEmail.value='';beCode.value='';clearInterval(beTmr);beCd.value=0;profileSub.value=null},600)}
+function doBindEmail(){if(!(beEmail.value||'').trim()){toast(MSG.emailRequired,'warn');return}if((beEmail.value||'').length>255){toast(MSG.emailLen,'warn');return}if(!EMAIL_RE.test(beEmail.value)){toast(MSG.emailFormat,'warn');return}if(!(beCode.value||'').trim()){toast(MSG.codeRequired,'warn');return}if(!/^\d{6}$/.test(beCode.value)){toast(MSG.codeFormat,'warn');return}const next=beEmail.value.trim();if(hasEmail.value&&next===boundEmail.value){toast('请输入新的邮箱','info');return}showRentLoading.value=true;setTimeout(function(){showRentLoading.value=false;toast(hasEmail.value?'邮箱替换成功':'邮箱绑定成功','success');boundEmail.value=next;hasEmail.value=true;beEmail.value='';beCode.value='';clearInterval(beTmr);beCd.value=0;navDrop('subBindEmail')},600)}
 
 const pwdChannel=ref('phone');
 const pwdCode=ref(''),pwdCd=ref(0);
 let pwdTmr;
 const npwd=ref(''),npwd2=ref(''),npwdVis=ref(false),npwd2Vis=ref(false);
 const canConfirmPwd=computed(()=>{const a=(npwd.value||'').trim(),b=(npwd2.value||'').trim();return a.length>=6&&a.length<=64&&a===b});
-function openPwdFlow(){if(!hasPhone.value&&!hasEmail.value){toast('请先绑定手机号或邮箱','info');return}pwdChannel.value=hasPhone.value?'phone':'email';pwdCode.value='';clearInterval(pwdTmr);pwdCd.value=0;npwd.value='';npwd2.value='';npwdVis.value=false;npwd2Vis.value=false;profileSub.value='pwdVerify'}
+function openPwdFlow(){if(!hasPhone.value&&!hasEmail.value){toast('请先绑定手机号或邮箱','info');return}pwdChannel.value=hasPhone.value?'phone':'email';pwdCode.value='';clearInterval(pwdTmr);pwdCd.value=0;npwd.value='';npwd2.value='';npwdVis.value=false;npwd2Vis.value=false;navOpen('subPwdVerify')}
 function switchPwdChannel(ch){if(ch==='phone'&&!hasPhone.value)return;if(ch==='email'&&!hasEmail.value)return;if(pwdChannel.value===ch)return;pwdChannel.value=ch;pwdCode.value='';clearInterval(pwdTmr);pwdCd.value=0}
 function sendPwdCode(ch){if(pwdCd.value>0)return;const channel=ch||pwdChannel.value;if(channel==='phone'&&!hasPhone.value)return;if(channel==='email'&&!hasEmail.value)return;pwdChannel.value=channel;pwdCd.value=60;clearInterval(pwdTmr);pwdTmr=setInterval(()=>{pwdCd.value--;if(pwdCd.value<=0)clearInterval(pwdTmr)},1000)}
-function nextPwdVerify(){if(!(pwdCode.value||'').trim()){toast(MSG.codeRequired,'warn');return}if(!/^\d{6}$/.test(pwdCode.value)){toast(MSG.codeFormat,'warn');return}npwd.value='';npwd2.value='';npwdVis.value=false;npwd2Vis.value=false;profileSub.value='pwdReset'}
-function doResetPwd(){const a=(npwd.value||'').trim(),b=(npwd2.value||'').trim();if(!a){toast(MSG.pwdRequired,'warn');return}if(!b){toast(MSG.confirmRequired,'warn');return}if(a.length<6||a.length>64){toast(MSG.pwdLen,'warn');return}if(!/^[!-~]{6,64}$/.test(a)){toast(MSG.pwdChars,'warn');return}if(a!==b){toast(MSG.confirmMismatch,'warn');return}showRentLoading.value=true;setTimeout(function(){showRentLoading.value=false;hasPwd.value=true;toast('密码已更新','success');clearInterval(pwdTmr);pwdCd.value=0;pwdCode.value='';npwd.value='';npwd2.value='';profileSub.value=null},600)}
+function nextPwdVerify(){if(!(pwdCode.value||'').trim()){toast(MSG.codeRequired,'warn');return}if(!/^\d{6}$/.test(pwdCode.value)){toast(MSG.codeFormat,'warn');return}npwd.value='';npwd2.value='';npwdVis.value=false;npwd2Vis.value=false;navOpen('subPwdReset')}
+function doResetPwd(){const a=(npwd.value||'').trim(),b=(npwd2.value||'').trim();if(!a){toast(MSG.pwdRequired,'warn');return}if(!b){toast(MSG.confirmRequired,'warn');return}if(a.length<6||a.length>64){toast(MSG.pwdLen,'warn');return}if(!/^[!-~]{6,64}$/.test(a)){toast(MSG.pwdChars,'warn');return}if(a!==b){toast(MSG.confirmMismatch,'warn');return}showRentLoading.value=true;setTimeout(function(){showRentLoading.value=false;hasPwd.value=true;toast('密码已更新','success');clearInterval(pwdTmr);pwdCd.value=0;pwdCode.value='';npwd.value='';npwd2.value='';navDrop('subPwdVerify')},600)}
 
 const showVersionCheck=ref(false),hasNewVersion=ref(false),latestVersion=ref('V1.30.0'),updateDesc=ref(''),updating=ref(0),appExited=ref(false);
 const showWallet=ref(false),showWalletLedger=ref(false),showTopup=ref(false),walletBalanceVisible=ref(true);
@@ -3530,8 +3540,8 @@ const bonusLedger=ref([{id:'BN20250615001',type:'recharge',amount:50000,balanceA
 const topupAmount=ref(0),topupCustom=ref(''),topupShowCustom=ref(false),walletTopupAmounts=[50000,100000,200000,500000];
 const walletTopupBonus={50000:0,100000:20000,200000:50000,500000:150000};
 
-var walletPtrInit=false;function openWallet(){showWallet.value=true;walletStorePick.value=false;if(!walletAccount.value.activeStoreId&&currentOrder.value&&currentOrder.value.store&&walletAccount.value.wallets[currentOrder.value.store]){walletAccount.value.activeStoreId=currentOrder.value.store}nextTick(()=>{if(!walletPtrInit){initPullToRefresh('sc-wallet','ptr-wallet',refreshWallet);walletPtrInit=true}})}
-function refreshWallet(){setTimeout(()=>{},800)}function openWalletLedger(){showWalletLedger.value=true;walletLedgerTab.value='recharge';walletLedgerTxn.value=''}
+var walletPtrInit=false;function openWallet(){if(!walletAccount.value.activeStoreId&&currentOrder.value&&currentOrder.value.store&&walletAccount.value.wallets[currentOrder.value.store]){walletAccount.value.activeStoreId=currentOrder.value.store}navOpen('wallet')}
+function refreshWallet(){setTimeout(()=>{},800)}function openWalletLedger(){navOpen('walletLedger')}
 const walletLedgerTab=ref('recharge');const walletLedgerMonthOpen=ref({});
 const walletLedgerTxnEnum={
   recharge:[{v:'',l:'全部'},{v:'recharge',l:'充值'},{v:'consume',l:'消费'},{v:'refund',l:'退款'},{v:'withdraw',l:'提现'}],
@@ -3541,14 +3551,14 @@ const walletLedgerTxnOpts=computed(()=>walletLedgerTxnEnum[walletLedgerTab.value
 function setWalletLedgerTab(t){walletLedgerTab.value=t;walletLedgerTxn.value=''}
 function toggleWalletLedgerMonth(k){walletLedgerMonthOpen.value[k]=!walletLedgerMonthOpen.value[k]}
 function groupLedgerByMonth(list){const order=[],map={};list.forEach(r=>{const d=new Date(r.createdAt);const k=d.getFullYear()+'-'+(d.getMonth()+1);if(!map[k]){map[k]={key:k,label:d.getFullYear()+'年'+(d.getMonth()+1)+'月',items:[]};order.push(map[k])}map[k].items.push(r)});order.sort((a,b)=>b.key<a.key?-1:b.key>a.key?1:0);order.forEach(g=>{if(walletLedgerMonthOpen.value[g.key]===undefined)walletLedgerMonthOpen.value[g.key]=true});return order}
-const walletLedgerEmpty=ref(false);
-const walletLedgerList=computed(()=>{if(walletLedgerEmpty.value)return[];const base=walletLedgerActive.value;let list=walletLedgerTab.value==='bonus'?base.filter(r=>/(赠送)/.test(r.remark||'')):base.filter(r=>!(/(赠送)/.test(r.remark||'')));if(walletLedgerTxn.value)list=list.filter(r=>r.type===walletLedgerTxn.value);return list.slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt))});
+
+const walletLedgerList=computed(()=>{if(demoListEmpty.value)return[];const base=walletLedgerActive.value;let list=walletLedgerTab.value==='bonus'?base.filter(r=>/(赠送)/.test(r.remark||'')):base.filter(r=>!(/(赠送)/.test(r.remark||'')));if(walletLedgerTxn.value)list=list.filter(r=>r.type===walletLedgerTxn.value);return list.slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt))});
 const rechargeLedgerGroups=computed(()=>groupLedgerByMonth(rechargeLedger.value));
 const bonusLedgerGroups=computed(()=>groupLedgerByMonth(bonusLedger.value));
-function openTopup(){showTopup.value=true;topupAmount.value=0;topupCustom.value='';topupShowCustom.value=false}
+function openTopup(){navOpen('topup')}
 function selectTopupAmount(amt){topupAmount.value=amt;topupCustom.value=String(amt);topupShowCustom.value=false}
 function onCustomAmountInput(e){const el=e.target;let raw=el.value;if(raw.indexOf('.')>=0){const parts=raw.split('.');if(parts[1]&&parts[1].length>2){el.value=parts[0]+'.'+parts[1].slice(0,2);raw=el.value}topupCustom.value=raw}const v=parseFloat(raw);topupAmount.value=walletTopupAmounts.includes(v)?v:0}
-function confirmTopup(){const amt=(topupCustom.value||'').trim()?Math.round(parseFloat(topupCustom.value)*100)/100:topupAmount.value;if(!amt||amt<=0){toast('请选择充值金额','warn');return}const w=walletActive.value;if(!w){toast('请先选择门店','warn');return}const bonus=topupAmount.value>0?(walletTopupBonus[topupAmount.value]||0):0;showRentLoading.value=true;setTimeout(()=>{w.rechargeBalance+=amt;w.bonusBalance+=bonus;w.totalBalance=w.rechargeBalance+w.bonusBalance;w.lastUpdated=new Date().toISOString();walletLedger.value.unshift({id:'WL'+Date.now(),type:'recharge',amount:amt,balanceAfter:w.rechargeBalance,relatedOrder:null,operator:'当前账号',remark:'用户充值',storeId:walletAccount.value.activeStoreId,createdAt:new Date().toISOString()});rechargeLedger.value.unshift({id:'RC'+Date.now(),type:'recharge',amount:amt,balanceAfter:w.rechargeBalance,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:new Date().toISOString()});if(bonus>0){bonusLedger.value.unshift({id:'BN'+Date.now(),type:'recharge',amount:bonus,balanceAfter:w.bonusBalance,relatedOrder:null,operator:'运营',remark:'充值活动赠送',createdAt:new Date().toISOString()});walletLedger.value.unshift({id:'WL'+Date.now(),type:'recharge',amount:bonus,balanceAfter:w.bonusBalance,relatedOrder:null,operator:'运营',remark:'充值活动赠送',storeId:walletAccount.value.activeStoreId,createdAt:new Date().toISOString()})}showRentLoading.value=false;showTopup.value=false;toast(bonus>0?('充值成功，赠送 Rp '+bonus.toLocaleString('id-ID')):'充值成功','success')},800)}
+function confirmTopup(){const amt=(topupCustom.value||'').trim()?Math.round(parseFloat(topupCustom.value)*100)/100:topupAmount.value;if(!amt||amt<=0){toast('请选择充值金额','warn');return}const w=walletActive.value;if(!w){toast('请先选择门店','warn');return}const bonus=topupAmount.value>0?(walletTopupBonus[topupAmount.value]||0):0;showRentLoading.value=true;setTimeout(()=>{w.rechargeBalance+=amt;w.bonusBalance+=bonus;w.totalBalance=w.rechargeBalance+w.bonusBalance;w.lastUpdated=new Date().toISOString();walletLedger.value.unshift({id:'WL'+Date.now(),type:'recharge',amount:amt,balanceAfter:w.rechargeBalance,relatedOrder:null,operator:'当前账号',remark:'用户充值',storeId:walletAccount.value.activeStoreId,createdAt:new Date().toISOString()});rechargeLedger.value.unshift({id:'RC'+Date.now(),type:'recharge',amount:amt,balanceAfter:w.rechargeBalance,relatedOrder:null,operator:'当前账号',remark:'用户充值',createdAt:new Date().toISOString()});if(bonus>0){bonusLedger.value.unshift({id:'BN'+Date.now(),type:'recharge',amount:bonus,balanceAfter:w.bonusBalance,relatedOrder:null,operator:'运营',remark:'充值活动赠送',createdAt:new Date().toISOString()});walletLedger.value.unshift({id:'WL'+Date.now(),type:'recharge',amount:bonus,balanceAfter:w.bonusBalance,relatedOrder:null,operator:'运营',remark:'充值活动赠送',storeId:walletAccount.value.activeStoreId,createdAt:new Date().toISOString()})}showRentLoading.value=false;navDrop('topup');toast(bonus>0?('充值成功，赠送 Rp '+bonus.toLocaleString('id-ID')):'充值成功','success')},800)}
 
 
 // ===== 充值订单详情（C端） =====
@@ -3580,7 +3590,7 @@ const rechargePayStatusMap={
 function rechargeStatusTag(s){return rechargePayStatusMap[s]||{text:s||'-',color:'#999',bg:'#F2F2F2'}}
 function rechargeChannelText(c){return c==='2C2P'?'2C2P':'-'}
 function dialRechargePhone(){if(!rechargeOrder.phone){toast('无手机号','warn');return}toast('拨号中…','info')}
-function openRechargeOrderFromList(item){if(item){Object.assign(rechargeOrder,{orderNo:item.orderNo||'',createTime:item.createTime||'',payChannel:item.payChannel||'2C2P',payStatus:item.payStatus||'PAID',payTime:item.payTime||'-',cancelTime:item.cancelTime||'',account:item.account||'',phone:item.phone||'',email:item.email||'',amount:Number(item.amount)||0,giftAmount:Number(item.giftAmount)||0,refundAmount:Number(item.refundAmount)||0,refundGiftAmount:Number(item.refundGiftAmount)||0})}showRechargeList.value=false;showRechargeOrder.value=true}
+function openRechargeOrderFromList(item){if(item){Object.assign(rechargeOrder,{orderNo:item.orderNo||'',createTime:item.createTime||'',payChannel:item.payChannel||'2C2P',payStatus:item.payStatus||'PAID',payTime:item.payTime||'-',cancelTime:item.cancelTime||'',account:item.account||'',phone:item.phone||'',email:item.email||'',amount:Number(item.amount)||0,giftAmount:Number(item.giftAmount)||0,refundAmount:Number(item.refundAmount)||0,refundGiftAmount:Number(item.refundGiftAmount)||0})}showRechargeList.value=true;navOpen('rechargeOrder')}
 function setRechargeRefundState(mode){if(mode==='PARTIAL'){rechargeOrder.payStatus='PARTIAL_REFUND';rechargeOrder.refundAmount=Math.round(rechargeOrder.amount*0.5);rechargeOrder.refundGiftAmount=Math.round(rechargeOrder.giftAmount*0.5)}else if(mode==='FULL'){rechargeOrder.payStatus='FULL_REFUND';rechargeOrder.refundAmount=rechargeOrder.amount;rechargeOrder.refundGiftAmount=rechargeOrder.giftAmount}}
 function payRechargeOrder(){rechargeOrder.payStatus='PAID';rechargeOrder.payTime=fmtDateTime(new Date());toast('支付成功','success')}
 function requestCancelRecharge(){showCancelRechargeModal.value=true}
@@ -3601,9 +3611,9 @@ const rechargeOrderList=ref([
 {orderNo:'CZ20260805002',createTime:'2026-08-05 16:40:00',payChannel:'2C2P',payStatus:'CANCELLED',payTime:'-',cancelTime:'2026-08-05 16:45:30',account:'user_yadea_8829',phone:'081234567890',email:'user8829@example.com',amount:90000,giftAmount:0,refundAmount:0,refundGiftAmount:0}
 ]);
 const rechargeStatusOrder={UNPAID:1,PAYING:2,PAID:3,REFUNDING:4,PARTIAL_REFUND:5,FULL_REFUND:6,CANCELLED:7};
-const rechargeListEmpty=ref(false);
-const currentRechargeList=computed(()=>{if(rechargeListEmpty.value)return[];const list=rechargeOrderList.value;const sorted=[...list].sort((a,b)=>(rechargeStatusOrder[a.payStatus]||99)-(rechargeStatusOrder[b.payStatus]||99));return rechargeFilter.value==='all'?sorted:sorted.filter(o=>o.payStatus===rechargeFilter.value)});
-function openRechargeList(){rechargeFilter.value='all';showRechargeList.value=true}
+
+const currentRechargeList=computed(()=>{if(demoListEmpty.value)return[];const list=rechargeOrderList.value;const sorted=[...list].sort((a,b)=>(rechargeStatusOrder[a.payStatus]||99)-(rechargeStatusOrder[b.payStatus]||99));return rechargeFilter.value==='all'?sorted:sorted.filter(o=>o.payStatus===rechargeFilter.value)});
+function openRechargeList(){rechargeFilter.value='all';navOpen('rechargeList')}
 function setRechargeFilter(v){rechargeFilter.value=v;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},400)}
 
 const scanning=ref(false);
@@ -3612,23 +3622,23 @@ const scanBindDevice=ref(null);
 const showBindConfirm=ref(false);
 const bindConfirmLoading=ref(false);
 function checkVersion(){showVersionCheck.value=true;hasNewVersion.value=false;latestVersion.value='V1.30.0';updateDesc.value='';updating.value=0}
-function doScan(){scanning.value=false;setTimeout(function(){toast('设备绑定成功','success')},200)}
+function doScan(){navDrop('scan');setTimeout(function(){toast('设备绑定成功','success')},200)}
 const scanTorch=ref(false);
 const manualVin=ref('');
 const showManualVin=ref(false);
 const scanCtx=ref('vehicle');
-function openManualInput(){manualVin.value='';showManualVin.value=true}
-function confirmManualVin(){const n=manualVin.value.trim();if(!n)return;showManualVin.value=false;scanning.value=false;scanBindMode.value=true;if(scanCtx.value==='battery'){scanBindDevice.value={kind:'battery',id:n,model:'天能锂电72V20Ah',soc:100,source:'manual',discharge:true}}else{scanBindDevice.value={kind:'vehicle',id:100+scanBoundVehicles.value.length,name:'雅迪冠能6 TTFAR',vin:n,dark:false,source:'manual',locked:false}}setTimeout(function(){if(scanCtx.value==='battery'){showBatteryDetail.value=true}else{showVehicleDetail.value=true}},60)}
+function openManualInput(){manualVin.value='';navOpen('manualVin')}
+function confirmManualVin(){const n=manualVin.value.trim();if(!n)return;navDrop('manualVin');navDrop('scan');scanBindMode.value=true;if(scanCtx.value==='battery'){scanBindDevice.value={kind:'battery',id:n,model:'天能锂电72V20Ah',soc:100,source:'manual',discharge:true}}else{scanBindDevice.value={kind:'vehicle',id:100+scanBoundVehicles.value.length,name:'雅迪冠能6 TTFAR',vin:n,dark:false,source:'manual',locked:false}}setTimeout(function(){if(scanCtx.value==='battery'){navOpen('batteryDetail')}else{navOpen('vehicleDetail')}},60)}
 const vdDevice=computed(()=>scanBindMode.value&&scanBindDevice.value&&scanBindDevice.value.kind==='vehicle'?scanBindDevice.value:currentVehicle.value);
 const bdDevice=computed(()=>scanBindMode.value&&scanBindDevice.value&&scanBindDevice.value.kind==='battery'?scanBindDevice.value:currentBattery.value);
 function openBindConfirm(){showBindConfirm.value=true}
 function closeBindConfirm(){showBindConfirm.value=false}
-function confirmBind(){if(bindConfirmLoading.value)return;const d=scanBindDevice.value;if(!d)return;bindConfirmLoading.value=true;setTimeout(function(){bindConfirmLoading.value=false;showBindConfirm.value=false;if(d.kind==='vehicle'){scanBoundVehicles.value.push({id:d.id,name:d.name,vin:d.vin,dark:false,source:'manual',locked:false});scanBindMode.value=false;scanBindDevice.value=null;showVehicleDetail.value=false;homeDevSeg.value='vehicles';toast('设备绑定成功','success')}else{homeBatteries.value.push({id:d.id,model:d.model,soc:100,source:'manual',discharge:true});scanBindMode.value=false;scanBindDevice.value=null;showBatteryDetail.value=false;homeDevSeg.value='battery';toast('设备绑定成功','success')}stopOrderTimer();showOrderDetail.value=false;showOrderList.value=false;showMyOrders.value=false;setTab('home')},600)}
+function confirmBind(){if(bindConfirmLoading.value)return;const d=scanBindDevice.value;if(!d)return;bindConfirmLoading.value=true;setTimeout(function(){bindConfirmLoading.value=false;showBindConfirm.value=false;if(d.kind==='vehicle'){scanBoundVehicles.value.push({id:d.id,name:d.name,vin:d.vin,dark:false,source:'manual',locked:false});scanBindMode.value=false;scanBindDevice.value=null;navDrop('vehicleDetail');homeDevSeg.value='vehicles';toast('设备绑定成功','success')}else{homeBatteries.value.push({id:d.id,model:d.model,soc:100,source:'manual',discharge:true});scanBindMode.value=false;scanBindDevice.value=null;navDrop('batteryDetail');homeDevSeg.value='battery';toast('设备绑定成功','success')}setTab('home')},600)}
 function goUpdate(){updating.value=1;setTimeout(function(){updating.value=2;toast('正在下载更新包…','info')},200);setTimeout(function(){updating.value=3;toast('安装包已下载，即将安装','success')},1500);setTimeout(function(){showVersionCheck.value=false;updating.value=0;toast('更新完成！已升级至 V'+(latestVersion.value),'success')},2200)}
 function exitApp(){showVersionCheck.value=false;appExited.value=true}
 function relaunchApp(){appExited.value=false}
-function selectLang(id){appLang.value=id;profileSub.value=null}
-function doLogout(){profileMod.value=null;profileOV.value=null;profileSub.value=null;dialPickerSource.value=null;resetLoginForm();loggedIn.value=false;showLogin.value=false;showRent.value=false;showStore.value=false;showVehicle.value=false;showConfirm.value=false;showOrderDetail.value=false;showMyOrders.value=false;showOrderList.value=false;showRefundList.value=false;showConfirmDocs.value=false;showDocSheet.value=false;docDeleteMod.value=false;previewImage.value=null;docText.value='';confirmDocs.value=[];idInfoList.value=[];showIdInfoSheet.value=false;idPhotos.value=[];driverPhotos.value=[];showIdAction.value=false;showIdPreview.value=false;showIdPicker.value=false;idActionTarget.value=null;showWallet.value=false;showTopup.value=false;walletAccount.value.activeStoreId=null;stopOrderTimer();tab.value='home';toast('已退出登录','info')}
+function selectLang(id){appLang.value=id;navDrop('subLang')}
+function doLogout(){navReset();profileMod.value=null;profileOV.value=null;profileSub.value=null;dialPickerSource.value=null;resetLoginForm();loggedIn.value=false;showLogin.value=false;showRent.value=false;showStore.value=false;showVehicle.value=false;showConfirm.value=false;showOrderDetail.value=false;showMyOrders.value=false;showOrderList.value=false;showRefundList.value=false;showConfirmDocs.value=false;showDocSheet.value=false;docDeleteMod.value=false;previewImage.value=null;docText.value='';confirmDocs.value=[];idInfoList.value=[];showIdInfoSheet.value=false;idPhotos.value=[];driverPhotos.value=[];showIdAction.value=false;showIdPreview.value=false;showIdPicker.value=false;idActionTarget.value=null;showWallet.value=false;showTopup.value=false;walletAccount.value.activeStoreId=null;stopOrderTimer();tab.value='home';toast('已退出登录','info')}
 const profileMdT=computed(()=>{if(profileMod.value==='logout')return'退出登录';return''});
 const profileMdD=computed(()=>{if(profileMod.value==='logout')return'确定要退出当前账号吗？退出后需重新登录。';return''});
 const profileMdDanger=computed(()=>profileMod.value==='logout');
@@ -3675,8 +3685,8 @@ function parseRp(s){if(typeof s==='number')return s;const m=String(s).replace(/[
 function formatNow(){return new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-')}
 function addPeriod(iso,idx){const d=new Date(iso.replace(/-/g,'/'));if(isNaN(d))return iso;if(idx===0)d.setHours(d.getHours()+1);else if(idx===1)d.setDate(d.getDate()+1);else if(idx===2)d.setDate(d.getDate()+7);else d.setDate(d.getDate()+30);return fmtISO(d)}
 const feeSummary=computed(()=>{const o=orderInfo.value;if(!o)return{rent:0,deposit:0,total:0};if(o.status==='created'||o.payStatus!=='PAID')return{rent:0,deposit:0,total:0};let rent=parseRp(o.amount),dep=parseRp(o.deposit);(o.renewOrders||[]).forEach(r=>{if(r.payStatus==='PAID')rent+=r.renewRentFee});return {rent:rent,deposit:dep,total:rent+dep}});
-const feeDetailEmpty=ref(false);
-const feeRows=computed(()=>{if(feeDetailEmpty.value)return[];const o=orderInfo.value;if(!o)return[];const rows=[{kind:'主订单',plan:o.plan||'—',periodStart:confPickupISO.value,periodEnd:confReturnISO.value,rent:parseRp(o.amount),deposit:parseRp(o.deposit),total:parseRp(o.amount)+parseRp(o.deposit),payStatus:(o.status==='created')?'待支付':(o.payStatus==='PAID'?'已支付':'待支付'),payMethod:o.payee||'—',payTime:(o.status==='created')?'':(o.payStatus==='PAID'?o.payTime:'')}];(o.renewOrders||[]).forEach(r=>{const cancelled=!!r.canceled;rows.push({kind:(r.renewType==='auto'?'自动续租':'手动续租'),plan:r.plan,periodStart:r.newRentStart,periodEnd:r.newRentEnd,rent:r.renewRentFee,deposit:0,total:r.renewRentFee,payStatus:cancelled?'已取消':(r.payStatus==='PAID'?'已支付':'待支付'),payMethod:r.payStatus==='PAID'?(r.payMethod||'—'):'—',payTime:r.payStatus==='PAID'?r.payTime:'',canceled:cancelled,no:r.renewNo})});return rows});
+
+const feeRows=computed(()=>{if(demoListEmpty.value)return[];const o=orderInfo.value;if(!o)return[];const rows=[{kind:'主订单',plan:o.plan||'—',periodStart:confPickupISO.value,periodEnd:confReturnISO.value,rent:parseRp(o.amount),deposit:parseRp(o.deposit),total:parseRp(o.amount)+parseRp(o.deposit),payStatus:(o.status==='created')?'待支付':(o.payStatus==='PAID'?'已支付':'待支付'),payMethod:o.payee||'—',payTime:(o.status==='created')?'':(o.payStatus==='PAID'?o.payTime:'')}];(o.renewOrders||[]).forEach(r=>{const cancelled=!!r.canceled;rows.push({kind:(r.renewType==='auto'?'自动续租':'手动续租'),plan:r.plan,periodStart:r.newRentStart,periodEnd:r.newRentEnd,rent:r.renewRentFee,deposit:0,total:r.renewRentFee,payStatus:cancelled?'已取消':(r.payStatus==='PAID'?'已支付':'待支付'),payMethod:r.payStatus==='PAID'?(r.payMethod||'—'):'—',payTime:r.payStatus==='PAID'?r.payTime:'',canceled:cancelled,no:r.renewNo})});return rows});
 const feeCardRow=computed(()=>{const rows=feeRows.value;return rows.find(r=>r.kind==='主订单')||null});
 const rentOpen=ref(false),depositOpen=ref(false),totalOpen=ref(false);
 const refundRentOpen=ref(false),refundDepositOpen=ref(false),refundTotalOpen=ref(false);
@@ -3699,9 +3709,123 @@ function deductWallet(amt){const w=walletActive.value;if(!w)return;let need=amt;
 function confirmPayment(){if(!payTarget.value)return;if(payTarget.value.type==='renew'&&paymentType.value==='offline'){showPayment.value=false;toast('请等待门店确认','info');return}if(paymentType.value==='balance'){const need=payTarget.value.amount;if(!walletActive.value||walletActive.value.totalBalance<need){toast('钱包余额不足，请充值','warn');return}deductWallet(need)}paymentBusy.value=true;showRentLoading.value=true;const t=payTarget.value;setTimeout(()=>{showRentLoading.value=false;paymentBusy.value=false;if(t.type==='renew'){markRenewPaid(t.no,paymentType.value)}else{const o=orderInfo.value;orderInfo.value={...o,payStatus:'PAID',status:o.status==='created'?'pickup':o.status,statusText:o.status==='created'?'待取用':o.statusText,statusColor:o.status==='created'?'#FF8C1B':o.statusColor,payee:paymentType.value==='offline'?'线下支付':paymentType.value==='balance'?'钱包':'2C2P',payTime:formatNow()}}showPayment.value=false;toast('支付成功','success')},900)}
 function simulateInUse(){const o=orderInfo.value;const ns=o.status==='progress'?'pickup':'progress';orderInfo.value={...o,status:ns,statusText:ns==='progress'?'使用中':'待取用',statusColor:ns==='progress'?'#17A34A':'#FF8C1B'}}
 function simulatePriceChange(){const o=orderInfo.value;const on=!o.priceChanged;orderInfo.value={...o,priceChanged:on};toast(on?'已模拟改价，请在费用明细查看':'已取消改价模拟',on?'success':'info')}
-var rentPtrInit=false;function openRent(){showRent.value=true;nextTick(()=>{if(!rentPtrInit){initPullToRefresh('sc-rent','ptr-rent',refreshRent);rentPtrInit=true}})}
+var rentPtrInit=false;function openRent(){navOpen('rent')}
+/* ================= 统一页面导航栈：内存栈与浏览器 history 双向同步 =================
+   - navOpen(name)   入栈 push（普通页面跳转），同步 history.pushState
+   - navBack()       统一返回（UI 返回按钮 / 侧滑手势统一走这里），同步 history.back
+   - navDrop(name)   程序性关闭某页（业务完成），同步回退一条 history
+   - navSwap(name)   关当前页并 replace 打开新页（如登录后进租车，不重复入栈）
+   - navReset()      清空整个栈（退出登录），history 同步回退
+   - popstate 监听   物理/浏览器返回与内存栈保持同步；栈空时交还浏览器（首页可退出）
+   每次跳转均打印页面栈数组，方便调试。*/
+const NAV_SCREENS={
+login:{open:()=>{showLogin.value=true},close:()=>{showLogin.value=false}},
+rent:{open:()=>{showRent.value=true;nextTick(()=>{if(!rentPtrInit){initPullToRefresh('sc-rent','ptr-rent',refreshRent);rentPtrInit=true}})},close:()=>{showRent.value=false}},
+store:{open:()=>{showStore.value=true;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},800);nextTick(()=>{if(!storePtrInit){initPullToRefresh('sc-store','ptr-store',refreshStore);storePtrInit=true}})},close:()=>{walletStorePick.value=false;showStore.value=false}},
+vehicle:{open:()=>{showVehicle.value=true},close:()=>{showVehicle.value=false}},
+confirm:{open:()=>{showConfirm.value=true},close:()=>{showConfirm.value=false}},
+vehicleDetail:{open:()=>{showVehicleDetail.value=true},close:()=>closeVehicleDetail()},
+batteryDetail:{open:()=>{showBatteryDetail.value=true},close:()=>closeBatteryDetail()},
+findPage:{open:()=>{showFindPage.value=true},close:()=>closeFindPage()},
+trackPage:{open:()=>{showTrackPage.value=true},close:()=>closeTrackPage()},
+myOrders:{open:()=>{showMyOrders.value=true},close:()=>{showMyOrders.value=false}},
+orderList:{open:()=>{showOrderList.value=true;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600);nextTick(()=>{if(!ordersPtrInit){initPullToRefresh('sc-orders','ptr-orders',refreshOrders);ordersPtrInit=true}})},close:()=>{showOrderList.value=false}},
+refundList:{open:()=>{showRefundList.value=true;showRentLoading.value=true;setTimeout(()=>{showRentLoading.value=false},600);nextTick(()=>{if(!refundPtrInit){initPullToRefresh('sc-refund','ptr-refund',refreshRefund);refundPtrInit=true}})},close:()=>{showRefundList.value=false}},
+orderDetail:{open:()=>{showOrderDetail.value=true},close:()=>{stopOrderTimer();showOrderDetail.value=false}},
+confirmDocs:{open:()=>{showConfirmDocs.value=true},close:()=>{showConfirmDocs.value=false}},
+wallet:{open:()=>{showWallet.value=true;walletStorePick.value=false;nextTick(()=>{if(!walletPtrInit){initPullToRefresh('sc-wallet','ptr-wallet',refreshWallet);walletPtrInit=true}})},close:()=>{showWallet.value=false}},
+walletLedger:{open:()=>{showWalletLedger.value=true;walletLedgerTab.value='recharge';walletLedgerTxn.value=''},close:()=>{showWalletLedger.value=false}},
+topup:{open:()=>{showTopup.value=true;topupAmount.value=0;topupCustom.value='';topupShowCustom.value=false},close:()=>{showTopup.value=false}},
+rechargeList:{open:()=>{rechargeFilter.value='all';showRechargeList.value=true},close:()=>{showRechargeList.value=false}},
+rechargeOrder:{open:()=>{showRechargeOrder.value=true},close:()=>{showRechargeOrder.value=false}},
+scan:{open:()=>{scanning.value=true},close:()=>{scanning.value=false}},
+manualVin:{open:()=>{showManualVin.value=true},close:()=>{showManualVin.value=false}},
+ovInfo:{open:()=>{profileOV.value='info'},close:()=>{if(profileOV.value==='info')profileOV.value=null}},
+ovSettings:{open:()=>{profileOV.value='settings'},close:()=>{if(profileOV.value==='settings')profileOV.value=null}},
+subIdInfo:{open:()=>{profileSub.value='idInfo'},close:()=>{idSelectMode.value=false;if(profileSub.value==='idInfo')profileSub.value=null}},
+subIdAdd:{open:()=>{profileSub.value='idAdd'},close:()=>{if(profileSub.value==='idAdd')profileSub.value=null}},
+subIdDetail:{open:()=>{profileSub.value='idDetail'},close:()=>{if(profileSub.value==='idDetail')profileSub.value=null}},
+subBindPhone:{open:()=>{profileSub.value='bindPhone'},close:()=>{if(profileSub.value==='bindPhone')profileSub.value=null}},
+subBindEmail:{open:()=>{profileSub.value='bindEmail'},close:()=>{if(profileSub.value==='bindEmail')profileSub.value=null}},
+subPwdVerify:{open:()=>{profileSub.value='pwdVerify'},close:()=>{if(profileSub.value==='pwdVerify')profileSub.value=null}},
+subPwdReset:{open:()=>{profileSub.value='pwdReset'},close:()=>{if(profileSub.value==='pwdReset')profileSub.value=null}},
+subLang:{open:()=>{profileSub.value='lang'},close:()=>{if(profileSub.value==='lang')profileSub.value=null}}
+};
+function _navClone(v){return (v&&typeof v==='object')?JSON.parse(JSON.stringify(v)):v}
+function _navR(r){return{get:function(){return r.value},set:function(v){r.value=v}}}
+function _navRA(o){return{get:function(){return _navClone(o)},set:function(v){var c=_navClone(v);Object.keys(o).forEach(function(k){if(!(k in c))delete o[k]});Object.assign(o,c)}}}
+const pageRefList=[
+  _navR(tab),_navR(mapCtx),_navR(showLogin),_navR(showRent),_navR(showRentLoading),_navR(showStore),_navR(showVehicle),_navR(showConfirm),
+  _navR(showVehicleDetail),_navR(showBatteryDetail),_navR(showFindPage),_navR(showTrackPage),_navR(showMyOrders),_navR(showOrderList),_navR(showRefundList),_navR(showOrderDetail),
+  _navR(showConfirmDocs),_navR(showWallet),_navR(showWalletLedger),_navR(showTopup),_navR(showRechargeList),_navR(showRechargeOrder),_navR(scanning),_navR(showManualVin),
+  _navR(profileOV),_navR(profileSub),_navR(idSelectMode),_navR(walletStorePick),_navR(walletLedgerTab),_navR(walletLedgerTxn),_navR(topupAmount),_navR(topupCustom),_navR(topupShowCustom),
+  _navR(rechargeFilter),_navR(myVehicleIdx),_navR(currentBatteryIdx),_navR(selectedVehicle),_navR(selectedStore),_navR(orderInfo),_navR(payTarget),_navR(idDetailRec),_navR(idEditingId),
+  _navR(confirmIdInfo),_navR(scanBindDevice),_navR(scanCtx),_navR(orderListCategory),_navR(locRinging),_navRA(rechargeOrder)
+];
+function _navSnapshot(){return pageRefList.map(function(e){return _navClone(e.get())})}
+function _navRestore(arr){pageRefList.forEach(function(e,i){e.set(_navClone(arr[i]))})}
+const navStack=[];
+var _pagePushed=false,navSuppress=0,navLastBackAt=0;
+function navLog(action,name){console.log('[页面栈]',action+(name?' '+name:''),'→',navStack.map(e=>e.name||'(未命名)').join(' <- ')||'(首页)','| history.length='+history.length)}
+function _navScreen(name){return (typeof NAV_SCREENS!=='undefined'&&NAV_SCREENS[name])||null}
+function navOpen(name){
+  if(_pagePushed)return;_pagePushed=true;
+  setTimeout(function(){_pagePushed=false},0);
+  if(name&&navStack.some(e=>e.name===name)){navLog('重复入栈已忽略',name);return}
+  const snap=_navSnapshot();
+  if(!name&&navStack.length&&JSON.stringify(snap)===JSON.stringify(navStack[navStack.length-1].snap)){navLog('重复入栈已忽略',name||'');return}
+  const sc=_navScreen(name);
+  navStack.push({name:name||'',snap:snap});
+  if(sc&&sc.open)sc.open();
+  try{history.pushState({nav:name||''},'')}catch(e){}
+  navLog('push',name||'');
+}
+function navBack(){
+  const now=Date.now();if(now-navLastBackAt<250)return;navLastBackAt=now;
+  if(!navStack.length){navLog('已到首页，边界兜底，禁止继续返回');return}
+  const e=navStack.pop();
+  const sc=_navScreen(e.name);
+  if(sc&&sc.close)sc.close();
+  _navRestore(e.snap);
+  navSuppress++;try{history.back()}catch(_){}
+  navLog('back',e.name||'');
+}
+function navDrop(name){
+  const i=navStack.length-1;
+  if(i<0)return;
+  if(name&&navStack[i].name!==name)return;
+  const e=navStack.pop();
+  const sc=_navScreen(e.name);
+  if(sc&&sc.close)sc.close();
+  navSuppress++;try{history.go(-1)}catch(_){}
+  navLog('drop',e.name||'');
+}
+function navSwap(name){
+  const s=_navScreen(name);if(!s)return;
+  const top=navStack.length?navStack.pop():null;
+  if(top){const sc=_navScreen(top.name);if(sc&&sc.close)sc.close()}
+  s.open();try{history.replaceState({nav:name||''},'')}catch(_){}
+  navStack.push({name:name||'',snap:top?top.snap:_navSnapshot()});
+  navLog('replace',name);
+}
+function navReset(){
+  const n=navStack.length;
+  while(navStack.length){const e=navStack.pop();const sc=_navScreen(e.name);if(sc&&sc.close)sc.close()}
+  if(n>0){navSuppress++;try{history.go(-n)}catch(_){}}
+  navLog('reset','清空'+n+'层');
+}
+window.addEventListener('popstate',function(){
+  if(navSuppress>0){navSuppress--;return}
+  if(!navStack.length)return;
+  const e=navStack.pop();
+  const sc=_navScreen(e.name);
+  if(sc&&sc.close)sc.close();
+  _navRestore(e.snap);
+  navLog('popstate(物理返回)',e.name||'');
+});
+try{history.replaceState({nav:''},'')}catch(e){}
 onMounted(()=>{initPullToRefresh('sc-home','ptr-home',refreshHome);setInterval(()=>{homeBannerIdx.value=(homeBannerIdx.value+1)%homeBanners.length},4000)});
-return{tab,toasts,toast,copyText,setTab,luci,weatherScene,weatherData,demoActive,mapCtx,showFindPage,showTrackPage,refundRentOpen,refundDepositOpen,refundTotalOpen,refundRecOpen,refundChannels,locLoading,locRinging,locFocus,locAddressFull,locAddressShort,locDistM,locWalkMin,locVehPt,locUserPt,openFindPage,openFindPageBattery,closeFindPage,locFocusUser,locFocusVehicle,locRingDevice,locOpenNav,trackStartLabel,trackEndLabel,trackLoading,trackPoints,trackPolyline,trackStartPt,trackEndPt,trackPois,trackTimePicker,openTrackPage,openTrackPageBattery,closeTrackPage,openTrackTimePicker,cancelTrackTimePicker,confirmTrackTimePicker,trackDraft,trackDays,trackMonths,trackYears,trackHours,trackMins,p2u,trackWheelDay,trackWheelMonth,trackWheelYear,trackWheelHour,trackWheelMin,onTrackWheelScroll,vehicles,vehicleCount,setVehicleCount,vehicleSource,setVehicleSource,opLock,opHorn,myVehicleIdx,showVehiclePicker,currentVehicle,toggleVehiclePicker,selectMyVehicle,openMyVehicleFromHome,openVehicleDetail,closeVehicleDetail,openVNameEdit,closeVNameEdit,saveVNameEdit,vNameLoading,openUnbindConfirm,closeUnbindConfirm,confirmUnbind,pushNotify,showPushNotify,renewNotifyTemplates,unbindLoading,showVehicleDetail,showUnbindConfirm,showVNameEdit,vNameInput,vNameError,locked,lockLoading,toggleLock,hornLoading,sendHorn,openMyCarOrder,currentOrder,refreshHome,refreshRent,openRent,loggedIn,pendingRoute,appLang,appLangLabel,langOptions,showLogin,loginView,loginMode,loginSub,loginDial,loginPhone,loginEmail,loginAccount,loginPwd,loginCode,loginPwdVisible,loginAgree,loginCd,dialQ,dialFiltered,showDialPicker,activeDialCode,closeDialPicker,canSendCode,canLogin,loginOpenLang,selectLangFromLogin,openDialCode,pickDial,setLoginMode,setLoginSub,sendLoginCode,doLogin,openLogin,profileOV,profileSub,profileMod,profileModLoading,hasPhone,hasEmail,hasPwd,boundPhone,boundEmail,bpArea,bpPhone,bpCode,bpCd,beEmail,beCode,beCd,openBindPhone,openBindEmail,sendBpCode,doBindPhone,sendBeCode,doBindEmail,pwdChannel,pwdCode,pwdCd,npwd,npwd2,npwdVis,npwd2Vis,canConfirmPwd,openPwdFlow,switchPwdChannel,sendPwdCode,nextPwdVerify,doResetPwd,checkVersion,goUpdate,exitApp,relaunchApp,scanning,doScan,scanTorch,manualVin,showManualVin,scanCtx,openManualInput,confirmManualVin,scanBindMode,scanBindDevice,vdDevice,bdDevice,showBindConfirm,bindConfirmLoading,openBindConfirm,closeBindConfirm,confirmBind,homeDevSeg,homeBatteries,bSocColor,batteryAdd,showBatteryDetail,currentBattery,openBatteryDetail,openBatteryOrder,closeBatteryDetail,openBatteryUnbind,closeBatteryUnbind,confirmBatteryUnbind,showBatteryUnbind,batteryUnbindLoading,showVersionCheck,hasNewVersion,latestVersion,updateDesc,updating,appExited,selectLang,doLogout,profileMdT,profileMdD,profileMdDanger,profileMdOk,showRent,rentBannerIdx,rentBanners,showRentLoading,homeBannerIdx,homeBanners,showDatePicker,rentDateIdx,dateOptions,rentDateLabel,selectDate,showPeriodPicker,rentPeriodIdx,periodOptions,rentPeriodLabel,periodUnit,selectPeriod,showStore,storeSearch,storeFiltered,storeListEmpty,selectStore,openStore,searchStore,selectedStore,confStore,showVehicle,vehicleList,vehicleListEmpty,rentNow,showConfirm,selectedVehicle,confRentDays,confTotal,confTotalDays,confDurationLabel,confPeriodDetail,orderPlanDisplay,confTab,confPayType,cancelRules,noticeRules,billingRules,overdueRules,confAddDays,confSubDays,confirmOrder,confTotal,confDeposit,confGrandTotal,confPickupDate,confReturnDate,confPickupISO,confReturnISO,showOrderDetail,orderDetailBack,showRefundList,openRefundList,refundRecords,confirmDocs,autoRenew,toggleAutoRenew,uploadIdEnabled,showConfirmDocs,showDocSheet,docSheetTab,docText,docImageTypes,docDeleteMod,docDeleteTarget,previewImage,openDocSheet,addDocImage,addDocText,requestDeleteDoc,confirmDeleteDoc,showCancelModal,idInfoList,showIdInfoSheet,idInfoTypes,idInfoCount,openIdInfoSheet,idName,idEditingId,openIdAdd,openIdEditRecord,deleteIdRecord,idCardNo,driverNo,idPhotos,driverPhotos,idDetailRec,openIdDetail,openIdDetailPreview,idNameErr,idCardErr,driverErr,idPhotoErr,driverPhotoErr,idActionTarget,openIdEditRecord,deleteIdRecord,showIdDelete,idDeleteTarget,openIdDelete,confirmIdDelete,idSelectMode,confirmIdInfo,openIdSelect,closeIdSelect,confirmIdSelect,showIdAction,idPickerSource,showIdPreview,idPreviewItem,showIdPicker,idPickerKind,idPickerSH,maskNo,maskNoFull,submitIdInfo,openIdPicker,pickIdSource,commitIdPhoto,openIdMore,idActionReupload,doIdReupload,idActionDelete,openIdPreview,cancelLoading,orderCountdown,orderCountdownText,orderDetailTab,cancelOrder,goToPay,orderInfo,startOrderTimer,stopOrderTimer,showMyOrders,showOrderList,orderListCategory,currentOrderList,orderListEmpty,rechargeListEmpty,refundRecordsEmpty,walletLedgerEmpty,feeDetailEmpty,openOrderCategory,openMyOrders,openOrderDetailFromList,orderFilter,orderFilterTabs,orderFilterMap,setOrderFilter,relocateRent,payChannel,setPayChannel,cancelBeforePay,setCancelBeforePay,delDocLoading,showWallet,showWalletLedger,showTopup,walletBalanceVisible,walletAccount,walletActive,walletLedgerActive,walletStorePick,pickStoreForWallet,walletStoreSheet,walletOpenedStores,walletSwitchStore,storeInfoOf,ensureWalletOpened,walletLedger,walletLedgerTab,walletLedgerList,walletLedgerMonthOpen,setWalletLedgerTab,toggleWalletLedgerMonth,rechargeLedger,bonusLedger,topupAmount,topupCustom,topupShowCustom,walletTopupAmounts,walletTopupBonus,openWallet,openWalletLedger,openTopup,selectTopupAmount,confirmTopup,onCustomAmountInput,walletLedgerTxn,walletLedgerTxnOpts,showRenewPlan,openRenew,confirmRenew,renewDateIdx,renewPeriodIdx,renewDateLabel,renewPeriodLabel,renewRentFee,showFeeDetail,feeRows,feeCardRow,feeChannelBreakdown,feeSummary,rentOpen,depositOpen,totalOpen,showPayment,confirmPayment,paymentType,paymentBusy,payTarget,openPayRenew,cancelRenew,requestCancelRenew,confirmCancelRenew,payRenewDirect,showCancelRenewModal,cancelRenewTarget,cancelRenewLoading,openPayOrder,markRenewPaid,deductWallet,parseRp,formatNow,simulateInUse,simulatePriceChange,priceChangeMock,inUseStatus,pickerMode,renewDays,renewDetail,renewDurationLabel,renewPlanDisplay,renewAddDays,renewSubDays,detailOpen,feeRowChannels,showRechargeOrder,rechargeOrder,rechargeStatusTag,payRechargeOrder,rechargeChannelText,fmtRp,openRechargeOrderFromList,openRechargeList,setRechargeFilter,showRechargeList,rechargeFilterTabs,rechargeFilterMap,rechargeFilter,currentRechargeList,dialRechargePhone,setRechargeRefundState,showCancelRechargeModal,cancelRechargeLoading,requestCancelRecharge,confirmCancelRecharge};
+return{tab,toasts,toast,copyText,setTab,luci,weatherScene,weatherData,demoActive,demoListEmpty,demoSetListEmpty,mapCtx,showFindPage,showTrackPage,refundRentOpen,refundDepositOpen,refundTotalOpen,refundRecOpen,refundChannels,locLoading,locRinging,locFocus,locAddressFull,locAddressShort,locDistM,locWalkMin,locVehPt,locUserPt,openFindPage,openFindPageBattery,closeFindPage,locFocusUser,locFocusVehicle,locRingDevice,locOpenNav,trackStartLabel,trackEndLabel,trackLoading,trackPoints,trackPolyline,trackStartPt,trackEndPt,trackPois,trackTimePicker,openTrackPage,openTrackPageBattery,closeTrackPage,openTrackTimePicker,cancelTrackTimePicker,confirmTrackTimePicker,trackDraft,trackDays,trackMonths,trackYears,trackHours,trackMins,p2u,trackWheelDay,trackWheelMonth,trackWheelYear,trackWheelHour,trackWheelMin,onTrackWheelScroll,vehicles,vehicleCount,setVehicleCount,vehicleSource,setVehicleSource,opLock,opHorn,myVehicleIdx,showVehiclePicker,currentVehicle,toggleVehiclePicker,selectMyVehicle,openMyVehicleFromHome,openVehicleDetail,closeVehicleDetail,openVNameEdit,closeVNameEdit,saveVNameEdit,vNameLoading,openUnbindConfirm,closeUnbindConfirm,confirmUnbind,pushNotify,showPushNotify,renewNotifyTemplates,unbindLoading,showVehicleDetail,showUnbindConfirm,showVNameEdit,vNameInput,vNameError,locked,lockLoading,toggleLock,hornLoading,sendHorn,openMyCarOrder,currentOrder,refreshHome,refreshRent,openRent,loggedIn,pendingRoute,appLang,appLangLabel,langOptions,showLogin,loginView,loginMode,loginSub,loginDial,loginPhone,loginEmail,loginAccount,loginPwd,loginCode,loginPwdVisible,loginAgree,loginCd,dialQ,dialFiltered,showDialPicker,activeDialCode,closeDialPicker,canSendCode,canLogin,loginOpenLang,selectLangFromLogin,openDialCode,pickDial,setLoginMode,setLoginSub,sendLoginCode,doLogin,openLogin,profileOV,profileSub,profileMod,profileModLoading,hasPhone,hasEmail,hasPwd,boundPhone,boundEmail,bpArea,bpPhone,bpCode,bpCd,beEmail,beCode,beCd,openBindPhone,openBindEmail,sendBpCode,doBindPhone,sendBeCode,doBindEmail,pwdChannel,pwdCode,pwdCd,npwd,npwd2,npwdVis,npwd2Vis,canConfirmPwd,openPwdFlow,switchPwdChannel,sendPwdCode,nextPwdVerify,doResetPwd,checkVersion,goUpdate,exitApp,relaunchApp,scanning,doScan,scanTorch,manualVin,showManualVin,scanCtx,openManualInput,confirmManualVin,scanBindMode,scanBindDevice,vdDevice,bdDevice,showBindConfirm,bindConfirmLoading,openBindConfirm,closeBindConfirm,confirmBind,homeDevSeg,homeBatteries,bSocColor,batteryAdd,showBatteryDetail,currentBattery,openBatteryDetail,openBatteryOrder,closeBatteryDetail,openBatteryUnbind,closeBatteryUnbind,confirmBatteryUnbind,showBatteryUnbind,batteryUnbindLoading,showVersionCheck,hasNewVersion,latestVersion,updateDesc,updating,appExited,selectLang,doLogout,profileMdT,profileMdD,profileMdDanger,profileMdOk,showRent,rentBannerIdx,rentBanners,showRentLoading,homeBannerIdx,homeBanners,showDatePicker,rentDateIdx,dateOptions,rentDateLabel,selectDate,showPeriodPicker,rentPeriodIdx,periodOptions,rentPeriodLabel,periodUnit,selectPeriod,showStore,storeSearch,storeFiltered,selectStore,openStore,searchStore,selectedStore,confStore,showVehicle,vehicleList,rentNow,showConfirm,selectedVehicle,confRentDays,confTotal,confTotalDays,confDurationLabel,confPeriodDetail,orderPlanDisplay,confTab,confPayType,cancelRules,noticeRules,billingRules,overdueRules,confAddDays,confSubDays,confirmOrder,confTotal,confDeposit,confGrandTotal,confPickupDate,confReturnDate,confPickupISO,confReturnISO,showOrderDetail,showRefundList,openRefundList,navBack,navOpen,refundRecords,confirmDocs,autoRenew,toggleAutoRenew,uploadIdEnabled,showConfirmDocs,showDocSheet,docSheetTab,docText,docImageTypes,docDeleteMod,docDeleteTarget,previewImage,openDocSheet,addDocImage,addDocText,requestDeleteDoc,confirmDeleteDoc,showCancelModal,idInfoList,showIdInfoSheet,idInfoTypes,idInfoCount,openIdInfoSheet,idName,idEditingId,openIdAdd,openIdEditRecord,deleteIdRecord,idCardNo,driverNo,idPhotos,driverPhotos,idDetailRec,openIdDetail,openIdDetailPreview,idNameErr,idCardErr,driverErr,idPhotoErr,driverPhotoErr,idActionTarget,openIdEditRecord,deleteIdRecord,showIdDelete,idDeleteTarget,openIdDelete,confirmIdDelete,idSelectMode,confirmIdInfo,openIdSelect,closeIdSelect,confirmIdSelect,showIdAction,idPickerSource,showIdPreview,idPreviewItem,showIdPicker,idPickerKind,idPickerSH,maskNo,maskNoFull,submitIdInfo,openIdPicker,pickIdSource,commitIdPhoto,openIdMore,idActionReupload,doIdReupload,idActionDelete,openIdPreview,cancelLoading,orderCountdown,orderCountdownText,orderDetailTab,cancelOrder,goToPay,orderInfo,startOrderTimer,stopOrderTimer,showMyOrders,showOrderList,orderListCategory,currentOrderList,openOrderCategory,openMyOrders,openOrderDetailFromList,orderFilter,orderFilterTabs,orderFilterMap,setOrderFilter,relocateRent,payChannel,setPayChannel,cancelBeforePay,setCancelBeforePay,delDocLoading,showWallet,showWalletLedger,showTopup,walletBalanceVisible,walletAccount,walletActive,walletLedgerActive,walletStorePick,pickStoreForWallet,walletStoreSheet,walletOpenedStores,walletSwitchStore,storeInfoOf,ensureWalletOpened,walletLedger,walletLedgerTab,walletLedgerList,walletLedgerMonthOpen,setWalletLedgerTab,toggleWalletLedgerMonth,rechargeLedger,bonusLedger,topupAmount,topupCustom,topupShowCustom,walletTopupAmounts,walletTopupBonus,openWallet,openWalletLedger,openTopup,selectTopupAmount,confirmTopup,onCustomAmountInput,walletLedgerTxn,walletLedgerTxnOpts,showRenewPlan,openRenew,confirmRenew,renewDateIdx,renewPeriodIdx,renewDateLabel,renewPeriodLabel,renewRentFee,showFeeDetail,feeRows,feeCardRow,feeChannelBreakdown,feeSummary,rentOpen,depositOpen,totalOpen,showPayment,confirmPayment,paymentType,paymentBusy,payTarget,openPayRenew,cancelRenew,requestCancelRenew,confirmCancelRenew,payRenewDirect,showCancelRenewModal,cancelRenewTarget,cancelRenewLoading,openPayOrder,markRenewPaid,deductWallet,parseRp,formatNow,simulateInUse,simulatePriceChange,priceChangeMock,inUseStatus,pickerMode,renewDays,renewDetail,renewDurationLabel,renewPlanDisplay,renewAddDays,renewSubDays,detailOpen,feeRowChannels,showRechargeOrder,rechargeOrder,rechargeStatusTag,payRechargeOrder,rechargeChannelText,fmtRp,openRechargeOrderFromList,openRechargeList,setRechargeFilter,showRechargeList,rechargeFilterTabs,rechargeFilterMap,rechargeFilter,currentRechargeList,dialRechargePhone,setRechargeRefundState,showCancelRechargeModal,cancelRechargeLoading,requestCancelRecharge,confirmCancelRecharge};
 }
 });
 function initPullToRefresh(containerId,indicatorId,onRefresh){var c=document.getElementById(containerId),i=document.getElementById(indicatorId);if(!c||!i)return;var sy=0,pull=false,active=false;
