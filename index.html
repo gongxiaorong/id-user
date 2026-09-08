@@ -1420,7 +1420,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
   <div class="bg-white rounded-xl overflow-hidden mt-3" style="border:1px solid #E5E5E5" data-od-id="profile-id-entry" data-page-node-id="GDETHCsvvmjrQhaUyWLeHw">
     <div class="flex items-center px-4 py-4 cursor-pointer active:bg-[#F6F7F9]" @click="navOpen('subIdInfo')" data-page-node-id="RH2afvpFVSajeld1GM32VY">
       <span class="flex-1 text-[15px] text-[#666]" data-page-node-id="RFERu5QW9MdyAMUcF54BEY">实名信息</span>
-      <span class="text-[15px] font-medium mr-1" :class="idInfoCount?'text-[#222]':'text-[#999]'" data-page-node-id="3WtXhlS6HHGl6TcLEf7ONZ">{{ idInfoCount?idInfoCount+' 份':'未上传' }}</span>
+      <span class="text-[15px] font-medium mr-1" :class="confirmIdInfo?'text-[#222]':'text-[#999]'" data-page-node-id="3WtXhlS6HHGl6TcLEf7ONZ">{{ confirmIdInfo?confirmIdInfo.name:'未上传' }}</span>
       <span v-html="luci('chevron-right','w-4 h-4 text-[#999]')" data-page-node-id="ynd4B4sLm0JWIVojmu3C91"></span>
     </div>
   </div>
@@ -1742,7 +1742,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div>
 <div class="flex items-center justify-between gap-2 cursor-pointer active:opacity-60" @click.stop="totalOpen=!totalOpen" data-page-node-id="bQDcZPXutpnNT6SMhfMiDb">
 <span class="text-[#999] w-16 flex-shrink-0" data-page-node-id="Va55nA3pb5XdOdAktWGod8">合计</span>
-<div class="flex items-center gap-1.5 justify-end flex-1" data-page-node-id="Vk4MazwYZzIpEweW0bCQw7"><span class="font-semibold" style="color:var(--accent)" data-page-node-id="aqV5e0AlZj0uG1hr6tWAZu">Rp {{ feeCardRow.total.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</span><span v-html="luci('chevron-down','w-4 h-4 text-[#999] '+(totalOpen?'rotate-180 transition-transform':'transition-transform'))" data-page-node-id="cNMM8jhhrrUQ61h1TDEhAF"></span></div>
+<div class="flex items-center gap-1.5 justify-end flex-1" data-page-node-id="Vk4MazwYZzIpEweW0bCQw7"><span style="color:var(--accent)" data-page-node-id="aqV5e0AlZj0uG1hr6tWAZu">Rp {{ feeCardRow.total.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</span><span v-html="luci('chevron-down','w-4 h-4 text-[#999] '+(totalOpen?'rotate-180 transition-transform':'transition-transform'))" data-page-node-id="cNMM8jhhrrUQ61h1TDEhAF"></span></div>
 </div>
 <div v-if="totalOpen" class="space-y-1 pb-1 pl-1" data-page-node-id="kJUVIvjNkIpSKhJuRyD6DT">
 <div v-for="c in feeRowChannels(feeCardRow).total" :key="c.channel" class="flex items-center justify-between text-[12px]" data-page-node-id="VHaoEsgnXNyI1yRVFu9WFg"><span class="text-[#999]" data-page-node-id="D5dSL8Hb3FW42BokZbklew">{{ c.channel }}</span><span class="text-[#666]" data-page-node-id="tsyuDLTCmjNM65hvFCWFw2">Rp {{ c.amount.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</span></div>
@@ -1773,7 +1773,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div>
 <div class="flex items-center justify-between gap-2" :class="feeSummary.total!==0?'cursor-pointer active:opacity-60':''" @click.stop="feeSummary.total!==0&&(refundTotalOpen=!refundTotalOpen)" data-page-node-id="XFBhguRvsVOZke1rjrCCUB">
 <span class="text-[#999] w-16 flex-shrink-0" data-page-node-id="W8fcQdc5lq64RRuYyFHkdd">合计</span>
-<div class="flex items-center gap-1.5 justify-end flex-1" data-page-node-id="1AP79Zm9INWMdvBzqjJvCE"><span class="font-semibold" style="color:var(--accent)" data-page-node-id="MPvgDn2kBXTq9MntkdoOt6">Rp {{ feeSummary.total.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</span><span v-if="feeSummary.total!==0" v-html="luci('chevron-down','w-4 h-4 text-[#999] '+(refundTotalOpen?'rotate-180 transition-transform':'transition-transform'))" data-page-node-id="9WEDJGS7MMqb2DsmhKo1Hq"></span></div>
+<div class="flex items-center gap-1.5 justify-end flex-1" data-page-node-id="1AP79Zm9INWMdvBzqjJvCE"><span style="color:var(--accent)" data-page-node-id="MPvgDn2kBXTq9MntkdoOt6">Rp {{ feeSummary.total.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</span><span v-if="feeSummary.total!==0" v-html="luci('chevron-down','w-4 h-4 text-[#999] '+(refundTotalOpen?'rotate-180 transition-transform':'transition-transform'))" data-page-node-id="9WEDJGS7MMqb2DsmhKo1Hq"></span></div>
 </div>
 <div v-if="refundTotalOpen" class="space-y-1 pb-1 pl-1" data-page-node-id="srxXMTpBpYG1zfCDaeZJ2r">
 <div v-for="c in refundChannels.total" :key="c.channel" class="flex items-center justify-between text-[12px]" data-page-node-id="eQBWAHLcdAvz1j2DItIMaL"><span class="text-[#999]" data-page-node-id="Q9CCn2EZZFvhclwcnX1S8k">{{ c.channel }}</span><span class="text-[#666]" data-page-node-id="B3rmob7cYemtALF20kVKmQ">Rp {{ c.amount.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}) }}</span></div>
@@ -1787,7 +1787,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div v-if="orderInfo.status==='created'||orderInfo.status==='pickup'" class="flex items-center gap-1 text-[12px] text-[#999]" style="color:var(--link)" data-page-node-id="RRRNnMOpwNvTTKrBAhxLRS"><span class="inline-flex items-center justify-center w-3.5 h-3.5 shrink-0" style="transform:translateY(1.5px)" data-page-node-id="jquAZRQlsGyIM2GqBgGi79"><span v-html="luci('chevron-right','w-3.5 h-3.5 text-[#999]')" data-page-node-id="c2QzV4KSMoRVZUwQhEeLul"></span></span></div>
 </div>
 <template v-if="confirmIdInfo" data-page-node-id="cHu0vAKn18QA4YJ2FHQPTp">
-<div class="flex items-center justify-between" data-page-node-id="MFSW4bXHjYt53SWdvBvXlj"><span class="text-[13px] text-[#999]" data-page-node-id="GLPbTSx2gHDrLa8vfpkPIe">姓名</span><span class="text-[14px] text-[#111] font-medium" data-page-node-id="G9W8Q2S1MVDG6pB43aZACb">{{ confirmIdInfo.name }}</span></div>
+<div class="flex items-center justify-between" data-page-node-id="MFSW4bXHjYt53SWdvBvXlj"><span class="text-[13px] text-[#999]" data-page-node-id="GLPbTSx2gHDrLa8vfpkPIe">姓名</span><span class="text-[14px] text-[#111]" data-page-node-id="G9W8Q2S1MVDG6pB43aZACb">{{ confirmIdInfo.name }}</span></div>
 <div class="flex items-center justify-between mt-2" data-page-node-id="iqAYYv6izt7TT0NeE7Jlug"><span class="text-[13px] text-[#999]" data-page-node-id="pwfsECTvmknrNsoGNpy8cj">身份证</span><span class="text-[14px] text-[#111]" data-page-node-id="xveIC7K1lFEZxfJaf29FVw">{{ maskNo(confirmIdInfo.idNo) }}</span></div>
 <div class="flex items-center justify-between mt-2" data-page-node-id="YWyrKPE7yfpYVSgp1tV5Wm"><span class="text-[13px] text-[#999]" data-page-node-id="AH5eiu2FVrOLhGeeyzDqa3">驾驶证</span><span class="text-[14px] text-[#111]" data-page-node-id="xzkEyqg8mAvcHF4JhDSwzs">{{ confirmIdInfo.driverNo?maskNo(confirmIdInfo.driverNo):'—' }}</span></div>
 </template>
@@ -2594,7 +2594,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 <div class="bg-white rounded-2xl overflow-hidden" style="border:1px solid #E5E5E5;box-shadow:0 1px 3px rgba(0,0,0,.04)" data-od-id="wallet-ledger-section" data-page-node-id="36ApedI17r3pk86PHdgyqy">
 <div class="flex items-center justify-between px-4 py-3" style="border-bottom:1px solid #F0F0F0" data-page-node-id="jEs7xenaeM4Cm7yNEx4XzT">
 <span class="text-[15px] font-semibold text-[#111]" data-page-node-id="lmLzS0FkK61LUGRWVGkZ1b">余额流水</span>
-<span @click="openWalletLedger" class="text-[13px] text-[#1677FF] cursor-pointer active:opacity-70" data-page-node-id="425dFmwzaNPdc4tug8Chi7">全部</span>
+<span @click="openWalletLedger" class="text-[#999] cursor-pointer active:opacity-70 flex items-center" data-page-node-id="425dFmwzaNPdc4tug8Chi7"><span v-html="luci('chevron-right','w-5 h-5')"></span></span>
 </div>
 <div v-if="walletLedgerActive.length===0" class="flex flex-col items-center justify-center py-10" data-page-node-id="EoEVJOQNHXJAgnO0MBo2Ew">
 <span v-html="luci('wallet','w-10 h-10 text-[#CCC]')" class="mb-3" data-page-node-id="v2b3DRZrN8GbOXYCP5EbDA"></span>
@@ -3389,7 +3389,9 @@ const docText=ref('');
 const docDeleteMod=ref(false);
 const docDeleteTarget=ref(null);
 const previewImage=ref(null);
-const idInfoList=ref([]);
+const idInfoList=ref([
+  {id:'ID20260101001',name:'张伟',idNo:'510112199003071234',driverNo:'510112199003071234',idPhotos:[],driverPhotos:[]}
+]);
 const showIdInfoSheet=ref(false);
 const idInfoTypes=computed(()=>[{label:'身份证',icon:'credit-card',color:'#2B3F5F'},{label:'驾照',icon:'file-text',color:'#17A34A'}]);
 const idCardNo=ref('110101199003077514');
