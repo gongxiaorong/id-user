@@ -3748,7 +3748,7 @@ function _navClone(v){return (v&&typeof v==='object')?JSON.parse(JSON.stringify(
 function _navR(r){return{get:function(){return r.value},set:function(v){r.value=v}}}
 function _navRA(o){return{get:function(){return _navClone(o)},set:function(v){var c=_navClone(v);Object.keys(o).forEach(function(k){if(!(k in c))delete o[k]});Object.assign(o,c)}}}
 const pageRefList=[
-  _navR(tab),_navR(mapCtx),_navR(showLogin),_navR(showRent),_navR(showRentLoading),_navR(showStore),_navR(showVehicle),_navR(showConfirm),
+  _navR(tab),_navR(mapCtx),_navR(showLogin),_navR(showRent),_navR(showStore),_navR(showVehicle),_navR(showConfirm),
   _navR(showVehicleDetail),_navR(showBatteryDetail),_navR(showFindPage),_navR(showTrackPage),_navR(showMyOrders),_navR(showOrderList),_navR(showRefundList),_navR(showOrderDetail),
   _navR(showConfirmDocs),_navR(showWallet),_navR(showWalletLedger),_navR(showTopup),_navR(showRechargeList),_navR(showRechargeOrder),_navR(scanning),_navR(showManualVin),
   _navR(profileOV),_navR(profileSub),_navR(idSelectMode),_navR(walletStorePick),_navR(walletLedgerTab),_navR(walletLedgerTxn),_navR(topupAmount),_navR(topupCustom),_navR(topupShowCustom),
@@ -3775,6 +3775,7 @@ function navOpen(name){
 }
 function navBack(){
   const now=Date.now();if(now-navLastBackAt<250)return;navLastBackAt=now;
+  showRentLoading.value=false;
   if(!navStack.length){navLog('已到首页，边界兜底，禁止继续返回');return}
   const e=navStack.pop();
   const sc=_navScreen(e.name);
@@ -3784,6 +3785,7 @@ function navBack(){
   navLog('back',e.name||'');
 }
 function navDrop(name){
+  showRentLoading.value=false;
   const i=navStack.length-1;
   if(i<0)return;
   if(name&&navStack[i].name!==name)return;
@@ -3808,6 +3810,7 @@ function navReset(){
   navLog('reset','清空'+n+'层');
 }
 window.addEventListener('popstate',function(){
+  showRentLoading.value=false;
   if(navSuppress>0){navSuppress--;return}
   if(!navStack.length)return;
   const e=navStack.pop();
