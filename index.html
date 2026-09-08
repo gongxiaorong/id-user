@@ -1385,7 +1385,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
   <div class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-[#2B3F5F] active:bg-[#EBF1FD]" @click="navBack()" data-page-node-id="AC0IM7Hji4WsLVUDyrgLfy"><span v-html="luci('chevron-left','w-5 h-5')" data-page-node-id="Qn0HGjGZBdztg5hq8krGKC"></span></div>
   <div class="flex-1 text-center text-[17px] font-semibold mr-8" data-page-node-id="UZRIyYKaIZeNz8kBNfnBIB">个人信息</div>
   </div>
-  <div class="flex-1 overflow-y-auto px-5 pt-4 pb-10 hid" data-page-node-id="2q2ionmtVMNohvM3PYdKB7">
+  <div class="flex-1 overflow-y-auto px-5 pt-4 pb-28 hid" data-page-node-id="2q2ionmtVMNohvM3PYdKB7">
   <div class="bg-white rounded-xl overflow-hidden mb-6" style="border:1px solid #E5E5E5" data-page-node-id="0rFyfWyDatndkgw4cTmbOd">
       <div class="flex items-center px-4 py-4" style="border-bottom:1px solid #EDEDED" data-page-node-id="tP3jScmv7xFqtuqGdjeBT6">
         <span class="flex-1 text-[15px] text-[#666]" data-page-node-id="FGX1JAfxa9NkaqP5oPb55l">头像</span>
@@ -1420,10 +1420,13 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
   <div class="bg-white rounded-xl overflow-hidden mt-3" style="border:1px solid #E5E5E5" data-od-id="profile-id-entry" data-page-node-id="GDETHCsvvmjrQhaUyWLeHw">
     <div class="flex items-center px-4 py-4 cursor-pointer active:bg-[#F6F7F9]" @click="navOpen('subIdInfo')" data-page-node-id="RH2afvpFVSajeld1GM32VY">
       <span class="flex-1 text-[15px] text-[#666]" data-page-node-id="RFERu5QW9MdyAMUcF54BEY">实名信息</span>
-      <span class="text-[15px] font-medium mr-1" :class="confirmIdInfo?'text-[#222]':'text-[#999]'" data-page-node-id="3WtXhlS6HHGl6TcLEf7ONZ">{{ confirmIdInfo?confirmIdInfo.name:'未上传' }}</span>
+      <span class="text-[15px] font-medium mr-1" :class="(confirmIdInfo||idInfoCount)?'text-[#222]':'text-[#999]'" data-page-node-id="3WtXhlS6HHGl6TcLEf7ONZ">{{ confirmIdInfo?confirmIdInfo.name:(idInfoCount?idInfoCount+'份':'未上传') }}</span>
       <span v-html="luci('chevron-right','w-4 h-4 text-[#999]')" data-page-node-id="ynd4B4sLm0JWIVojmu3C91"></span>
     </div>
   </div>
+  </div>
+  <div class="absolute bottom-7 left-5 right-5" data-od-id="profile-cancel-account">
+    <button @click="profileMod='cancelAccount'" class="w-full py-3.5 rounded-xl text-[15px] font-semibold text-center cursor-pointer active:opacity-90 transition-colors" style="background:#fff;border:1px solid #E5E5E5;color:#999" data-page-node-id="pF0rQ8zWvKj2mCnX7hY3aB">注销账号</button>
   </div>
   </div></transition>
 
@@ -3389,9 +3392,7 @@ const docText=ref('');
 const docDeleteMod=ref(false);
 const docDeleteTarget=ref(null);
 const previewImage=ref(null);
-const idInfoList=ref([
-  {id:'ID20260101001',name:'张伟',idNo:'510112199003071234',driverNo:'510112199003071234',idPhotos:[],driverPhotos:[]}
-]);
+const idInfoList=ref([]);
 const showIdInfoSheet=ref(false);
 const idInfoTypes=computed(()=>[{label:'身份证',icon:'credit-card',color:'#2B3F5F'},{label:'驾照',icon:'file-text',color:'#17A34A'}]);
 const idCardNo=ref('110101199003077514');
@@ -3428,7 +3429,7 @@ const idPickerKind=ref('');
 const idPickerSH=ref('');
 function maskNo(s){if(!s)return'';s=String(s);if(s.length<=7)return s[0]+'***'+s.slice(-1);return s.slice(0,3)+'********'+s.slice(-4)}
 function maskNoFull(s){if(!s)return'';s=String(s);if(s.length<=7)return s[0]+'***'+s.slice(-1);return s.slice(0,6)+'************'+s.slice(-4)}
-function submitIdInfo(){idNameErr.value=idCardErr.value=driverErr.value=idPhotoErr.value=driverPhotoErr.value='';let ok=true;if(!(idName.value||'').trim()){idNameErr.value='请输入姓名';ok=false}if(!(idCardNo.value||'').trim()){idCardErr.value='请输入证件号码';ok=false}if(!(driverNo.value||'').trim()){driverErr.value='请输入证件号码';ok=false}if(idPhotos.value.length<1){idPhotoErr.value='请至少上传1张身份证照片';ok=false}if(driverPhotos.value.length<1){driverPhotoErr.value='请至少上传1张驾驶证照片';ok=false}if(!ok)return;if(idPhotos.value.length>2||driverPhotos.value.length>2){toast('图片数量超出上限','warn');return}const rec={name:(idName.value||'').trim(),idNo:idCardNo.value,driverNo:driverNo.value,idPhotos:[...idPhotos.value],driverPhotos:[...driverPhotos.value]};if(idEditingId.value){const i=idInfoList.value.findIndex(r=>r.id===idEditingId.value);if(i>=0){rec.id=idInfoList.value[i].id;idInfoList.value[i]=rec;idInfoList.value=[...idInfoList.value]}toast('实名信息已更新','success')}else{rec.id=Date.now()+'-'+(Math.random().toString(36).slice(2,7));idInfoList.value=[...idInfoList.value,rec];toast('证件信息保存成功','success')}navDrop('subIdAdd')}
+function submitIdInfo(){idNameErr.value=idCardErr.value=driverErr.value=idPhotoErr.value=driverPhotoErr.value='';let ok=true;if(!(idName.value||'').trim()){idNameErr.value='请输入姓名';ok=false}if(!(idCardNo.value||'').trim()){idCardErr.value='请输入证件号码';ok=false}if(!(driverNo.value||'').trim()){driverErr.value='请输入证件号码';ok=false}if(idPhotos.value.length<1){idPhotoErr.value='请至少上传1张身份证照片';ok=false}if(driverPhotos.value.length<1){driverPhotoErr.value='请至少上传1张驾驶证照片';ok=false}if(!ok)return;if(idPhotos.value.length>2||driverPhotos.value.length>2){toast('图片数量超出上限','warn');return}const rec={name:(idName.value||'').trim(),idNo:idCardNo.value,driverNo:driverNo.value,idPhotos:[...idPhotos.value],driverPhotos:[...driverPhotos.value]};if(idEditingId.value){const i=idInfoList.value.findIndex(r=>r.id===idEditingId.value);if(i>=0){rec.id=idInfoList.value[i].id;idInfoList.value[i]=rec;idInfoList.value=[...idInfoList.value]}toast('实名信息已更新','success')}else{rec.id=Date.now()+'-'+(Math.random().toString(36).slice(2,7));idInfoList.value=[...idInfoList.value,rec];toast('证件信息保存成功','success')}navDrop('subIdAdd',true)}
 function openIdPicker(kind,sh){idPickerKind.value=kind;idPickerSH.value=sh;showIdPicker.value=true}
 function pickIdSource(src){const label=src==='camera'?'模拟拍照':'模拟相册';if(idPickerSH.value==='reupload'){if(src==='camera'||src==='album'){toast(label+'：已替换当前图片','success');doIdReupload()}}else{if(src==='camera'||src==='album'){toast(label+'：已选中一张图片','success');commitIdPhoto()}}showIdPicker.value=false}
 function commitIdPhoto(){const arr=idPickerKind.value==='driver'?driverPhotos.value:idPhotos.value;if(arr.length>=2){toast('最多上传2张','warn');return}arr.push({id:Date.now()+'-'+(Math.random().toString(36).slice(2,7)),time:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-'),kind:idPickerKind.value});if(idPickerKind.value==='driver'){driverPhotos.value=[...arr];driverPhotoErr.value=''}else{idPhotos.value=[...arr];idPhotoErr.value=''}}
@@ -3634,10 +3635,10 @@ function exitApp(){showVersionCheck.value=false;appExited.value=true}
 function relaunchApp(){appExited.value=false}
 function selectLang(id){appLang.value=id;navDrop('subLang')}
 function doLogout(){navReset();profileMod.value=null;profileOV.value=null;profileSub.value=null;dialPickerSource.value=null;resetLoginForm();loggedIn.value=false;showLogin.value=false;showRent.value=false;showStore.value=false;showVehicle.value=false;showConfirm.value=false;showOrderDetail.value=false;showMyOrders.value=false;showOrderList.value=false;showRefundList.value=false;showConfirmDocs.value=false;showDocSheet.value=false;docDeleteMod.value=false;previewImage.value=null;docText.value='';confirmDocs.value=[];idInfoList.value=[];showIdInfoSheet.value=false;idPhotos.value=[];driverPhotos.value=[];showIdAction.value=false;showIdPreview.value=false;showIdPicker.value=false;idActionTarget.value=null;showWallet.value=false;showTopup.value=false;walletAccount.value.activeStoreId=null;stopOrderTimer();tab.value='home';toast('已退出登录','info')}
-const profileMdT=computed(()=>{if(profileMod.value==='logout')return'退出登录';return''});
-const profileMdD=computed(()=>{if(profileMod.value==='logout')return'确定要退出当前账号吗？退出后需重新登录。';return''});
-const profileMdDanger=computed(()=>profileMod.value==='logout');
-function profileMdOk(){if(profileModLoading.value)return;if(profileMod.value==='logout'){profileModLoading.value=true;setTimeout(()=>{profileModLoading.value=false;doLogout()},800);return}profileMod.value=null}
+const profileMdT=computed(()=>{if(profileMod.value==='logout')return'退出登录';if(profileMod.value==='cancelAccount')return'注销账号';return''});
+const profileMdD=computed(()=>{if(profileMod.value==='logout')return'确定要退出当前账号吗？退出后需重新登录。';if(profileMod.value==='cancelAccount')return'确定要注销当前账号吗？注销后所有数据将被清除，且无法恢复。';return''});
+const profileMdDanger=computed(()=>profileMod.value==='logout'||profileMod.value==='cancelAccount');
+function profileMdOk(){if(profileModLoading.value)return;if(profileMod.value==='logout'){profileModLoading.value=true;setTimeout(()=>{profileModLoading.value=false;doLogout()},800);return}if(profileMod.value==='cancelAccount'){profileModLoading.value=true;setTimeout(()=>{profileModLoading.value=false;doLogout();toast('账号已注销','info')},800);return}profileMod.value=null}
 
 function refreshHome(){setTimeout(()=>{homeBannerIdx.value=0;vehicleCount.value=2},800)}
 function refreshRent(){setTimeout(()=>{rentBannerIdx.value=0},800)}
@@ -3786,7 +3787,7 @@ function navBack(){
   navSuppress++;try{history.back()}catch(_){}
   navLog('back',e.name||'');
 }
-function navDrop(name){
+function navDrop(name,restore){
   showRentLoading.value=false;
   const i=navStack.length-1;
   if(i<0)return;
@@ -3794,8 +3795,9 @@ function navDrop(name){
   const e=navStack.pop();
   const sc=_navScreen(e.name);
   if(sc&&sc.close)sc.close();
+  if(restore)_navRestore(e.snap);
   navSuppress++;try{history.go(-1)}catch(_){}
-  navLog('drop',e.name||'');
+  navLog(restore?'drop*':'drop',e.name||'');
 }
 function navSwap(name){
   const s=_navScreen(name);if(!s)return;
