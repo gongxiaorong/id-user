@@ -1,6 +1,6 @@
 {
   "tab": {
-    "home": "主页",
+    "home": "首页",
     "orders": "订单",
     "profile": "我的",
     "vehicles": "我的爱车"
@@ -99,8 +99,8 @@
     "confirmBindVehicle": "确认将该车辆绑定到你的账号？",
     "current": "当前",
     "distanceInfo": "距您 {m} 米",
-    "goHome": "前往主页",
-    "goHomeToBind": "请前往主页下单后绑定",
+    "goHome": "前往首页",
+    "goHomeToBind": "请前往首页下单后绑定",
     "noDeviceBound": "未绑定设备",
     "unbind": "解除绑定",
     "unbindVehicleDesc": "解绑后该车辆将从你的账号下移除，相关智能服务将一并失效",
