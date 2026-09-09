@@ -1,0 +1,651 @@
+对照表键总数: 445
+
+总覆盖率: 64.2%  (398/620)
+==== A 模板含插值文案 {{ }} ====
+  候选 63  已覆盖 51  遗漏 12  覆盖率 81.0%
+    - [L1695] 乐迪SAA
+    - [L617] 共
+    - [L1970] 其中线下挂账（平台已挂账，无需支付）Rp
+    - [L?] 剩余 ，超时未支付，订单将自动取消  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L524] 四川省成都市双流区雅和北路博瑞都市花园
+    - [L604] 小计 Rp  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L515] 应龙雅迪门店
+    - [L2089] 当前已绑定  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2029] 最新版本 V
+    - [L617] 租赁时长（共  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2664] 赠送 Rp  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L639] 驾驶证
+
+==== B 模板静态文案 ====
+  候选 302  已覆盖 209  遗漏 93  覆盖率 69.2%
+    - [L2804] 0 辆
+    - [L2803] 1 辆
+    - [L2802] 2 辆
+    - [L319] 《用户隐私政策》  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2870] 上传实名信息  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1978] 余额
+    - [L1978] 余额不足，请选择其他支付方式或去充值  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2568] 余额流水
+    - [L2737] 充值明细  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1506] 充值订单  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2898] 全部退款  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1665] 关闭
+    - [L2821] 列表数据
+    - [L2402] 删除后不可恢复  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2401] 删除实名信息  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2421] 删除照片  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2788] 功能控制
+    - [L2787] 原型操作
+    - [L2470] 去登录 >  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2861] 取消前状态  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1740] 取消续租  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2537] 各门店钱包独立结算，充值 / 余额仅对应所选门店  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L408] 四川省成都市双流区雅和北路博
+    - [L2723] 基本信息
+    - [L637] 姓名
+    - [L912] 定位 · 远程锁定 · 鸣笛
+    - [L2217] 实名详情
+    - [L861] 寻车
+    - [L1399] 小迪
+    - [L2794] 已登录  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2883] 已选门店
+    - [L1969] 应付金额  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2872] 开启
+    - [L2536] 开通门店钱包  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2536] 开通门店钱包后可查看余额  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2813] 扣款失败
+    - [L2812] 扣款提醒
+    - [L647] 支付
+    - [L2894] 支付中
+    - [L1942] 支付渠道
+    - [L1943] 支付状态  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1952] 改价前租金  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1953] 改价后租金  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1950] 改价记录
+    - [L2182] 新增
+    - [L2884] 无流水门店
+    - [L2573] 暂无交易记录
+    - [L2207] 暂无实名信息  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2600] 暂无已开通门店钱包  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1919] 暂无费用明细  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2416] 更多操作
+    - [L682] 更改 >  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L913] 有效期至 2026-08-19  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2823] 有数据
+    - [L1676] 未支付
+    - [L2469] 未登录  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1766] 未选择实名信息  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2882] 未选门店
+    - [L1428] 注销账号  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L6] 海外租车用户端 · 首页  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2809] 消息推送
+    - [L2339] 添加图片
+    - [L2792] 登录状态  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1858] 确定取消该续租？取消后不可恢复  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2402] 确定要删除该实名信息吗  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2824] 空数据
+    - [L1954] 线上应付
+    - [L1955] 线下挂账
+    - [L659] 续租
+    - [L2811] 续租提醒
+    - [L660] 续租费用从钱包自动扣除  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2199] 编辑
+    - [L671] 自行前往门店领取/归还  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L446] 花小钱 骑雅迪
+    - [L520] 营业时间 09:00‑20:00  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1582] 补充资料
+    - [L2327] 请上传清晰证件照，避免反光（最多2张
+    - [L722] 请先选择实名信息  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2703] 赠送金额  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L404] 距最近门店 2.4km
+    - [L970] 车架编号
+    - [L2960] 车辆启停  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2958] 车辆操作  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2800] 车辆数据  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1571] 退款原因  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2903] 退款明细（演示  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L1814] 选择租赁方案并支付  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2595] 选择门店钱包  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2897] 部分退款  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2420] 重新上传
+    - [L2880] 钱包空态  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L684] 领取车辆/电池后开始计算订单时长  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L639] 驾驶证
+
+==== C toast / 提示消息 ====
+  候选 38  已覆盖 19  遗漏 19  覆盖率 50.0%
+    - [L3393] 图片数量超出上限
+    - [L3373] 实名信息已删除  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3393] 实名信息已更新  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3655] 已取消续租  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3346] 已自动续租（钱包扣款 Rp  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3384] 已选择实名信息  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3254] 已选择门店  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3549] 拨号中
+    - [L3552] 支付成功
+    - [L3549] 无手机号  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3594] 更新完成！已升级至 V  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3396] 最多上传2张
+    - [L3401] 照片已删除  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3393] 证件信息保存成功  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L722] 请先选择实名信息  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3518] 请先选择门店  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3663] 请等待门店确认  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3602] 账号已注销  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3659] 钱包余额不足，请充值  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+
+==== D JS 动态文案 ${} ====
+  候选 3  已覆盖 0  遗漏 3  覆盖率 0.0%
+    - [L?] 订单 天后自动续租扣款 ，请保持钱包余额充足  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L?] 订单 将于 自动续租并扣款 ，可在订单页关闭  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L?] 订单 续租扣款失败 / 次，请尽快充值，否则将停止自动续租  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+
+==== E JS 静态字面量 ====
+  候选 214  已覆盖 119  遗漏 95  覆盖率 55.6%
+    - [L3270] 1.计费起始时间以用户领取车辆/电池时间为准，计费终止时间以车辆/电池完成归还时间为准\n2.周期租金根据订单选定租赁方案进行核算\n3.租赁时长不足1个周期的，按1个周期计费  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3268] 1.订单尚未支付，用户可自行操作取消订单\n2.订单已支付但未领取车辆/电池，用户可自行操作取消订单\n3.领取车辆/电池后，需与商家协商处理，具体退费以双方协商结果为准\n4.租金、押金将在订单取消后于 7 个工作日内按原支付路径退还  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3271] 1.请在订单约定归还时间内完成车辆/电池归还\n2.若发生逾期归还，商家可选择从押金抵扣逾期产生的相关费用\n3.押金抵扣不足的，商家有权向用户追偿差额\n4.逾期超过约定天数未归还，商家有权对车辆进行远程锁定  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3269] 1.领取前请检查车辆/电池状态，确认物品状况及性能完好\n2.仅限下单本人领取，不支持代领\n3.车辆/电池损坏需按实际维修费用赔偿\n4.请遵守当地交通法规，安全骑行\n5.库存以门店实际现货为准，建议提前联系门店确认咨询  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3226] 5年质保 · 品质保障出行无忧  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3219] 5年质保 · 活动时间7月17日-19日  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3785] <span class="ptr-spinner"></span>刷新中  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3785] <span class="ptr-text">下拉刷新</span>  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3224] DE2 炫彩版 · 到手价Rp 3,499
+    - [L3218] TTFAR石墨烯锂电 · 百公里续航
+    - [L3773] popstate(物理返回  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2993] 东北风 2级
+    - [L2995] 东南风 3级
+    - [L2994] 东南风 4级
+    - [L3136] 中國香港
+    - [L1695] 乐迪SAA
+    - [L3260] 乐迪SAA+天能72V20Ah  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3075] 停车场
+    - [L2898] 全部退款  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3075] 写字楼
+    - [L609] 周
+    - [L3346] 周租×1周  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3416] 周租×2周  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3427] 周租×3周  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3220] 品质出行 · 安全可靠
+    - [L3075] 商业楼宇
+    - [L3289] 四川成都高新区应龙南一路11号雅迪门店
+    - [L3393] 图片数量超出上限
+    - [L3260] 天能72V20Ah  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3013] 天能锂电72V20Ah  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3373] 实名信息已删除  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3393] 实名信息已更新  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3763] 层
+    - [L3731] 已到首页，边界兜底，禁止继续返回  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3655] 已取消续租  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3395] 已替换当前图片  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3346] 已自动续租（钱包扣款 Rp  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3395] 已选中一张图片
+    - [L3384] 已选择实名信息  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3254] 已选择门店  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2813] 扣款失败
+    - [L2812] 扣款提醒
+    - [L3340] 押金原路退回  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3549] 拨号中
+    - [L3339] 提前还车，租金差额退还  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2894] 支付中
+    - [L3552] 支付成功
+    - [L3549] 无手机号  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3438] 日租×1天  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3414] 日租×2天  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3411] 日租×3天  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3415] 日租×5天  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3423] 日租×7天  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3130] 时租×3小时  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3418] 时租×4小时  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3422] 时租×5小时  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3433] 时租×6小时  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3594] 更新完成！已升级至 V  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3396] 最多上传2张
+    - [L3417] 月租×1月  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3410] 月租×2月  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3714] 未命名
+    - [L1428] 注销账号  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2993] 深圳市南山区
+    - [L3044] 深圳市南山区科技南一路附近
+    - [L3044] 深圳市南山区科苑南路附近
+    - [L3763] 清空
+    - [L3401] 照片已删除  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3075] 监管机构
+    - [L3600] 确定要注销当前账号吗？注销后所有数据将被清除，且无法恢复  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3136] 繁體中文（中國香港
+    - [L3338] 结束订单，退还押金（原路退回  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L2811] 续租提醒
+    - [L3393] 证件信息保存成功  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L722] 请先选择实名信息  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3518] 请先选择门店  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3663] 请等待门店确认  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3393] 请至少上传1张身份证照片  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3393] 请至少上传1张驾驶证照片  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3602] 账号已注销  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3012] 超威黑金72V32Ah
+    - [L2897] 部分退款  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3003] 酷炫小黑车
+    - [L3719] 重复入栈已忽略
+    - [L3659] 钱包余额不足，请充值  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3130] 雅迪冠能3 S9 MAX
+    - [L3002] 雅迪冠能6 DE TTFAR石墨烯锂电版超长续航智能版
+    - [L3588] 雅迪冠能6 TTFAR
+    - [L2883] 雅迪电动车(双流区雅和北路店
+    - [L2884] 雅迪电动车(武侯区磨子桥店
+    - [L3130] 雅迪电动车(锦江区春熙路店
+    - [L3249] 雅迪电动车(高新区天府大道店  <PARTIAL: 含表内已有值，确认是否被误判为已覆盖>
+    - [L3714] 页面栈
+    - [L3075] 餐饮门店
+    - [L3351] 驾照
+
+==== 数据字段值（DATA_field · 35 条，默认排除，抽查误判）====
+    - 72V20Ah石墨烯电池·续航100km·蓝牙解锁·GPS定位·智能语音助手·APP远程控制
+    - 72V32Ah锂电池·续航120km·智能防盗
+    - 乐迪SAA
+    - 乐迪SAA+天能72V20Ah
+    - 充值活动赠送
+    - 充值退款
+    - 四川省成都市双流区应龙南一路11号雅迪都市花园1213号
+    - 四川省成都市双流区雅和北路博瑞都市花园西侧约90米处
+    - 四川省成都市武侯区磨子桥科华北路与一环路南二段交汇
+    - 四川省成都市锦江区春熙路西段段太升南路与北纱帽街交汇处
+    - 四川省成都市高新区天府大道中段天府软件园B区附近
+    - 大容量锂电池·续航130km·快充2小时·循环寿命1000次·智能BMS管理
+    - 天能锂电72V20Ah
+    - 当前账号
+    - 整车+电池套餐·续航100km
+    - 整车+电池套餐·续航100km·智能防盗
+    - 新用户注册赠送
+    - 活动赠送
+    - 用户充值
+    - 石墨烯锂电池·续航100km·可单独租赁
+    - 租金抵扣
+    - 租金支付
+    - 系统
+    - 订单退款
+    - 赠送余额抵扣
+    … 其余 10 条（store/addr/remark/model 等字段值，属数据不入表）
+
+==== F 动态生成点展开（一处源码 -> N 条，逐条建键）====
+  [组 1] @L3645 JS 三元 · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: 'PAID'?'已支付':'待支付'
+      1. 已支付   <OK key=orders.payPaid>
+      2. 待支付   <OK key=orders.statusPending>
+
+  [组 2] @L3645 JS 三元 · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: 'auto'?'自动续租':'手动续租'
+      1. 自动续租   <OK key=orders.autoRenew>
+      2. 手动续租   <OK key=orders.manualRenew>
+
+  [组 3] @L3297 JS 三元 · 分支 2 条 | 需翻译 1 条 | 已覆盖 1 | 待补 0
+      expr: 'balance'?'钱包':'2C2P'
+      1. 钱包   <OK key=wallet.balancePay>
+      ⊘ 数据分支 1 条，不翻译: '2C2P'
+
+  [组 4] @L3044 JS 三元 · 分支 2 条 | 需翻译 2 条 | 已覆盖 0 | 待补 2
+      expr: 'battery'?'深圳市南山区科苑南路附近':'深圳市南山区科技南一路附近'
+      1. 深圳市南山区科苑南路附近   <MISS 需建键>
+      2. 深圳市南山区科技南一路附近   <MISS 需建键>
+
+  [组 5] @L3395 JS 三元 · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: 'camera'?'拍照':'相册'
+      1. 拍照   <OK key=common.takePhoto>
+      2. 相册   <OK key=common.album>
+
+  [组 6] @L3659 JS 三元 · 分支 2 条 | 需翻译 1 条 | 已覆盖 1 | 待补 0
+      expr: 'created'?'待取用':o.statusText
+      1. 待取用   <OK key=orders.statusPickup>
+      ⊘ 数据分支 1 条，不翻译: o.statusText
+
+  [组 7] @L3447 JS 三元 · 分支 2 条 | 需翻译 1 条 | 已覆盖 1 | 待补 0
+      expr: 'offline'?'线下支付':'2C2P'
+      1. 线下支付   <OK key=orders.paymentOffline>
+      ⊘ 数据分支 1 条，不翻译: '2C2P'
+
+  [组 8] @L3297 JS 三元 · 分支 3 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: 'offline'?'线下支付':confPayType.value==='balance'?'钱包':'2C2P'
+      1. 线下支付   <OK key=orders.paymentOffline>
+      2. 钱包   <OK key=wallet.balancePay>
+      ⊘ 数据分支 1 条，不翻译: '2C2P'
+
+  [组 9] @L3661 JS 三元 · 分支 3 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: 'offline'?'线下支付':payMethod==='balance'?'钱包':'2C2P'
+      1. 线下支付   <OK key=orders.paymentOffline>
+      2. 钱包   <OK key=wallet.balancePay>
+      ⊘ 数据分支 1 条，不翻译: '2C2P'
+
+  [组 10] @L3663 JS 三元 · 分支 3 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: 'offline'?'线下支付':paymentType.value==='balance'?'钱包':'2C2P'
+      1. 线下支付   <OK key=orders.paymentOffline>
+      2. 钱包   <OK key=wallet.balancePay>
+      ⊘ 数据分支 1 条，不翻译: '2C2P'
+
+  [组 11] @L3651 JS 三元 · 分支 3 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: '线下支付'?'线下支付':(r.payMethod==='钱包'?'钱包':'2C2P')
+      1. 线下支付   <OK key=orders.paymentOffline>
+      2. 钱包   <OK key=wallet.balancePay>
+      ⊘ 数据分支 1 条，不翻译: '2C2P'
+
+  [组 12] @L3649 JS 三元 · 分支 3 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: '线下支付'?'线下支付':o.payee==='钱包'?'钱包':'2C2P'
+      1. 线下支付   <OK key=orders.paymentOffline>
+      2. 钱包   <OK key=wallet.balancePay>
+      ⊘ 数据分支 1 条，不翻译: '2C2P'
+
+  [组 13] @L3649 JS 三元 · 分支 2 条 | 需翻译 1 条 | 已覆盖 1 | 待补 0
+      expr: '钱包'?'钱包':'2C2P'
+      1. 钱包   <OK key=wallet.balancePay>
+      ⊘ 数据分支 1 条，不翻译: '2C2P'
+
+  [组 14] @L3044 JS 三元 · 分支 3 条 | 需翻译 3 条 | 已覆盖 1 | 待补 2
+      expr: >locLoading.value?'定位获取中…':(mapCtx.value==='battery'?'深圳市南山区科苑南路附近':'深圳市南山区科技南一路附近')
+      1. 定位获取中   <OK key=vehicles.locationLoading>
+      2. 深圳市南山区科苑南路附近   <MISS 需建键>
+      3. 深圳市南山区科技南一路附近   <MISS 需建键>
+
+  [组 15] @L3469 JS 三元 · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: hasEmail.value?'邮箱替换成功':'邮箱绑定成功'
+      1. 邮箱替换成功   <OK key=profile.emailReplaced>
+      2. 邮箱绑定成功   <OK key=profile.emailBoundSuccess>
+
+  [组 16] @L3467 JS 三元 · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: hasPhone.value?'手机号替换成功':'手机号绑定成功'
+      1. 手机号替换成功   <OK key=profile.phoneReplaced>
+      2. 手机号绑定成功   <OK key=profile.phoneBoundSuccess>
+
+  [组 17] @L3297 JS 三元 · 分支 2 条 | 需翻译 1 条 | 已覆盖 0 | 待补 1
+      expr: model:selectedVehicle.value?selectedVehicle.value.name:'乐迪SAA'
+      1. 乐迪SAA   <MISS 需建键>
+      ⊘ 数据分支 1 条，不翻译: selectedVehicle.value.name
+
+  [组 18] @L3784 JS 三元 · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: off>40?'释放刷新':'下拉刷新'
+      1. 释放刷新   <OK key=common.releaseToRefresh>
+      2. 下拉刷新   <OK key=common.pullToRefresh>
+
+  [组 19] @L3645 JS 三元 · 分支 3 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: payStatus:(o.status==='created')?'待支付':(o.payStatus==='PAID'?'已支付':'待支付')
+      1. 待支付   <OK key=orders.statusPending>
+      2. 已支付   <OK key=orders.payPaid>
+
+  [组 20] @L3645 JS 三元 · 分支 3 条 | 需翻译 3 条 | 已覆盖 3 | 待补 0
+      expr: payStatus:cancelled?'已取消':(r.payStatus==='PAID'?'已支付':'待支付')
+      1. 已取消   <OK key=orders.statusCancelled>
+      2. 已支付   <OK key=orders.payPaid>
+      3. 待支付   <OK key=orders.statusPending>
+
+  [组 21] @L3137 JS 三元 · 分支 2 条 | 需翻译 1 条 | 已覆盖 1 | 待补 0
+      expr: return f?f.label:'简体中文'
+      1. 简体中文   <OK key=common.langZhCN>
+      ⊘ 数据分支 1 条，不翻译: f.label
+
+  [组 22] @L1084 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: bdDevice&&bdDevice.discharge?'允许放电':'禁止放电'
+      1. 允许放电   <OK key=battery.dischargeOn>
+      2. 禁止放电   <OK key=battery.dischargeOff>
+
+  [组 23] @L2144 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: beCd>0?('重新获取 ('+beCd+'s)'):'获取验证码'
+      1. 重新获取   <OK key=pwd.resend>
+      2. 获取验证码   <OK key=profile.getCode>
+
+  [组 24] @L2112 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: bpCd>0?('重新获取 ('+bpCd+'s)'):'获取验证码'
+      1. 重新获取   <OK key=pwd.resend>
+      2. 获取验证码   <OK key=profile.getCode>
+
+  [组 25] @L1772 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: confirmDocs.length ? confirmDocs.length+' 份' : '可上传身份证、驾驶证、合同等'
+      1. 份   <OK key=orders.docsUnit>
+      2. 可上传身份证、驾驶证、合同等   <OK key=orders.uploadDocsHint>
+
+  [组 26] @L1422 模板 mustache · 分支 3 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: confirmIdInfo?confirmIdInfo.name:(idInfoCount?idInfoCount+'份':'未上传')
+      1. 份   <OK key=orders.docsUnit>
+      2. 未上传   <OK key=idInfo.notUploaded>
+      ⊘ 数据分支 1 条，不翻译: confirmIdInfo.name
+
+  [组 27] @L1119 模板 mustache · 分支 2 条 | 需翻译 1 条 | 已覆盖 1 | 待补 0
+      expr: currentOrder?currentOrder.store:'订单进行中'
+      1. 订单进行中   <OK key=battery.orderProgress>
+      ⊘ 数据分支 1 条，不翻译: currentOrder.store
+
+  [组 28] @L822 模板 mustache · 分支 2 条 | 需翻译 1 条 | 已覆盖 1 | 待补 0
+      expr: currentVehicle ? currentVehicle.name : '暂无设备'
+      1. 暂无设备   <OK key=vehicles.noDevice>
+      ⊘ 数据分支 1 条，不翻译: currentVehicle.name
+
+  [组 29] @L2148 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: hasEmail?'确认替换':'绑定'
+      1. 确认替换   <OK key=profile.confirmReplace>
+      2. 绑定   <OK key=profile.bind>
+
+  [组 30] @L1410 模板 mustache · 分支 2 条 | 需翻译 1 条 | 已覆盖 1 | 待补 0
+      expr: hasEmail?boundEmail:'未绑定'
+      1. 未绑定   <OK key=profile.notBound>
+      ⊘ 数据分支 1 条，不翻译: boundEmail
+
+  [组 31] @L2116 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: hasPhone?'确认替换':'绑定'
+      1. 确认替换   <OK key=profile.confirmReplace>
+      2. 绑定   <OK key=profile.bind>
+
+  [组 32] @L1405 模板 mustache · 分支 2 条 | 需翻译 1 条 | 已覆盖 1 | 待补 0
+      expr: hasPhone?boundPhone:'未绑定'
+      1. 未绑定   <OK key=profile.notBound>
+      ⊘ 数据分支 1 条，不翻译: boundPhone
+
+  [组 33] @L1415 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: hasPwd?'修改密码':'设置密码'
+      1. 修改密码   <OK key=profile.changePassword>
+      2. 设置密码   <OK key=profile.setPassword>
+
+  [组 34] @L861 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: hornLoading?'寻车中...':'鸣笛寻车'
+      1. 寻车中...   <OK key=vehicles.findingVehicle>
+      2. 鸣笛寻车   <OK key=vehicles.findVehicle>
+
+  [组 35] @L2288 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: idEditingId?'编辑实名信息':'新增实名信息'
+      1. 编辑实名信息   <OK key=idInfo.editRealName>
+      2. 新增实名信息   <OK key=idInfo.addRealName>
+
+  [组 36] @L2381 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: idPickerKind==='driver'?'驾驶证照片':'身份证照片'
+      1. 驾驶证照片   <OK key=idInfo.licensePhoto>
+      2. 身份证照片   <OK key=idInfo.idPhoto>
+
+  [组 37] @L2430 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: idPreviewItem.kind==='driver'?'驾驶证照片':'身份证照片'
+      1. 驾驶证照片   <OK key=idInfo.licensePhoto>
+      2. 身份证照片   <OK key=idInfo.idPhoto>
+
+  [组 38] @L2181 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: idSelectMode ? '选择实名信息' : '实名信息'
+      1. 选择实名信息   <OK key=idInfo.selectRealName>
+      2. 实名信息   <OK key=idInfo.realName>
+
+  [组 39] @L857 模板 mustache · 分支 3 条 | 需翻译 3 条 | 已覆盖 3 | 待补 0
+      expr: lockLoading?'指令下发中…':(locked?'开锁':'关锁')
+      1. 指令下发中   <OK key=vehicles.cmdSending>
+      2. 开锁   <OK key=vehicles.lockOpen>
+      3. 关锁   <OK key=vehicles.lockClose>
+
+  [组 40] @L259 模板 mustache · 分支 2 条 | 需翻译 1 条 | 已覆盖 1 | 待补 0
+      expr: loginCd>0?(loginCd+'s'):'获取验证码'
+      1. 获取验证码   <OK key=profile.getCode>
+      ⊘ 数据分支 1 条，不翻译: loginCd+'s'
+
+  [组 41] @L1695 模板 mustache · 分支 3 条 | 需翻译 1 条 | 已覆盖 0 | 待补 1
+      expr: orderInfo.model || (selectedVehicle?selectedVehicle.name:'乐迪SAA')
+      1. 乐迪SAA   <MISS 需建键>
+      ⊘ 数据分支 2 条，不翻译: orderInfo.model, selectedVehicle.name
+
+  [组 42] @L1458 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: pwdCd>0?('重新获取 ('+pwdCd+'s)'):'获取验证码'
+      1. 重新获取   <OK key=pwd.resend>
+      2. 获取验证码   <OK key=profile.getCode>
+
+  [组 43] @L2578 模板 mustache · 分支 7 条 | 需翻译 6 条 | 已覆盖 6 | 待补 0
+      expr: r.type==='recharge'?'充值':r.type==='rechargeRefund'?'充值退款':r.type==='orderConsume'?'订单消费':r.type==='orderRefund'?'订单退款':r.type==='g
+      1. 充值   <OK key=wallet.typeRecharge>
+      2. 充值退款   <OK key=wallet.typeRechargeRefund>
+      3. 订单消费   <OK key=wallet.typeOrderConsume>
+      4. 订单退款   <OK key=wallet.typeOrderRefund>
+      5. 赠送   <OK key=wallet.typeGift>
+      6. 扣减   <OK key=wallet.typeDeduct>
+      ⊘ 数据分支 1 条，不翻译: r.type
+
+  [组 44] @L1041 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: scanBindDevice&& scanBindDevice.kind==='battery' ? '确认将该电池绑定到你的账号？' : '确认将该车辆绑定到你的账号？'
+      1. 确认将该电池绑定到你的账号   <OK key=vehicles.confirmBindBattery>
+      2. 确认将该车辆绑定到你的账号   <OK key=vehicles.confirmBindVehicle>
+
+  [组 45] @L1040 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: scanBindDevice&& scanBindDevice.kind==='battery' ? '绑定电池' : '绑定车辆'
+      1. 绑定电池   <OK key=vehicles.bindBattery>
+      2. 绑定车辆   <OK key=vehicles.bindVehicle>
+
+  [组 46] @L2012 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: scanCtx==='battery'?'电池编号':'车架号'
+      1. 电池编号   <OK key=orders.searchBattNo>
+      2. 车架号   <OK key=vehicles.frameNo>
+
+  [组 47] @L2013 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: scanCtx==='battery'?'请输入电池编号':'请输入车架号'
+      1. 请输入电池编号   <OK key=orders.inputBattNo>
+      2. 请输入车架号   <OK key=vehicles.addVinPlaceholder>
+
+  [组 48] @L524 模板 mustache · 分支 2 条 | 需翻译 1 条 | 已覆盖 0 | 待补 1
+      expr: selectedStore?selectedStore.addr:'四川省成都市双流区雅和北路博瑞都市花园…'
+      1. 四川省成都市双流区雅和北路博瑞都市花园   <MISS 需建键>
+      ⊘ 数据分支 1 条，不翻译: selectedStore.addr
+
+  [组 49] @L515 模板 mustache · 分支 2 条 | 需翻译 1 条 | 已覆盖 0 | 待补 1
+      expr: selectedStore?selectedStore.name:'应龙雅迪门店'
+      1. 应龙雅迪门店   <MISS 需建键>
+      ⊘ 数据分支 1 条，不翻译: selectedStore.name
+
+  [组 50] @L1267 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: trackTimePicker==='start'?'选择起始时间':'选择结束时间'
+      1. 选择起始时间   <OK key=vehicles.selectStartTime>
+      2. 选择结束时间   <OK key=vehicles.selectEndTime>
+
+  [组 51] @L2033 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: updating ? '下载中…' : '立即更新'
+      1. 下载中   <OK key=version.downloading>
+      2. 立即更新   <OK key=version.updateNow>
+
+  [组 52] @L962 模板 mustache · 分支 2 条 | 需翻译 2 条 | 已覆盖 2 | 待补 0
+      expr: vdDevice&& vdDevice.locked?'已锁电机':'未锁电机'
+      1. 已锁电机   <OK key=vehicles.motorLocked>
+      2. 未锁电机   <OK key=vehicles.motorUnlocked>
+
+  合计: 动态生成点 52 处 | 展开文案 68 条(去重) | 已覆盖 63 | 待补 5
+  -- 待补文案清单（按条建键）--
+    - 乐迪SAA
+    - 四川省成都市双流区雅和北路博瑞都市花园
+    - 应龙雅迪门店
+    - 深圳市南山区科技南一路附近
+    - 深圳市南山区科苑南路附近
+
+==== SPLIT 多行规则块（需按行拆分为独立键）====
+count=4
+    - 订单尚未支付，用户可自行操作取消订单
+    - 订单已支付但未领取车辆/电池，用户可自行操作取消订单
+    - 领取车辆/电池后，需与商家协商处理，具体退费以双方协商结果为准
+    - 租金、押金将在订单取消后于 7 个工作日内按原支付路径退还
+    - 领取前请检查车辆/电池状态，确认物品状况及性能完好
+    - 仅限下单本人领取，不支持代领
+    - 车辆/电池损坏需按实际维修费用赔偿
+    - 请遵守当地交通法规，安全骑行
+    - 库存以门店实际现货为准，建议提前联系门店确认咨询
+    - 请在订单约定归还时间内完成车辆/电池归还
+    - 若发生逾期归还，商家可选择从押金抵扣逾期产生的相关费用
+    - 押金抵扣不足的，商家有权向用户追偿差额
+    - 逾期超过约定天数未归还，商家有权对车辆进行远程锁定
+    - 计费起始时间以用户领取车辆/电池时间为准，计费终止时间以车辆/电池完成归还时间为准
+    - 周期租金根据订单选定租赁方案进行核算
+    - 租赁时长不足1个周期的，按1个周期计费
+
+==== G 枚举族跨组重复审计（同文案值落在不同键 -> 疑似散组）====
+count=39
+  「充值」: wallet.topup, wallet.topupTitle, wallet.typeRecharge   [同域散键]
+  「全部」: common.all, home.viewAllAlerts   [跨域重复]
+  「分」: common.unitMinuteShort, profile.minute   [跨域重复]
+  「创建时间」: orders.createdTime, orders.filterCreateDate, profile.createdTime   [跨域重复]
+  「取消」: common.cancel, orders.timeCancel   [跨域重复]
+  「取消订单」: orders.cancelOrder, orders.confirmCancelTitle   [同域散键]
+  「已完成」: orders.statusComplete, wallet.statusCompleted   [跨域重复]
+  「已超期」: orders.quickOverdue, orders.statusOverdue   [同域散键]
+  「年」: common.unitYearShort, orders.datePickerYear, profile.datePickerYear   [跨域重复]
+  「归还」: orders.refundModeReturn, orders.refundSourceReturn   [同域散键]
+  「待取用」: orders.quickPending, orders.statusPickup   [同域散键]
+  「待归还」: home.bizStats.pendingReturn, orders.quickReturn, orders.statusReturn   [跨域重复]
+  「押金」: orders.deposit, orders.refundDeposit, profile.modelDeposit   [跨域重复]
+  「按天计费」: orders.billDaily, plan.billedByDay   [跨域重复]
+  「日」: common.unitDayShort, orders.datePickerDay, profile.datePickerDay   [跨域重复]
+  「日租」: orders.periodDay, profile.planDay, profile.priceDay   [跨域重复]
+  「时」: common.unitHourShort, profile.hour   [跨域重复]
+  「时租」: orders.periodHour, profile.planHour, profile.priceHour   [跨域重复]
+  「月」: common.unitMonthShort, orders.datePickerMonth, profile.datePickerMonth   [跨域重复]
+  「月租」: orders.periodMonth, orders.planMonthly, profile.planMonth, profile.priceMonth   [跨域重复]
+  「状态」: profile.status, vehicles.status   [跨域重复]
+  「确定」: orders.datePickerConfirm, orders.filterConfirm, vehicles.filterConfirm   [跨域重复]
+  「租赁方案」: orders.plan, profile.rentPlan   [跨域重复]
+  「租金」: orders.refundRent, orders.rent   [同域散键]
+  「线下支付」: orders.confirmPay, orders.confirmPayTitle, orders.paymentOffline   [同域散键]
+  「绑定手机号」: profile.bindNewPhone, profile.bindPhone   [同域散键]
+  「绑定邮箱」: profile.bindEmail, profile.bindNewEmail   [同域散键]
+  「获取验证码」: login.getCode, profile.getCode   [跨域重复]
+  「订单状态」: orders.filterStatus, orders.status   [同域散键]
+  「请输入手机号」: login.phonePlaceholder, profile.phonePlaceholder   [跨域重复]
+  「请输入账号」: login.accountPlaceholder, profile.accountError, profile.accountInputPlaceholder   [跨域重复]
+  「请输入邮箱」: login.emailPlaceholder, profile.emailPlaceholder   [跨域重复]
+  「请输入验证码」: login.codePlaceholder, profile.codePlaceholder   [跨域重复]
+  「车型」: vehicles.filterModel, vehicles.model   [同域散键]
+  「车架号」: orders.searchVin, vehicles.frameNo, vehicles.vin   [跨域重复]
+  「进行中」: home.bizStats.activeOrders, orders.quickProgress, orders.statusProgress   [跨域重复]
+  「退出登录」: profile.confirmLogout, profile.settingsLogout   [同域散键]
+  「退款」: orders.refund, wallet.typeRefund   [跨域重复]
+  「退款中」: orders.payRefunding, orders.refundProcessing   [同域散键]
+  -> 同一枚举的显示文案应归入同一前缀组（如 orderStatus.all/pickup/progress/…），
+     其余位置改为引用该组键，避免一词多键、散组后术语漂移。
+
+==== H 分组登记检查（新 key 首段需登记 GROUP_LABELS/GROUP_ORDER）====
+  一级分组 18 个
+  全部已登记 GROUP_LABELS
+==== I 术语一致性审计（glossary 同义词混用）====
+  (未提供术语表 --glossary <file>，跳过；用 references/glossary.md 维护词条)
+==== J 翻译表分类（kind: enum 词条枚举 / term 词条术语 / copy 文案）====
+  ROWS 行分类: enum 0 | term 0 | copy 445
+  未标注 kind 的行: 445（缺省视为 copy）
+  -> 迁移建议：先把同文案跨键（见上 G 段）收敛成枚举族/术语并标 kind，
+     其余一次性界面文案保持 copy 即可，无需逐行标注。
+
+==== L 候选幽灵键（静态中文片段源码均无）====
+count=3（另有含占位符骨架键 13 个，不自动判定）
+  - orders.statusInUse = 使用中
+  - toast.priceSimulated = 已模拟改价，请在费用明细查看
+  - toast.priceSimCanceled = 已取消改价模拟
+  -> 处置三选一：源码未实现的规划键(待实现后标注) / 源码措辞已改(更新表值) /
+     确认无引用(移除)。勿因撞词放行——值在别的语境出现 ≠ 该键有源。
+  -- 骨架键（含 {n} 占位符，需人工按 JS/模板插值核对，勿自动删除）--
+    · common.copiedFormat = {label}已复制
+    · home.distNearestStore = 距最近门店 {dist}
+    · store.businessHours = 营业时间 {hours}
+    · orders.countdownCancel = 剩余{time}，超时未支付，订单将自动取消
+    · orders.rentDurationTotal = 租赁时长（共{n}{unit}）
+    · orders.subtotalRp = 小计 Rp {amount}
+    · orders.totalDays = 共{n}天
+    · vehicles.distanceInfo = 距您 {m} 米
+    · vehicles.validUntil = 有效期至 {date}
+    · vehicles.walkInfo = 步行 {m} 分钟
+    · profile.currentBound = 当前已绑定：{value}
+    · version.latestVersion = 最新版本 V{version}
+    · version.updateComplete = 更新完成！已升级至 V{version}
+==== DEAD (表有源无，死键候选) ====
+count=3
+  - orders.selfPickupReturn = 自行前往门店取用/归还
+  - orders.statusInUse = 使用中
+  - vehicles.featureLabels = 定位 · 远程锁车 · 鸣笛
