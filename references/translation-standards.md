@@ -49,10 +49,10 @@
 | 退出登录 | 退出登录 | 登出 | **Sign Out**（或 Log Out，全表统一） | Keluar | ✅ 与 Sign In 成对 |
 | 注册 | 注册 | 註冊 | **Sign Up** | Daftar | ✅ |
 | 充值 | 充值 | 充值 | **Top-up** | Isi Ulang | ✅ 不用 Recharge |
-| 押金（印尼） | 押金 | 押金 | Deposit | **Jaminan** | ✅ 用户裁决 2026-09 |
+| 押金 | 押金 | 押金 | Deposit | **Jaminan** | ✅ 用户裁决 2026-09 |
 | 更换电池（换绑） | 更换电池 | 更換電池 | **Change Battery** | Ganti Baterai | ✅ Change=换绑非维修 |
 | 实名 / 实名信息 | 实名信息 | 實名信息 | **KYC** | **Verifikasi Identitas** | ✅ 用户裁决 2026-09；旧 Real-name Verification / Verifikasi Nama Asli 作废 |
-| 手机号（印尼） | 手机号 | 手機號 | Phone Number | **Nomor Ponsel** | ✅ 用户裁决 2026-09；不用 Nomor HP |
+| 手机号 | 手机号 | 手機號 | Phone Number | **Nomor Ponsel** | ✅ 用户裁决 2026-09；不用 Nomor HP |
 | 车架号（车辆识别码） | 车架号 | 車架號 | **VIN** | **VIN** | ✅ 外语统一 VIN；旧 Frame No. / Nomor Rangka 作废 |
 | 中控编号（车控设备号） | 中控编号 | 中控編號 | **IMEI** | **IMEI** | ✅ 外语统一 IMEI；旧 Controller No./ID、Kontroler 作废；zh-HK 统一 中控編號 |
 | 切换语言（设置项） | 切换语言 | 切換語言 | **Language** | **Bahasa** | ✅ 外语指事物用名词 |
