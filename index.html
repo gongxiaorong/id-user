@@ -719,7 +719,7 @@ body{font-family:var(--font-body);background:#E8EAED;min-height:100vh;display:fl
 </div>
 </div>
 <div class="absolute bottom-0 left-0 right-0 z-20 bg-white px-4 py-3" style="border-top:1px solid #F0F0F0;box-shadow:0 -2px 8px rgba(0,0,0,.04);padding-bottom:max(12px,env(safe-area-inset-bottom))" data-page-node-id="l1dbrOQz9eBS3AxB2pDK3r">
-<div v-if="uploadIdEnabled&&!confirmIdInfo" class="text-[12px] mb-2" style="color:#DC2626" data-page-node-id="bB0lZ9LromAatVd2we33Mh">请先选择实名信息</div>
+<div v-if="uploadIdEnabled&&!confirmIdInfo" class="text-[12px] mb-2" style="color:#DC2626" data-page-node-id="bB0lZ9LromAatVd2we33Mh">请选择实名信息</div>
 <div class="flex items-center justify-between" data-page-node-id="HU5HD8I5BJYqhKC7KztAvZ">
 <div class="flex items-baseline gap-1" data-page-node-id="LcaYCHArdsxBSbGQzr6Vnu">
 <span class="text-[14px] text-[#666]" data-page-node-id="343znNKaGRj0sUxv5SzibF">合计</span>
@@ -3303,7 +3303,7 @@ return{amt:base,unit:units[idx],label:labels[idx],daysWord:daysWords[idx]};});
 function fmtRp(n){const v=Number(n);if(!n&&n!==0)return 'Rp 0';if(isNaN(v))return 'Rp 0';return (v===0?'Rp 0':'Rp '+v.toLocaleString('id-ID'))}
 const orderPlanDisplay=computed(()=>{const d=confPeriodDetail.value;return d.label+'×'+confRentDays.value+d.unit});
 function rentNow(v){selectedVehicle.value=v;navOpen('confirm')}
-function confirmOrder(){if(uploadIdEnabled.value&&!confirmIdInfo.value){toast('请先选择实名信息','warn');return}navOpen('orderDetail');showRentLoading.value=true;const amt=fmtRp(confTotal.value);const _oi={storeName:confStore.value.name,category:'车辆租赁',orderId:'YZ'+new Date().toISOString().slice(0,10).replace(/-/g,'')+(Math.floor(Math.random()*9000)+1000),createTime:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-'),payee:confPayType.value==='offline'?'线下支付':confPayType.value==='balance'?'钱包':'2C2P',status:'created',statusText:'已创建',statusColor:'#FF8C1B',model:selectedVehicle.value?selectedVehicle.value.name:'乐迪SAA',desc:selectedVehicle.value?selectedVehicle.value.desc:'',plan:orderPlanDisplay.value,amount:amt,deposit:'Rp 200.45',payStatus:'UNPAID',renewOrders:[]};setTimeout(()=>{payChannel.value='2C2P';cancelBeforePay.value='paid';orderInfo.value=_oi;startOrderTimer();showRentLoading.value=false},600)}
+function confirmOrder(){if(uploadIdEnabled.value&&!confirmIdInfo.value){toast('请选择实名信息','warn');return}navOpen('orderDetail');showRentLoading.value=true;const amt=fmtRp(confTotal.value);const _oi={storeName:confStore.value.name,category:'车辆租赁',orderId:'YZ'+new Date().toISOString().slice(0,10).replace(/-/g,'')+(Math.floor(Math.random()*9000)+1000),createTime:new Date().toLocaleString('zh-CN',{hour12:false}).replace(/\//g,'-'),payee:confPayType.value==='offline'?'线下支付':confPayType.value==='balance'?'钱包':'2C2P',status:'created',statusText:'已创建',statusColor:'#FF8C1B',model:selectedVehicle.value?selectedVehicle.value.name:'乐迪SAA',desc:selectedVehicle.value?selectedVehicle.value.desc:'',plan:orderPlanDisplay.value,amount:amt,deposit:'Rp 200.45',payStatus:'UNPAID',renewOrders:[]};setTimeout(()=>{payChannel.value='2C2P';cancelBeforePay.value='paid';orderInfo.value=_oi;startOrderTimer();showRentLoading.value=false},600)}
 const showOrderDetail=ref(false);
 const showCancelModal=ref(false);
 const cancelLoading=ref(false);
